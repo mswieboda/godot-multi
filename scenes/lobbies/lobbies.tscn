@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/lobbies/create.gd" type="Script" id=2]
 [ext_resource path="res://scenes/lobbies/back.gd" type="Script" id=3]
+[ext_resource path="res://scenes/lobbies/join.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 69
@@ -44,7 +45,7 @@ text = "lobbies"
 [node name="menu items" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 margin_top = 125.0
 margin_right = 287.0
-margin_bottom = 213.0
+margin_bottom = 257.0
 custom_constants/separation = 0
 
 [node name="create" type="Label" parent="HBoxContainer/VBoxContainer/menu items"]
@@ -58,10 +59,22 @@ custom_fonts/font = SubResource( 2 )
 text = "create"
 script = ExtResource( 2 )
 
-[node name="back" type="Label" parent="HBoxContainer/VBoxContainer/menu items"]
+[node name="join" type="Label" parent="HBoxContainer/VBoxContainer/menu items"]
 margin_top = 44.0
 margin_right = 287.0
 margin_bottom = 88.0
+rect_pivot_offset = Vector2( 27, 22 )
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 2 )
+text = "join"
+script = ExtResource( 4 )
+
+[node name="back" type="Label" parent="HBoxContainer/VBoxContainer/menu items"]
+margin_top = 88.0
+margin_right = 287.0
+margin_bottom = 132.0
 rect_pivot_offset = Vector2( 27, 22 )
 focus_mode = 2
 mouse_filter = 1
@@ -72,6 +85,9 @@ script = ExtResource( 3 )
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/menu items/create" to="HBoxContainer/VBoxContainer/menu items/create" method="_on_join_gui_input"]
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/menu items/create" to="HBoxContainer/VBoxContainer/menu items/create" method="_on_join_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/menu items/create" to="HBoxContainer/VBoxContainer/menu items/create" method="_on_join_mouse_exited"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/menu items/join" to="HBoxContainer/VBoxContainer/menu items/join" method="_on_join_gui_input"]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/menu items/join" to="HBoxContainer/VBoxContainer/menu items/join" method="_on_join_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/menu items/join" to="HBoxContainer/VBoxContainer/menu items/join" method="_on_join_mouse_exited"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/menu items/back" to="HBoxContainer/VBoxContainer/menu items/back" method="_on_back_gui_input"]
 [connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/menu items/back" to="HBoxContainer/VBoxContainer/menu items/back" method="_on_join_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/menu items/back" to="HBoxContainer/VBoxContainer/menu items/back" method="_on_join_mouse_exited"]
