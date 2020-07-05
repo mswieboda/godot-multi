@@ -1,7 +1,6 @@
 extends "res://scripts/label_hover.gd"
 
-func _on_join_gui_input(event : InputEvent):
+func _on_gui_input(event : InputEvent):
 	if (event.is_pressed()):
-		Global.is_server = false
-		Global.server_ip = Global.SERVER_IP
+		Global.is_server = true
 		get_tree().change_scene("res://scenes/lobby/lobby.tscn")
