@@ -2,5 +2,10 @@ extends "res://scripts/label_hover.gd"
 
 func _on_gui_input(event : InputEvent):
 	if (event.is_pressed()):
-		Global.is_server = true
-		get_tree().change_scene("res://scenes/lobby/lobby.tscn")
+		var menu = get_parent()
+		var main = menu.get_parent()
+		var lobby = main.get_node("lobby")
+		
+		lobby.create_server("matt")
+		
+		reset_hover()
