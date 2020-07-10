@@ -62,7 +62,7 @@ text = "multi"
 [node name="main menu" type="VBoxContainer" parent="menu"]
 margin_top = 125.0
 margin_right = 784.0
-margin_bottom = 289.0
+margin_bottom = 217.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -157,6 +157,7 @@ __meta__ = {
 }
 
 [node name="lobby" type="VBoxContainer" parent="menu/main menu"]
+visible = false
 margin_top = 96.0
 margin_right = 784.0
 margin_bottom = 164.0
@@ -325,6 +326,7 @@ text = "back"
 [connection signal="gui_input" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_gui_input"]
 [connection signal="mouse_entered" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_mouse_exited"]
+[connection signal="color_changed" from="menu/main menu/lobby/info/color picker" to="menu/main menu/lobby" method="_on_color_picker_color_changed"]
 [connection signal="gui_input" from="menu/main menu/lobby/leave" to="menu/main menu/lobby/leave" method="_on_gui_input"]
 [connection signal="mouse_entered" from="menu/main menu/lobby/leave" to="menu/main menu/lobby/leave" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="menu/main menu/lobby/leave" to="menu/main menu/lobby/leave" method="_on_mouse_exited"]

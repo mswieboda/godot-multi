@@ -100,6 +100,21 @@ remote func player_disconnected(id):
 	render_players_list()
 
 
+func _server_disconnected():
+	print_debug("_server_disconnected")
+	
+	get_tree().set_network_peer(null)
+	
+	players = {}
+	render_players_list()
+	hide()
+	get_parent().get_node("main").show()
+
+
+func _connection_failed():
+	print_debug("_connection_failed")
+
+
 func render_player_info(player_info : Dictionary):
 	var name = get_node("info/name")
 	var colorEdit = get_node("info/color picker")
@@ -131,16 +146,14 @@ func render_players_list():
 	add_child(players_list)
 
 
-func _server_disconnected():
-	print_debug("_server_disconnected")
+remote func change_color(player_id, color : Color):
+	players[player_id].color = color
 	
-	get_tree().set_network_peer(null)
-	
-	players = {}
 	render_players_list()
-	hide()
-	get_parent().get_node("main").show()
 
 
-func _connection_failed():
-	print_debug("_connection_failed")
+func _on_color_picker_color_changed(color):
+	var player_id = get_tree().get_network_unique_id()
+	change_color(player_id, color)
+	rpc("change_color", player_id, color)	
+	render_player_info(players[player_id])
