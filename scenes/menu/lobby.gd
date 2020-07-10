@@ -12,8 +12,8 @@ func _ready():
 	get_tree().connect('connection_failed', self, '_connected_failed')
 
 
-func create_server(username):
-	self_player_info = { username = username, color = Color.red }
+func create_server(username, color = Color.red):
+	self_player_info = { username = username, color = color }
 	var peer = NetworkedMultiplayerENet.new()
 	
 	print_debug("creating server")
@@ -29,8 +29,8 @@ func create_server(username):
 	player_connected(1, self_player_info)
 
 
-func join_server(username, ip_address = Global.DEFAULT_SERVER_IP):
-	self_player_info = { username = username, color = Color.green }
+func join_server(username, ip_address = Global.DEFAULT_SERVER_IP, color = Color.green):
+	self_player_info = { username = username, color = color }
 	var peer = NetworkedMultiplayerENet.new()
 	
 	print_debug("joining server " + ip_address + ": " + username)
