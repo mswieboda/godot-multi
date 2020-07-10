@@ -62,7 +62,7 @@ text = "multi"
 [node name="main menu" type="VBoxContainer" parent="menu"]
 margin_top = 125.0
 margin_right = 784.0
-margin_bottom = 217.0
+margin_bottom = 289.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -157,18 +157,32 @@ __meta__ = {
 }
 
 [node name="lobby" type="VBoxContainer" parent="menu/main menu"]
-visible = false
 margin_top = 96.0
 margin_right = 784.0
-margin_bottom = 140.0
+margin_bottom = 164.0
 script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="leave" type="Label" parent="menu/main menu/lobby"]
+[node name="info" type="HBoxContainer" parent="menu/main menu/lobby"]
 margin_right = 784.0
-margin_bottom = 44.0
+margin_bottom = 20.0
+
+[node name="name" type="Label" parent="menu/main menu/lobby/info"]
+margin_top = 3.0
+margin_bottom = 17.0
+
+[node name="color picker" type="ColorPickerButton" parent="menu/main menu/lobby/info"]
+margin_left = 4.0
+margin_right = 784.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="leave" type="Label" parent="menu/main menu/lobby"]
+margin_top = 24.0
+margin_right = 784.0
+margin_bottom = 68.0
 rect_pivot_offset = Vector2( 27, 22 )
 focus_mode = 2
 mouse_filter = 1

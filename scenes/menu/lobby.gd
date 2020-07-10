@@ -66,6 +66,9 @@ remote func player_connected(id, player_info):
 	players[id] = player_info
 	print_debug("connected to server (" + str(id) + ")")
 
+	if id == get_tree().get_network_unique_id():
+		render_player_info(player_info)
+
 	render_players_list()
 
 
@@ -92,10 +95,18 @@ remote func player_disconnected(id):
 	if (!players.has(id)):
 		return
 	
-	var player_info = players[id]
 	players.erase(id)
 	
 	render_players_list()
+
+
+func render_player_info(player_info : Dictionary):
+	var name = get_node("info/name")
+	var colorEdit = get_node("info/color picker")
+	
+	name.text = player_info.username
+	name.set("custom_colors/font_color", player_info.color)
+	colorEdit.color = player_info.color
 
 
 func render_players_list():
