@@ -1,7 +1,5 @@
 extends CanvasItem
 
-const DEFAULT_IP = '127.0.0.1'
-const DEFAULT_PORT = 31400
 const MAX_PLAYERS = 5
 
 var players = {}
@@ -20,7 +18,7 @@ func create_server(username):
 	
 	print_debug("creating server")
 	
-	peer.create_server(DEFAULT_PORT, MAX_PLAYERS)
+	peer.create_server(Global.DEFAULT_SERVER_PORT, MAX_PLAYERS)
 	get_tree().set_network_peer(peer)
 	
 	var play = get_parent().get_node("play")
@@ -31,13 +29,13 @@ func create_server(username):
 	player_connected(1, self_player_info)
 
 
-func join_server(username):
+func join_server(username, ip_address = Global.DEFAULT_SERVER_IP):
 	self_player_info = { username = username }
 	var peer = NetworkedMultiplayerENet.new()
 	
-	print_debug("joining server (" + username + ")")
+	print_debug("joining server " + ip_address + ": " + username)
 	
-	peer.create_client(DEFAULT_IP, DEFAULT_PORT)
+	peer.create_client(ip_address, Global.DEFAULT_SERVER_PORT)
 	get_tree().set_network_peer(peer)
 
 

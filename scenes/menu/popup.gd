@@ -1,8 +1,8 @@
 extends PopupPanel
 
-
 onready var lobby = get_node("/root/menu/menu/main menu/lobby")
 onready var nameEdit = find_node("name")
+onready var ipEdit = find_node("ip address")
 
 func show_create():
 	find_node("join").hide()
@@ -24,7 +24,7 @@ func _on_popup_create_pressed():
 
 
 func _on_popup_join_pressed():
-	lobby.join_server(nameEdit.text)
+	lobby.join_server(nameEdit.text, ipEdit.text)
 	hide()
 
 
