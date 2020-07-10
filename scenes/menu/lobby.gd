@@ -13,7 +13,7 @@ func _ready():
 
 
 func create_server(username):
-	self_player_info = { username = username }
+	self_player_info = { username = username, color = Color.red }
 	var peer = NetworkedMultiplayerENet.new()
 	
 	print_debug("creating server")
@@ -30,7 +30,7 @@ func create_server(username):
 
 
 func join_server(username, ip_address = Global.DEFAULT_SERVER_IP):
-	self_player_info = { username = username }
+	self_player_info = { username = username, color = Color.green }
 	var peer = NetworkedMultiplayerENet.new()
 	
 	print_debug("joining server " + ip_address + ": " + username)
@@ -108,10 +108,12 @@ func render_players_list():
 	players_list.set_name("players list")
 
 	for player_id in players:
+		var player_data = players[player_id]
 		var label = Label.new()
 		
 		label.set_name(str(player_id))
-		label.text = players[player_id].username
+		label.text = player_data.username
+		label.set("custom_colors/font_color", player_data.color)
 		
 		players_list.add_child(label)
 	
