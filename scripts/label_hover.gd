@@ -14,3 +14,4 @@ func _on_mouse_exited():
 func reset_hover():
 	set("custom_colors/font_color", default_color)
 
+
