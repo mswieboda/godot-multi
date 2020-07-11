@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menu/quit.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/menu/popup.gd" type="Script" id=9]
 [ext_resource path="res://scenes/menu/ip_address.gd" type="Script" id=10]
 [ext_resource path="res://scenes/menu/start.gd" type="Script" id=11]
+[ext_resource path="res://scenes/menu/play_menu.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 69
@@ -69,7 +70,7 @@ custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 1, 0, 1 )
 text = "multi"
 
-[node name="main menu" type="VBoxContainer" parent="menu"]
+[node name="menus" type="VBoxContainer" parent="menu"]
 margin_top = 125.0
 margin_right = 784.0
 margin_bottom = 217.0
@@ -77,14 +78,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="main" type="VBoxContainer" parent="menu/main menu"]
+[node name="main" type="VBoxContainer" parent="menu/menus"]
 margin_right = 784.0
 margin_bottom = 92.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="play" type="Label" parent="menu/main menu/main"]
+[node name="play" type="Label" parent="menu/menus/main"]
 margin_right = 784.0
 margin_bottom = 44.0
 rect_pivot_offset = Vector2( 27, 22 )
@@ -98,7 +99,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="quit" type="Label" parent="menu/main menu/main"]
+[node name="quit" type="Label" parent="menu/menus/main"]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
@@ -113,15 +114,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="play" type="VBoxContainer" parent="menu/main menu"]
+[node name="play menu" type="VBoxContainer" parent="menu/menus"]
 visible = false
 margin_right = 784.0
 margin_bottom = 140.0
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="create" type="Label" parent="menu/main menu/play"]
+[node name="create" type="Label" parent="menu/menus/play menu"]
 margin_right = 784.0
 margin_bottom = 44.0
 rect_pivot_offset = Vector2( 27, 22 )
@@ -135,7 +137,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="join" type="Label" parent="menu/main menu/play"]
+[node name="join" type="Label" parent="menu/menus/play menu"]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
@@ -150,7 +152,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="back" type="Label" parent="menu/main menu/play"]
+[node name="back" type="Label" parent="menu/menus/play menu"]
 margin_top = 96.0
 margin_right = 784.0
 margin_bottom = 140.0
@@ -165,7 +167,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="lobby" type="VBoxContainer" parent="menu/main menu"]
+[node name="lobby" type="VBoxContainer" parent="menu/menus"]
 visible = false
 margin_top = 96.0
 margin_right = 784.0
@@ -175,26 +177,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="info" type="HBoxContainer" parent="menu/main menu/lobby"]
+[node name="info" type="HBoxContainer" parent="menu/menus/lobby"]
 margin_right = 784.0
 margin_bottom = 20.0
 
-[node name="name" type="Label" parent="menu/main menu/lobby/info"]
+[node name="name" type="Label" parent="menu/menus/lobby/info"]
 margin_top = 3.0
 margin_bottom = 17.0
 
-[node name="color picker" type="ColorPickerButton" parent="menu/main menu/lobby/info"]
+[node name="color picker" type="ColorPickerButton" parent="menu/menus/lobby/info"]
 margin_left = 4.0
 margin_right = 784.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="actions" type="VBoxContainer" parent="menu/main menu/lobby"]
+[node name="actions" type="VBoxContainer" parent="menu/menus/lobby"]
 margin_top = 24.0
 margin_right = 784.0
 margin_bottom = 68.0
 
-[node name="leave" type="Label" parent="menu/main menu/lobby/actions"]
+[node name="leave" type="Label" parent="menu/menus/lobby/actions"]
 margin_right = 784.0
 margin_bottom = 44.0
 rect_pivot_offset = Vector2( 27, 22 )
@@ -208,7 +210,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="start" type="Label" parent="menu/main menu/lobby/actions"]
+[node name="start" type="Label" parent="menu/menus/lobby/actions"]
 visible = false
 margin_top = 48.0
 margin_right = 784.0
@@ -343,28 +345,28 @@ margin_right = 209.0
 margin_bottom = 28.0
 custom_fonts/font = SubResource( 7 )
 text = "back"
-[connection signal="gui_input" from="menu/main menu/main/play" to="menu/main menu/main/play" method="_on_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/main/play" to="menu/main menu/main/play" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/main/play" to="menu/main menu/main/play" method="_on_mouse_exited"]
-[connection signal="gui_input" from="menu/main menu/main/quit" to="menu/main menu/main/quit" method="_on_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/main/quit" to="menu/main menu/main/quit" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/main/quit" to="menu/main menu/main/quit" method="_on_mouse_exited"]
-[connection signal="gui_input" from="menu/main menu/play/create" to="menu/main menu/play/create" method="_on_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/play/create" to="menu/main menu/play/create" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/play/create" to="menu/main menu/play/create" method="_on_mouse_exited"]
-[connection signal="gui_input" from="menu/main menu/play/join" to="menu/main menu/play/join" method="_on_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/play/join" to="menu/main menu/play/join" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/play/join" to="menu/main menu/play/join" method="_on_mouse_exited"]
-[connection signal="gui_input" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_mouse_exited"]
-[connection signal="color_changed" from="menu/main menu/lobby/info/color picker" to="menu/main menu/lobby" method="_on_color_picker_color_changed"]
-[connection signal="gui_input" from="menu/main menu/lobby/actions/leave" to="menu/main menu/lobby" method="_on_leave_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/lobby/actions/leave" to="menu/main menu/lobby/actions/leave" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/lobby/actions/leave" to="menu/main menu/lobby/actions/leave" method="_on_mouse_exited"]
-[connection signal="gui_input" from="menu/main menu/lobby/actions/start" to="menu/main menu/lobby" method="_on_start_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/lobby/actions/start" to="menu/main menu/lobby/actions/start" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/lobby/actions/start" to="menu/main menu/lobby/actions/start" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/main/play" to="menu/menus/main/play" method="_on_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/main/play" to="menu/menus/main/play" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/main/play" to="menu/menus/main/play" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/main/quit" to="menu/menus/main/quit" method="_on_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/main/quit" to="menu/menus/main/quit" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/main/quit" to="menu/menus/main/quit" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/play menu/create" to="menu/menus/play menu/create" method="_on_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/play menu/create" to="menu/menus/play menu/create" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/play menu/create" to="menu/menus/play menu/create" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/play menu/join" to="menu/menus/play menu/join" method="_on_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/play menu/join" to="menu/menus/play menu/join" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/play menu/join" to="menu/menus/play menu/join" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/play menu/back" to="menu/menus/play menu/back" method="_on_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/play menu/back" to="menu/menus/play menu/back" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/play menu/back" to="menu/menus/play menu/back" method="_on_mouse_exited"]
+[connection signal="color_changed" from="menu/menus/lobby/info/color picker" to="menu/menus/lobby" method="_on_color_picker_color_changed"]
+[connection signal="gui_input" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby" method="_on_leave_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby/actions/leave" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby/actions/leave" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/lobby/actions/start" to="menu/menus/lobby" method="_on_start_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/lobby/actions/start" to="menu/menus/lobby/actions/start" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/lobby/actions/start" to="menu/menus/lobby/actions/start" method="_on_mouse_exited"]
 [connection signal="pressed" from="popup/VBoxContainer/buttons/create" to="popup" method="_on_popup_create_pressed"]
 [connection signal="pressed" from="popup/VBoxContainer/buttons/join" to="popup" method="_on_popup_join_pressed"]
 [connection signal="pressed" from="popup/VBoxContainer/buttons/back" to="popup" method="_on_popup_back_pressed"]
