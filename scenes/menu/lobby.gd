@@ -182,7 +182,4 @@ remote func load_lobby():
 	var lobby = preload("res://scenes/lobby/lobby.tscn").instance()
 
 	lobby.load_players(id, players)
-	
-	get_tree().get_root().add_child(lobby)
-	get_tree().get_root().remove_child(get_tree().get_root().get_node("menu"))
-	
+	Scene.change(lobby)
