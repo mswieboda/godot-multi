@@ -182,14 +182,7 @@ remote func load_lobby():
 	var lobby = preload("res://scenes/lobby/lobby.tscn").instance()
 
 	lobby.load_players(id, players)
-
-	# TODO: instead of get_tree().change_scene find a way to change the scene manually
-	# in order to call load_players correctly	
-#	var root = get_tree().get_root()
-	get_tree().get_root().add_child(lobby)
-#	get_tree().get_root().get_node("menu").hide()
-	get_tree().get_root().remove_child(get_tree().get_root().get_node("menu"))
-	print("hide")
-#	get_tree().change_scene_to(lobby)
 	
+	get_tree().get_root().add_child(lobby)
+	get_tree().get_root().remove_child(get_tree().get_root().get_node("menu"))
 	
