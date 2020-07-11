@@ -179,8 +179,13 @@ func _on_start_gui_input(event : InputEvent):
 
 remote func load_lobby():
 	var id = get_tree().get_network_unique_id()
-	var lobby = load("res://scenes/lobby/lobby.tscn").instance()
-	
+	var lobby = preload("res://scenes/lobby/lobby.tscn").instance()
+
 	lobby.load_players(id, players)
-	
+
+	# TODO: instead of get_tree().change_scene find a way to change the scene manually
+	# in order to call load_players correctly	
+#	add_child(lobby)
 	get_tree().change_scene_to(lobby)
+	
+	
