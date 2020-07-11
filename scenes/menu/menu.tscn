@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menu/quit.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/menu/lobby.gd" type="Script" id=8]
 [ext_resource path="res://scenes/menu/popup.gd" type="Script" id=9]
 [ext_resource path="res://scenes/menu/ip_address.gd" type="Script" id=10]
+[ext_resource path="res://scenes/menu/start.gd" type="Script" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 69
@@ -105,9 +106,8 @@ __meta__ = {
 
 [node name="play" type="VBoxContainer" parent="menu/main menu"]
 visible = false
-margin_top = 96.0
 margin_right = 784.0
-margin_bottom = 236.0
+margin_bottom = 140.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -180,10 +180,14 @@ margin_right = 784.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="leave" type="Label" parent="menu/main menu/lobby"]
+[node name="actions" type="VBoxContainer" parent="menu/main menu/lobby"]
 margin_top = 24.0
 margin_right = 784.0
 margin_bottom = 68.0
+
+[node name="leave" type="Label" parent="menu/main menu/lobby/actions"]
+margin_right = 784.0
+margin_bottom = 44.0
 rect_pivot_offset = Vector2( 27, 22 )
 focus_mode = 2
 mouse_filter = 1
@@ -191,6 +195,22 @@ mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 2 )
 text = "leave"
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Label" parent="menu/main menu/lobby/actions"]
+visible = false
+margin_top = 48.0
+margin_right = 784.0
+margin_bottom = 92.0
+rect_pivot_offset = Vector2( 27, 22 )
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 2 )
+text = "start"
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -327,9 +347,12 @@ text = "back"
 [connection signal="mouse_entered" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="menu/main menu/play/back" to="menu/main menu/play/back" method="_on_mouse_exited"]
 [connection signal="color_changed" from="menu/main menu/lobby/info/color picker" to="menu/main menu/lobby" method="_on_color_picker_color_changed"]
-[connection signal="gui_input" from="menu/main menu/lobby/leave" to="menu/main menu/lobby/leave" method="_on_gui_input"]
-[connection signal="mouse_entered" from="menu/main menu/lobby/leave" to="menu/main menu/lobby/leave" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="menu/main menu/lobby/leave" to="menu/main menu/lobby/leave" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/main menu/lobby/actions/leave" to="menu/main menu/lobby" method="_on_leave_gui_input"]
+[connection signal="mouse_entered" from="menu/main menu/lobby/actions/leave" to="menu/main menu/lobby/actions/leave" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/main menu/lobby/actions/leave" to="menu/main menu/lobby/actions/leave" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/main menu/lobby/actions/start" to="menu/main menu/lobby" method="_on_start_gui_input"]
+[connection signal="mouse_entered" from="menu/main menu/lobby/actions/start" to="menu/main menu/lobby/actions/start" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/main menu/lobby/actions/start" to="menu/main menu/lobby/actions/start" method="_on_mouse_exited"]
 [connection signal="pressed" from="popup/VBoxContainer/buttons/create" to="popup" method="_on_popup_create_pressed"]
 [connection signal="pressed" from="popup/VBoxContainer/buttons/join" to="popup" method="_on_popup_join_pressed"]
 [connection signal="pressed" from="popup/VBoxContainer/buttons/back" to="popup" method="_on_popup_back_pressed"]

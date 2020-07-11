@@ -68,6 +68,9 @@ remote func player_connected(id, player_info):
 
 	if id == get_tree().get_network_unique_id():
 		render_player_info(player_info)
+		
+		if get_tree().is_network_server():
+			get_node("actions/start").show()
 
 	render_players_list()
 
@@ -139,6 +142,10 @@ func render_players_list():
 		
 		label.set_name(str(player_id))
 		label.text = player_data.username
+		
+		if player_id == 1:
+			label.text += " (host)"
+		
 		label.set("custom_colors/font_color", player_data.color)
 		
 		players_list.add_child(label)
@@ -152,8 +159,28 @@ remote func change_color(player_id, color : Color):
 	render_players_list()
 
 
-func _on_color_picker_color_changed(color):
+func _on_color_picker_color_changed(color : Color):
 	var player_id = get_tree().get_network_unique_id()
 	change_color(player_id, color)
 	rpc("change_color", player_id, color)	
 	render_player_info(players[player_id])
+
+
+func _on_leave_gui_input(event : InputEvent):
+	if (event.is_pressed()):
+		leave_lobby()
+
+
+func _on_start_gui_input(event : InputEvent):
+	if (event.is_pressed()):
+		load_lobby()
+		rpc("load_lobby")
+		
+
+remote func load_lobby():
+	var id = get_tree().get_network_unique_id()
+	var lobby = load("res://scenes/lobby/lobby.tscn").instance()
+	
+	lobby.load_players(id, players)
+	
+	get_tree().change_scene_to(lobby)
