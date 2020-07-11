@@ -185,7 +185,11 @@ remote func load_lobby():
 
 	# TODO: instead of get_tree().change_scene find a way to change the scene manually
 	# in order to call load_players correctly	
-#	add_child(lobby)
-	get_tree().change_scene_to(lobby)
+#	var root = get_tree().get_root()
+	get_tree().get_root().add_child(lobby)
+#	get_tree().get_root().get_node("menu").hide()
+	get_tree().get_root().remove_child(get_tree().get_root().get_node("menu"))
+	print("hide")
+#	get_tree().change_scene_to(lobby)
 	
 	
