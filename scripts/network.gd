@@ -5,7 +5,6 @@ const MAX_PLAYERS = 5
 var players = {}
 var self_player_info = { username = '' }
 
-signal server_created
 signal server_joined
 signal server_player_joined
 signal server_player_disconnected
@@ -27,8 +26,6 @@ func create_server(username, color = Color.red):
 	
 	peer.create_server(Global.DEFAULT_SERVER_PORT, MAX_PLAYERS)
 	get_tree().set_network_peer(peer)
-	
-	emit_signal("server_created")
 	
 	player_connected(1, self_player_info)
 

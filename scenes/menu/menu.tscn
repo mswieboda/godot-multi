@@ -226,6 +226,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="players list" type="VBoxContainer" parent="menu/menus/lobby"]
+margin_top = -221.0
+margin_right = 784.0
+margin_bottom = 219.0
+
 [node name="popup" type="PopupPanel" parent="."]
 margin_left = 120.0
 margin_top = 80.0
