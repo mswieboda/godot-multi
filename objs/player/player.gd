@@ -69,3 +69,11 @@ func movement(delta):
 		rotation.y = angle
 		$mesh.set_rotation(rotation)
 
+
+func spawn(spawn_xform : Transform):
+	var xform = get_global_transform()
+	
+	xform.origin.x = spawn_xform.origin.x
+	xform.origin.z = spawn_xform.origin.z
+	
+	set_global_transform(xform)

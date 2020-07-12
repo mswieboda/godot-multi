@@ -101,6 +101,7 @@ func _on_start_gui_input(event : InputEvent):
 remote func load_lobby():
 	var id = get_tree().get_network_unique_id()
 	var lobby = preload("res://scenes/lobby/lobby.tscn").instance()
-
-	lobby.load_players(id)
+	print("load_lobby")
 	Scene.change(lobby)
+	print("scene changed")
+	lobby.load_players(id)
