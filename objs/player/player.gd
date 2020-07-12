@@ -9,8 +9,8 @@ export var ACCELERATION = 3
 export var DEACCELERATION = 5
 
 
-func _ready():
-	print("Player#" + get_name() + " ready")
+func puts(output):
+	print("Player#" + get_name() + ": " + str(output))
 
 
 func _physics_process(delta):
@@ -27,7 +27,8 @@ func disable_camera():
 
 
 func set_color(color : Color):
-	$mesh.get_surface_material(0).albedo_color = color
+	$mesh.material_override = SpatialMaterial.new()
+	$mesh.material_override.albedo_color = color
 
 
 func movement(delta):
