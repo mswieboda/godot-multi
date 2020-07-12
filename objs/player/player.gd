@@ -1,10 +1,9 @@
 extends KinematicBody
 
-var gravity = -9.8
+var is_moving = false
 var velocity = Vector3()
 
-puppet var puppet_velocity = Vector3()
-
+const GRAVITY = -9.8
 export var SPEED = 6
 export var ACCELERATION = 3
 export var DEACCELERATION = 5
@@ -32,9 +31,6 @@ func set_color(color : Color):
 
 
 func movement(delta):
-	var is_moving = false
-	var horiz_velocity
-	
 	if is_network_master():
 		var dir = Vector3()
 		var camera_xform = $cam_target/camera.get_global_transform()
@@ -56,9 +52,9 @@ func movement(delta):
 		dir = dir.normalized()
 		
 		if not is_on_floor():
-			velocity.y += delta * gravity
+			velocity.y += delta * GRAVITY
 		
-		horiz_velocity = velocity
+		var horiz_velocity = velocity
 		horiz_velocity.y = 0
 		
 		var new_position = dir * SPEED
@@ -71,17 +67,20 @@ func movement(delta):
 		velocity.x = horiz_velocity.x
 		velocity.z = horiz_velocity.z
 		
-		rset_unreliable("puppet_velocity", velocity)
-	else:
-		velocity = puppet_velocity
+		rpc_unreliable("peer_movement", is_moving, velocity)
 	
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 	
 	if is_moving:
-		var angle = atan2(horiz_velocity.x, horiz_velocity.z)
+		var angle = atan2(velocity.x, velocity.z)
 		var rotation = $mesh.get_rotation()
 		rotation.y = angle
 		$mesh.set_rotation(rotation)
+
+
+remote func peer_movement(peer_is_moving, peer_velocity):
+	is_moving = peer_is_moving
+	velocity = peer_velocity
 
 
 func spawn(spawn_xform : Transform):
