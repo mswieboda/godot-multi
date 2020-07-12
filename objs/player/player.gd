@@ -3,9 +3,9 @@ extends KinematicBody
 var gravity = -9.8
 var velocity = Vector3()
 
-const SPEED = 6
-const ACCELERATION = 3
-const DEACCELERATION = 5
+export var SPEED = 6
+export var ACCELERATION = 3
+export var DEACCELERATION = 5
 
 
 func _physics_process(delta):

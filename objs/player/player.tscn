@@ -13,15 +13,16 @@
 
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
+SPEED = 15
 
 [node name="cam_target" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.70762, 0 )
 
 [node name="camera" type="Camera" parent="cam_target"]
-transform = Transform( -1, 9.81722e-08, -3.10701e-07, 0, 0.953533, 0.301288, 3.25841e-07, 0.301288, -0.953533, 0, 1, -4 )
+transform = Transform( -1, 9.81722e-08, -3.10701e-07, 0, 0.953533, 0.301288, 3.25841e-07, 0.301288, -0.953533, 0, 2, -5 )
 script = ExtResource( 2 )
-distance = 4.0
-height = 2.0
+distance = 5.0
+height = 3.0
 
 [node name="mesh" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.5, 0 )
