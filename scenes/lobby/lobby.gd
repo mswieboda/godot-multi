@@ -9,9 +9,16 @@ func load_players(id):
 	print(Network.players)
 	
 	for p in Network.players:
-		var player = preload("res://scenes/player.tscn").instance()
+		var info = Network.players[p]
+		var player = preload("res://objs/player/player.tscn").instance()
 		player.set_name(str(p))
 		player.set_network_master(p)
+		
+		if id == p:
+			player.enable_camera()
+			
+		player.set_color(info.color)
+		
 		playersNode.add_child(player)
 	
 	rpc_id(1, "ready", id)
