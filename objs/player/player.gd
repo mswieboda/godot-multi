@@ -10,6 +10,10 @@ export var ACCELERATION = 3
 export var DEACCELERATION = 5
 
 
+func _ready():
+	print("Player#" + get_name() + " ready")
+
+
 func _physics_process(delta):
 	movement(delta)
 
@@ -51,7 +55,8 @@ func movement(delta):
 		dir.y = 0
 		dir = dir.normalized()
 		
-		velocity.y += delta * gravity
+		if not is_on_floor():
+			velocity.y += delta * gravity
 		
 		horiz_velocity = velocity
 		horiz_velocity.y = 0
@@ -66,12 +71,12 @@ func movement(delta):
 		velocity.x = horiz_velocity.x
 		velocity.z = horiz_velocity.z
 		
-		rset("puppet_velocity", velocity)
+		rset_unreliable("puppet_velocity", velocity)
 	else:
 		velocity = puppet_velocity
 	
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
-
+	
 	if is_moving:
 		var angle = atan2(horiz_velocity.x, horiz_velocity.z)
 		var rotation = $mesh.get_rotation()
