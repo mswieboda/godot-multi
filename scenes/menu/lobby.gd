@@ -55,11 +55,7 @@ func render_player_info(player_info : Dictionary):
 func render_players_list():
 	var players_list = get_node("players list")
 	
-	if (players_list):
-		remove_child(players_list)
-	
-	players_list = VBoxContainer.new()
-	players_list.set_name("players list")
+	Global.clear_children(players_list)
 
 	for player_id in Network.players:
 		var player_data = Network.players[player_id]

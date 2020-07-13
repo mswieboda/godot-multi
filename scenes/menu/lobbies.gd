@@ -12,10 +12,12 @@ func load_lobbies():
 	$HTTPRequest.request(LOBBY_URL + "/lobbies")
 
 
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var lobbies = json.result
 	var lobbiesNode = get_node("lobbies")
+	
+	Global.clear_children(lobbiesNode)
 	
 	for lobby in lobbies:
 		var label = Label.new()
