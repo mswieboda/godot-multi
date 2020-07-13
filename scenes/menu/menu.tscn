@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menu/quit.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/menu/ip_address.gd" type="Script" id=10]
 [ext_resource path="res://scenes/menu/start.gd" type="Script" id=11]
 [ext_resource path="res://scenes/menu/play_menu.gd" type="Script" id=12]
+[ext_resource path="res://scenes/menu/lobbies.gd" type="Script" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 69
@@ -166,6 +167,37 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="lobbies" type="VBoxContainer" parent="menu/menus"]
+visible = false
+margin_top = 96.0
+margin_right = 784.0
+margin_bottom = 158.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lobbies" type="VBoxContainer" parent="menu/menus/lobbies"]
+margin_right = 784.0
+margin_bottom = 14.0
+
+[node name="back" type="Label" parent="menu/menus/lobbies"]
+margin_top = 18.0
+margin_right = 784.0
+margin_bottom = 62.0
+rect_pivot_offset = Vector2( 27, 22 )
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 2 )
+text = "back"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="menu/menus/lobbies"]
 
 [node name="lobby" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -365,6 +397,9 @@ text = "back"
 [connection signal="gui_input" from="menu/menus/play menu/back" to="menu/menus/play menu/back" method="_on_gui_input"]
 [connection signal="mouse_entered" from="menu/menus/play menu/back" to="menu/menus/play menu/back" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="menu/menus/play menu/back" to="menu/menus/play menu/back" method="_on_mouse_exited"]
+[connection signal="gui_input" from="menu/menus/lobbies/back" to="menu/menus/lobbies/back" method="_on_gui_input"]
+[connection signal="mouse_entered" from="menu/menus/lobbies/back" to="menu/menus/lobbies/back" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu/menus/lobbies/back" to="menu/menus/lobbies/back" method="_on_mouse_exited"]
 [connection signal="color_changed" from="menu/menus/lobby/info/color picker" to="menu/menus/lobby" method="_on_color_picker_color_changed"]
 [connection signal="gui_input" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby" method="_on_leave_gui_input"]
 [connection signal="mouse_entered" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby/actions/leave" method="_on_mouse_entered"]
