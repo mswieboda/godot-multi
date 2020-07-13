@@ -4,6 +4,7 @@ const LOBBY_URL = "https://gd-multi-lobby.herokuapp.com"
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 
 

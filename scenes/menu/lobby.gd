@@ -5,9 +5,13 @@ onready var main = get_parent().get_node("main")
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Network.connect("server_player_joined", self, "_on_server_player_joined")
+# warning-ignore:return_value_discarded
 	Network.connect("server_player_disconnected", self, "_on_server_player_disconnected")
+# warning-ignore:return_value_discarded
 	Network.connect("server_leave", self, "_on_server_leave")
+# warning-ignore:return_value_discarded
 	Network.connect("server_disconnected", self, "_on_server_disconnected")
 
 

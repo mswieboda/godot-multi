@@ -13,9 +13,13 @@ signal server_leave
 signal server_disconnected
 
 func _ready():
+# warning-ignore:return_value_discarded
 	get_tree().connect('connected_to_server', self, '_connected_to_server')
+# warning-ignore:return_value_discarded
 	get_tree().connect('network_peer_disconnected', self, '_network_peer_disconnected')
+# warning-ignore:return_value_discarded
 	get_tree().connect('server_disconnected', self, '_server_disconnected')
+# warning-ignore:return_value_discarded
 	get_tree().connect('connection_failed', self, '_connected_failed')
 
 
