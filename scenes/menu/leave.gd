@@ -1,1 +1,1 @@
-extends "res://scripts/label_hover.gd"
+extends "res://objs/menu_label/menu_label.gd"

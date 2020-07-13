@@ -4,6 +4,9 @@ onready var nameEdit = find_node("name")
 onready var ipEdit = find_node("ip address")
 onready var colorEdit = find_node("color picker")
 
+func _ready():
+	get_node("vbox/ip container/ip address").text = Global.DEFAULT_SERVER_IP
+
 func show_create():
 	find_node("join").hide()
 	find_node("ip container").hide()
