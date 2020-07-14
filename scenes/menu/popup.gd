@@ -11,14 +11,14 @@ func show_create():
 	find_node("join").hide()
 	find_node("ip container").hide()
 	find_node("create").show()
-	popup_centered_minsize ()
+	popup_centered_minsize()
 
 
 func show_join():
 	find_node("join").show()
 	find_node("ip container").show()
 	find_node("create").hide()
-	popup_centered_minsize ()
+	popup_centered_minsize()
 
 
 func _on_popup_create_pressed():
