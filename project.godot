@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "GodotEnv_Parser",
+"language": "GDScript",
+"path": "res://godotenv/scripts/parser.gd"
+} ]
 _global_script_class_icons={
-
+"GodotEnv_Parser": ""
 }
 
 [application]
@@ -24,6 +29,7 @@ config/icon="res://icon.png"
 Global="*res://scripts/global.gd"
 Scene="*res://scripts/scene.gd"
 Network="*res://scripts/network.gd"
+Env="*res://godotenv/scripts/env.gd"
 
 [input]
 

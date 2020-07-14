@@ -12,3 +12,6 @@ data_*/
 
 # this project's specifics
 builds/
+
+# .env for loading environment vars via godotenv
+.env
