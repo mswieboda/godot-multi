@@ -5,11 +5,10 @@ onready var lobbies = get_parent().get_node("lobbies")
 onready var lobby = get_parent().get_node("lobby")
 onready var popup = get_node("/root/menu/popup")
 
+
 func _ready():
 # warning-ignore:return_value_discarded
 	Network.connect("server_created", self, "_on_server_created")
-# warning-ignore:return_value_discarded
-	Network.connect("server_joined", self, "_on_server_joined")
 
 
 func _on_server_created():
@@ -41,14 +40,6 @@ func _on_create_request_completed(result, _response_code, _headers, _body):
 
 	# TODO: pass this response's lobby ID somewhere globalish
 	# so we can use it for start/end requests
-	showLobby()
-
-
-func _on_server_joined():
-	showLobby()
-
-
-func showLobby():
 	hide()
 	lobby.show()
 

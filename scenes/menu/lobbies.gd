@@ -2,6 +2,13 @@ extends VBoxContainer
 
 const Text = preload("res://objs/text/text.tscn")
 
+onready var lobby = get_parent().get_node("lobby")
+
+
+func _ready():
+	Network.connect("server_joined", self, "_on_server_joined")
+
+
 func load_lobbies():
 	print("load_lobbies!")
 	var http = HTTPRequest.new()
@@ -68,3 +75,8 @@ func _on_join_request_completed(result, _response_code, _headers, _body, lobby):
 
 	var player_info = { username = "matt_client", color = Color.green }
 	Network.join_server(lobby["host"], player_info)
+
+
+func _on_server_joined():
+	hide()
+	lobby.show()
