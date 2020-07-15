@@ -2,6 +2,7 @@ extends CanvasItem
 
 
 onready var main = get_parent().get_node("main")
+onready var players_list = get_node("players list")
 const Text = preload("res://objs/text/text.tscn")
 
 func _ready():
@@ -53,8 +54,6 @@ func render_player_info(player_info : Dictionary):
 
 
 func render_players_list():
-	var players_list = get_node("players list")
-
 	Global.clear_children(players_list)
 
 	for player_id in Network.players:
@@ -72,8 +71,6 @@ func render_players_list():
 		label.set_color(player_data.color)
 
 		players_list.add_child(label)
-
-	add_child(players_list)
 
 
 remote func change_color(player_id, color : Color):

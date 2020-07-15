@@ -27,7 +27,8 @@ func _on_popup_create_pressed():
 
 
 func _on_popup_join_pressed():
-	Network.join_server(nameEdit.text, ipEdit.text, colorEdit.color)
+	var player_info = { username = nameEdit.text, color = colorEdit.color}
+	Network.join_server(ipEdit.text, player_info)
 	hide()
 
 
