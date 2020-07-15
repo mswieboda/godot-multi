@@ -18,6 +18,8 @@ func parse(filename):
 	
 	while !file.eof_reached():
 		line = file.get_line();
+		if line.strip_edges() == "":
+			continue
 		var o = line.split("=");
 		env[o[0]] = o[1].lstrip("\"").rstrip("\"");
 	return env;
