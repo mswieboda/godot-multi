@@ -2,7 +2,7 @@ extends CanvasItem
 
 
 onready var main = get_parent().get_node("main")
-
+const Text = preload("res://objs/text/text.tscn")
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -46,44 +46,46 @@ func show_main():
 func render_player_info(player_info : Dictionary):
 	var name = get_node("info/name")
 	var colorEdit = get_node("info/color picker")
-	
+
 	name.text = player_info.username
-	name.set("custom_colors/font_color", player_info.color)
+	name.set_color(player_info.color)
 	colorEdit.color = player_info.color
 
 
 func render_players_list():
 	var players_list = get_node("players list")
-	
+
 	Global.clear_children(players_list)
 
 	for player_id in Network.players:
 		var player_data = Network.players[player_id]
-		var label = Label.new()
-		
+		var label = Text.instance()
+
 		label.set_name(str(player_id))
 		label.text = player_data.username
-		
+
 		if player_id == 1:
 			label.text += " (host)"
-		
-		label.set("custom_colors/font_color", player_data.color)
-		
+
+		label.set_font_size(23)
+		label.set_hoverable(false)
+		label.set_color(player_data.color)
+
 		players_list.add_child(label)
-	
+
 	add_child(players_list)
 
 
 remote func change_color(player_id, color : Color):
 	Network.players[player_id].color = color
-	
+
 	render_players_list()
 
 
 func _on_color_picker_color_changed(color : Color):
 	var player_id = get_tree().get_network_unique_id()
 	change_color(player_id, color)
-	rpc("change_color", player_id, color)	
+	rpc("change_color", player_id, color)
 	render_player_info(Network.players[player_id])
 
 
@@ -96,7 +98,7 @@ func _on_start_gui_input(event : InputEvent):
 	if (event.is_pressed()):
 		load_lobby()
 		rpc("load_lobby")
-		
+
 
 remote func load_lobby():
 	var id = get_tree().get_network_unique_id()

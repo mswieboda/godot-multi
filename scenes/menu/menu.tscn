@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://objs/menu_label/menu_label.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objs/text/text.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menu/main.gd" type="Script" id=4]
 [ext_resource path="res://scenes/menu/lobby.gd" type="Script" id=8]
 [ext_resource path="res://scenes/menu/popup.gd" type="Script" id=9]
@@ -11,6 +11,69 @@
 [sub_resource type="DynamicFont" id=1]
 size = 69
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 33
+font_data = SubResource( 7 )
+
+[sub_resource type="DynamicFontData" id=9]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=10]
+size = 33
+font_data = SubResource( 9 )
+
+[sub_resource type="DynamicFontData" id=11]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=12]
+size = 33
+font_data = SubResource( 11 )
+
+[sub_resource type="DynamicFontData" id=13]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=14]
+size = 33
+font_data = SubResource( 13 )
+
+[sub_resource type="DynamicFontData" id=15]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=16]
+size = 33
+font_data = SubResource( 15 )
+
+[sub_resource type="DynamicFontData" id=17]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=18]
+size = 33
+font_data = SubResource( 17 )
+
+[sub_resource type="DynamicFontData" id=23]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=24]
+size = 23
+font_data = SubResource( 23 )
+
+[sub_resource type="DynamicFontData" id=19]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=20]
+size = 33
+font_data = SubResource( 19 )
+
+[sub_resource type="DynamicFontData" id=21]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=22]
+size = 33
+font_data = SubResource( 21 )
 
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 1 )
@@ -78,42 +141,58 @@ __meta__ = {
 }
 
 [node name="play" parent="menu/menus/main" instance=ExtResource( 3 )]
+margin_right = 784.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 8 )
 text = "play"
+font_size = 33
 
 [node name="quit" parent="menu/menus/main" instance=ExtResource( 3 )]
 margin_top = 48.0
+margin_right = 784.0
 margin_bottom = 92.0
+custom_fonts/font = SubResource( 10 )
 text = "quit"
+font_size = 33
 
 [node name="play menu" type="VBoxContainer" parent="menu/menus"]
 visible = false
+margin_top = 96.0
 margin_right = 784.0
-margin_bottom = 140.0
+margin_bottom = 236.0
 script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="create" parent="menu/menus/play menu" instance=ExtResource( 3 )]
-margin_top = 96.0
-margin_bottom = 140.0
+margin_right = 784.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 12 )
 text = "create"
+font_size = 33
 
 [node name="join" parent="menu/menus/play menu" instance=ExtResource( 3 )]
-margin_top = 96.0
-margin_bottom = 140.0
+margin_top = 48.0
+margin_right = 784.0
+margin_bottom = 92.0
+custom_fonts/font = SubResource( 14 )
 text = "join"
+font_size = 33
 
 [node name="back" parent="menu/menus/play menu" instance=ExtResource( 3 )]
 margin_top = 96.0
+margin_right = 784.0
 margin_bottom = 140.0
+custom_fonts/font = SubResource( 16 )
 text = "back"
+font_size = 33
 
 [node name="lobbies" type="VBoxContainer" parent="menu/menus"]
 visible = false
 margin_top = 96.0
 margin_right = 784.0
-margin_bottom = 158.0
+margin_bottom = 144.0
 script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -121,16 +200,20 @@ __meta__ = {
 
 [node name="lobbies" type="VBoxContainer" parent="menu/menus/lobbies"]
 margin_right = 784.0
-margin_bottom = 14.0
 
 [node name="back" parent="menu/menus/lobbies" instance=ExtResource( 3 )]
+margin_top = 4.0
+margin_right = 784.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 18 )
 text = "back"
+font_size = 33
 
 [node name="lobby" type="VBoxContainer" parent="menu/menus"]
 visible = false
 margin_top = 96.0
 margin_right = 784.0
-margin_bottom = 164.0
+margin_bottom = 218.0
 script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -138,37 +221,46 @@ __meta__ = {
 
 [node name="info" type="HBoxContainer" parent="menu/menus/lobby"]
 margin_right = 784.0
-margin_bottom = 20.0
+margin_bottom = 22.0
 
-[node name="name" type="Label" parent="menu/menus/lobby/info"]
-margin_top = 3.0
-margin_bottom = 17.0
+[node name="name" parent="menu/menus/lobby/info" instance=ExtResource( 3 )]
+margin_bottom = 22.0
+mouse_default_cursor_shape = 0
+custom_fonts/font = SubResource( 24 )
+text = ""
+font_size = 23
+hoverable = false
 
 [node name="color picker" type="ColorPickerButton" parent="menu/menus/lobby/info"]
 margin_left = 4.0
 margin_right = 784.0
-margin_bottom = 20.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 
 [node name="actions" type="VBoxContainer" parent="menu/menus/lobby"]
-margin_top = 24.0
+margin_top = 26.0
 margin_right = 784.0
-margin_bottom = 68.0
+margin_bottom = 118.0
 
 [node name="leave" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
-margin_top = -24.0
-margin_bottom = 20.0
+margin_right = 784.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 20 )
 text = "leave"
+font_size = 33
 
 [node name="start" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
-margin_top = -24.0
-margin_bottom = 20.0
+margin_top = 48.0
+margin_right = 784.0
+margin_bottom = 92.0
+custom_fonts/font = SubResource( 22 )
 text = "start"
+font_size = 33
 
 [node name="players list" type="VBoxContainer" parent="menu/menus/lobby"]
-margin_top = -221.0
+margin_top = 122.0
 margin_right = 784.0
-margin_bottom = 219.0
+margin_bottom = 122.0
 
 [node name="popup" type="PopupPanel" parent="."]
 margin_left = 120.0

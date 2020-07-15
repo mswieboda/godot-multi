@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 onready var LOBBY_BASE_URL = Env.get("LOBBY_BASE_URL")
+const Text = preload("res://objs/text/text.tscn")
 
 func load_lobbies():
 	print("load_lobbies!")
@@ -18,12 +19,13 @@ func _lobbies_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var lobbies = json.result
 	var lobbiesNode = get_node("lobbies")
-	
+
 	Global.clear_children(lobbiesNode)
-	
+
 	for lobby in lobbies:
-		var label = Label.new()
+		var label = Text.instance()
 		label.text = lobby["name"]
+		label.set_font_size(16)
 		lobbiesNode.add_child(label)
 
 

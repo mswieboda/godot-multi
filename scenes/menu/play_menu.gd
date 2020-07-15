@@ -6,7 +6,9 @@ onready var lobby = get_parent().get_node("lobby")
 onready var popup = get_node("/root/menu/popup")
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Network.connect("server_created", self, "_on_server_created")
+# warning-ignore:return_value_discarded
 	Network.connect("server_joined", self, "_on_server_joined")
 
 

@@ -8,12 +8,12 @@ var env = {};
 
 func _ready():
 	env = parser.parse("res://.env");
-	
+
 func get(name):
 	# prioritized os environment variable
 	if(OS.has_environment(name)):
 		return OS.get_environment(name);
-		
+
 	if(env.has(name)):
 		return env[name];
 	# return empty
