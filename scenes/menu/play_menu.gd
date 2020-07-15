@@ -18,7 +18,10 @@ func _on_server_created():
 	http.connect("request_completed", self, "_on_create_request_completed")
 
 	var data = { "name": "Real 1337 Lobby", "size": 13 }
-	var headers = ["Content-Type: application/json"]
+	var headers = [
+		"Content-Type: application/json",
+		"GAME_KEY: " + Global.GAME_KEY
+	]
 	var json = JSON.print(data)
 	print("json: " + json)
 	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies/create", headers, false, HTTPClient.METHOD_POST, json)

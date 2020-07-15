@@ -8,18 +8,24 @@ func load_lobbies():
 	add_child(http)
 	http.connect("request_completed", self, "_on_lobbies_request_completed")
 
-	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies")
+	var headers = ["GAME_KEY: " + Global.GAME_KEY]
+	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies", headers)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	print("load_lobbies requested: " + Global.LOBBY_BASE_URL + "/lobbies")
 
 
-func _on_lobbies_request_completed(_result, _response_code, _headers, body):
+func _on_lobbies_request_completed(result, response_code, _headers, body):
+	if result != OK or response_code != 200:
+		print("lobbies request error: " + body.get_string_from_utf8())
+		return
+
 	print("_lobbies_request_completed")
+	print(response_code)
 	var json = JSON.parse(body.get_string_from_utf8())
 	var lobbies = json.result
 	var lobbiesNode = get_node("lobbies")
-
+	print(lobbies)
 	Global.clear_children(lobbiesNode)
 
 	for lobby in lobbies:
@@ -48,7 +54,8 @@ func join_lobby(lobby):
 	add_child(http)
 	http.connect("request_completed", self, "_on_join_request_completed", [lobby])
 
-	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies/" + str(lobby["id"]) + "/join")
+	var headers = ["GAME_KEY: " + Global.GAME_KEY]
+	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies/" + str(lobby["id"]) + "/join", headers)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	print("join_lobbies requested")
@@ -61,5 +68,3 @@ func _on_join_request_completed(result, _response_code, _headers, _body, lobby):
 
 	var player_info = { username = "matt_client", color = Color.green }
 	Network.join_server(lobby["host"], player_info)
-
-	pass
