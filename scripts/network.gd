@@ -20,7 +20,7 @@ func _ready():
 # warning-ignore:return_value_discarded
 	get_tree().connect('server_disconnected', self, '_server_disconnected')
 # warning-ignore:return_value_discarded
-	get_tree().connect('connection_failed', self, '_connected_failed')
+	get_tree().connect('connection_failed', self, '_connection_failed')
 
 
 func create_server(username, color = Color.red):

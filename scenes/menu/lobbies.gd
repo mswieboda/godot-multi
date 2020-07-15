@@ -42,7 +42,8 @@ func _on_back_gui_input(event):
 
 
 func join_lobby(lobby):
-	print("join_lobbies!")
+	print("join_lobby!")
+	print(str(lobby))
 	var http = HTTPRequest.new()
 	add_child(http)
 	http.connect("request_completed", self, "_on_join_request_completed", [lobby])
