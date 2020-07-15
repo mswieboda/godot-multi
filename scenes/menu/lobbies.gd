@@ -1,18 +1,20 @@
 extends VBoxContainer
 
-const LOBBY_URL = "https://gd-multi-lobby.herokuapp.com"
-
-
-func _ready():
-# warning-ignore:return_value_discarded
-	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
-
+onready var LOBBY_BASE_URL = Env.get("LOBBY_BASE_URL")
 
 func load_lobbies():
-	$HTTPRequest.request(LOBBY_URL + "/lobbies")
+	print("load_lobbies!")
+	var http = HTTPRequest.new()
+	add_child(http)
+	http.connect("request_completed", self, "_lobbies_request_completed")
+
+	var error = http.request(LOBBY_BASE_URL + "/lobbies")
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+	print("load_lobbies requested")
 
 
-func _on_request_completed(_result, _response_code, _headers, body):
+func _lobbies_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var lobbies = json.result
 	var lobbiesNode = get_node("lobbies")

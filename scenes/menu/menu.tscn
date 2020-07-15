@@ -119,8 +119,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HTTPRequest" type="HTTPRequest" parent="menu/menus/lobbies"]
-
 [node name="lobbies" type="VBoxContainer" parent="menu/menus/lobbies"]
 margin_right = 784.0
 margin_bottom = 14.0
