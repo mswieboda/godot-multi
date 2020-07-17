@@ -4,19 +4,18 @@ onready var nameEdit = find_node("name")
 onready var ipEdit = find_node("ip address")
 onready var colorEdit = find_node("color picker")
 
-func _ready():
-	get_node("vbox/ip container/ip address").text = Global.DEFAULT_SERVER_IP
+var lobby
+
 
 func show_create():
 	find_node("join").hide()
-	find_node("ip container").hide()
 	find_node("create").show()
 	popup_centered_minsize()
 
 
-func show_join():
+func show_join(lobbyToJoin):
+	lobby = lobbyToJoin
 	find_node("join").show()
-	find_node("ip container").show()
 	find_node("create").hide()
 	popup_centered_minsize()
 
@@ -28,7 +27,7 @@ func _on_popup_create_pressed():
 
 func _on_popup_join_pressed():
 	var player_info = { username = nameEdit.text, color = colorEdit.color}
-	Network.join_server(ipEdit.text, player_info)
+	Network.join_server(lobby["host"], player_info)
 	hide()
 
 
