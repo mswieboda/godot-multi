@@ -11,8 +11,6 @@ func _ready():
 # warning-ignore:return_value_discarded
 	Network.connect("server_player_disconnected", self, "_on_server_player_disconnected")
 # warning-ignore:return_value_discarded
-	Network.connect("server_leave", self, "_on_server_leave")
-# warning-ignore:return_value_discarded
 	Network.connect("server_disconnected", self, "_on_server_disconnected")
 
 
@@ -28,11 +26,6 @@ func _on_server_player_joined(id, player_info):
 
 func _on_server_player_disconnected():
 	render_players_list()
-
-
-func _on_server_leave():
-	render_players_list()
-	show_main()
 
 
 func _on_server_disconnected():

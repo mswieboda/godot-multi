@@ -23,6 +23,24 @@ func _ready():
 # warning-ignore:return_value_discarded
 	get_tree().connect('connection_failed', self, '_connection_failed')
 
+	get_tree().set_auto_accept_quit(false)
+
+
+func _notification(notification):
+	if notification == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		print("_notification MainLoop.NOTIFICATION_WM_QUIT_REQUEST (quitting)")
+		var peer : NetworkedMultiplayerENet = get_tree().network_peer
+		if peer:
+			if get_tree().is_network_server():
+				# TODO: implement game_lobby_ended as HTTPClient not HTTPRequest
+				# so no Nodes need to be added, as this fails on add_child(http)
+				print("fire off game_lobby_ended")
+				game_lobby_ended()
+			print("close connection")
+			peer.close_connection()
+		print("quit")
+		get_tree().quit()
+
 
 func create_server(username, color = Color.red):
 	self_player_info = { username = username, color = color }
@@ -88,18 +106,20 @@ remote func player_connected(id, player_info):
 
 
 func leave_lobby():
-	var id = get_tree().get_network_unique_id()
-
 	print_debug("leave_lobby")
+	var peer : NetworkedMultiplayerENet = get_tree().network_peer
 
-	if not get_tree().is_network_server():
-		_network_peer_disconnected(id)
+	if peer:
+		if get_tree().is_network_server():
+			game_lobby_ended()
 
-	get_tree().set_network_peer(null)
+		peer.close_connection()
+		get_tree().set_network_peer(null)
 
-	players = {}
+	players.clear()
 
-	emit_signal("server_leave")
+	emit_signal("server_disconnected")
+
 
 func _network_peer_disconnected(id):
 	print_debug("disconnecting from server (" + str(id) + ")")
@@ -114,11 +134,7 @@ func _network_peer_disconnected(id):
 
 func _server_disconnected():
 	print_debug("_server_disconnected")
-
-	get_tree().set_network_peer(null)
-
-	players = {}
-
+	players.clear()
 	emit_signal("server_disconnected")
 
 
@@ -199,8 +215,6 @@ func _on_request_completed_game_lobby_create(result, _response_code, _headers, b
 	var json = JSON.parse(body.get_string_from_utf8())
 	lobby_id = json.result["id"]
 
-	print("set lobby_id: " + str(lobby_id))
-
 
 func game_lobby_joined(_id, _player_info):
 	print("game_lobby_joined request")
@@ -213,3 +227,32 @@ func game_lobby_joined(_id, _player_info):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	print("game_lobby_join requested")
+
+
+func game_lobby_ended():
+	print("game_lobby_ended request")
+	var http = HTTPRequest.new()
+	add_child(http)
+	http.connect("request_completed", self, "_on_request_completed_game_lobby_end")
+
+	var headers = [
+		"Content-Type: application/json",
+		"GAME_KEY: " + Global.GAME_KEY
+	]
+	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies/end", headers, false, HTTPClient.METHOD_DELETE)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+	print("game_lobby_end requested")
+
+
+func _on_request_completed_game_lobby_end(result, _response_code, _headers, _body):
+	print("request completed game_lobby_end")
+	if result != OK:
+		push_error("An error occurred in the HTTP request result.")
+		print("result: " + result)
+		print("response_code: " + _response_code)
+		print("_headers: " + _headers)
+		print("_body" + _body)
+		return
+
+	lobby_id = null
