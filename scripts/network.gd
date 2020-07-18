@@ -55,14 +55,13 @@ func create_server(username, color = Color.red):
 
 
 func join_server(ip_address, player_info):
-	ip_address = Global.DEFAULT_SERVER_IP
 	print("join_server: " + ip_address + " " + str(player_info))
 	self_player_info = player_info
 	var peer = NetworkedMultiplayerENet.new()
 	var error = peer.create_client(ip_address, Global.DEFAULT_SERVER_PORT)
-	print(str(error))
+
 	if error:
-		print("join_server failed: " + str(error))
+		print("join_server failed: ", error)
 	get_tree().set_network_peer(peer)
 
 
@@ -140,48 +139,6 @@ func _connection_failed():
 	print_debug("_connection_failed")
 
 
-func render_player_info(player_info : Dictionary):
-	var name = get_node("info/name")
-	var colorEdit = get_node("info/color picker")
-
-	name.text = player_info.username
-	name.set("custom_colors/font_color", player_info.color)
-	colorEdit.color = player_info.color
-
-
-remote func change_color(player_id, color : Color):
-	players[player_id].color = color
-
-#	TODO: move to lobby.gd
-#	render_players_list()
-
-
-func _on_color_picker_color_changed(color : Color):
-	var player_id = get_tree().get_network_unique_id()
-	change_color(player_id, color)
-	rpc("change_color", player_id, color)
-	render_player_info(players[player_id])
-
-
-func _on_leave_gui_input(event : InputEvent):
-	if (event.is_pressed()):
-		leave_lobby()
-
-
-func _on_start_gui_input(event : InputEvent):
-	if (event.is_pressed()):
-		load_lobby()
-		rpc("load_lobby")
-
-
-remote func load_lobby():
-	var id = get_tree().get_network_unique_id()
-	var lobby = preload("res://scenes/lobby/lobby.tscn").instance()
-
-	lobby.load_players(id, players)
-	Scene.change(lobby)
-
-
 func game_lobby_created(data):
 	print("game_lobby_created request")
 	var http = HTTPRequest.new()
@@ -207,7 +164,7 @@ func _on_request_completed_game_lobby_create(result, _response_code, _headers, b
 		print("result: " + result)
 		print("response_code: " + _response_code)
 		print("_headers: " + _headers)
-		print("_body" + body)
+		print("_body" + body.get_string_from_utf8())
 		return
 
 	var json = JSON.parse(body.get_string_from_utf8())
