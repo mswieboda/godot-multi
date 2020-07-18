@@ -32,10 +32,8 @@ func _notification(notification):
 		var peer : NetworkedMultiplayerENet = get_tree().network_peer
 		if peer:
 			if get_tree().is_network_server():
-				# TODO: implement game_lobby_ended as HTTPClient not HTTPRequest
-				# so no Nodes need to be added, as this fails on add_child(http)
 				print("fire off game_lobby_ended")
-				game_lobby_ended()
+				game_lobby_ended_on_quit()
 			print("close connection")
 			peer.close_connection()
 		print("quit")
@@ -214,6 +212,7 @@ func _on_request_completed_game_lobby_create(result, _response_code, _headers, b
 
 	var json = JSON.parse(body.get_string_from_utf8())
 	lobby_id = json.result["id"]
+	print("request completed game_lobby_create lobby_id: ", lobby_id)
 
 
 func game_lobby_joined(_id, _player_info):
@@ -229,6 +228,15 @@ func game_lobby_joined(_id, _player_info):
 	print("game_lobby_join requested")
 
 
+func game_lobby_ended_on_quit():
+	var headers = [
+		"Content-Type: application/json",
+		"GAME_KEY: " + Global.GAME_KEY
+	]
+	var response = Web.delete(Global.LOBBY_BASE_URL, "lobbies/" + str(lobby_id) + "/end", headers)
+	print("game_lobby_ended response: ", response)
+
+
 func game_lobby_ended():
 	print("game_lobby_ended request")
 	var http = HTTPRequest.new()
@@ -239,14 +247,15 @@ func game_lobby_ended():
 		"Content-Type: application/json",
 		"GAME_KEY: " + Global.GAME_KEY
 	]
-	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies/end", headers, false, HTTPClient.METHOD_DELETE)
+	print("game_lobby_end DELETE: ", Global.LOBBY_BASE_URL + "/lobbies/" + str(lobby_id) + "/end")
+	var error = http.request(Global.LOBBY_BASE_URL + "/lobbies/" + str(lobby_id) + "/end", headers, true, HTTPClient.METHOD_DELETE)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	print("game_lobby_end requested")
 
 
 func _on_request_completed_game_lobby_end(result, _response_code, _headers, _body):
-	print("request completed game_lobby_end")
+	print("request completed game_lobby_end:\n", _response_code, "\n", _body.get_string_from_utf8())
 	if result != OK:
 		push_error("An error occurred in the HTTP request result.")
 		print("result: " + result)

@@ -30,6 +30,7 @@ Env="*res://godotenv/scripts/env.gd"
 Global="*res://scripts/global.gd"
 Scene="*res://scripts/scene.gd"
 Network="*res://scripts/network.gd"
+Web="*res://scripts/web.gd"
 
 [input]
 
