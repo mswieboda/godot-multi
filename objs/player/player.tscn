@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
+[ext_resource path="res://objs/player/pistol.dae" type="PackedScene" id=2]
 
 [sub_resource type="CapsuleShape" id=3]
 
@@ -13,10 +14,13 @@ script = ExtResource( 1 )
 SPEED = 15
 
 [node name="cam_pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88272, -0.0815032 )
 
 [node name="camera" type="Camera" parent="cam_pivot"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0 )
+
+[node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
+transform = Transform( -1.69884e-08, 0, 0.104274, 0, 0.104274, 0, -0.104274, 0, -1.69884e-08, -0.750063, -0.406179, 1.60781 )
 
 [node name="body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1.5, 0 )

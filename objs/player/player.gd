@@ -4,6 +4,9 @@ var is_moving = false
 var velocity = Vector3()
 
 const GRAVITY = -9.8
+const MOUSE_SENSITIVITY = 0.003
+const MAX_VERTICAL_LOOK = 1.25
+
 export var SPEED = 6
 export var ACCELERATION = 3
 export var DEACCELERATION = 5
@@ -13,14 +16,25 @@ func puts(output):
 	print("Player#" + get_name() + ": " + str(output))
 
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
 func _physics_process(delta):
 	movement(delta)
 
 
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+		$cam_pivot.rotate_x(event.relative.y * MOUSE_SENSITIVITY)
+		$cam_pivot.rotation.x = clamp($cam_pivot.rotation.x, -MAX_VERTICAL_LOOK, MAX_VERTICAL_LOOK)
+
+
 func _input(event):
-	if event is InputEventMouseMotion:
-		pass
-#		look_at(event.position, Vector3.UP)
+	if event.is_action_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 
 func enable_camera():
 	$cam_pivot/camera.set_current(true)
@@ -42,13 +56,13 @@ func movement(delta):
 		var camera_xform = $cam_pivot/camera.get_global_transform()
 		
 		if Input.is_action_pressed("move_forward"):
-			dir.z += 1
+			dir += -$cam_pivot/camera.global_transform.basis.z
 		if Input.is_action_pressed("move_backward"):
-			dir.z -= 1
-		if Input.is_action_pressed("move_left"):
-			dir.x += 1
-		if Input.is_action_pressed("move_right"):
-			dir.x += -1
+			dir += $cam_pivot/camera.global_transform.basis.z
+		if Input.is_action_pressed("strafe_left"):
+			dir += -$cam_pivot/camera.global_transform.basis.x
+		if Input.is_action_pressed("strafe_right"):
+			dir += $cam_pivot/camera.global_transform.basis.x
 		
 		dir.y = 0
 		
