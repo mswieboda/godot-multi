@@ -17,40 +17,40 @@ func _physics_process(delta):
 	movement(delta)
 
 
+func _input(event):
+	if event is InputEventMouseMotion:
+		pass
+#		look_at(event.position, Vector3.UP)
+
 func enable_camera():
-	$cam_target/camera.set_current(true)
+	$cam_pivot/camera.set_current(true)
 
 
 func disable_camera():
-	$cam_target/camera.set_current(false)
+	$cam_pivot/camera.set_current(false)
 	pass
 
 
 func set_color(color : Color):
-	$mesh.material_override = SpatialMaterial.new()
-	$mesh.material_override.albedo_color = color
+	$body/mesh.material_override = SpatialMaterial.new()
+	$body/mesh.material_override.albedo_color = color
 
 
 func movement(delta):
 	if is_network_master():
 		var dir = Vector3()
-		var camera_xform = $cam_target/camera.get_global_transform()
+		var camera_xform = $cam_pivot/camera.get_global_transform()
 		
 		if Input.is_action_pressed("move_forward"):
-			dir += -camera_xform.basis.z
-			is_moving = true
+			dir.z += 1
 		if Input.is_action_pressed("move_backward"):
-			dir += camera_xform.basis.z
-			is_moving = true
+			dir.z -= 1
 		if Input.is_action_pressed("move_left"):
-			dir += -camera_xform.basis.x
-			is_moving = true
+			dir.x += 1
 		if Input.is_action_pressed("move_right"):
-			dir += camera_xform.basis.x
-			is_moving = true
+			dir.x += -1
 		
 		dir.y = 0
-		dir = dir.normalized()
 		
 		if not is_on_floor():
 			velocity.y += delta * GRAVITY
@@ -71,12 +71,6 @@ func movement(delta):
 		rpc_unreliable("peer_movement", is_moving, velocity)
 	
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
-	
-	if is_moving:
-		var angle = atan2(velocity.x, velocity.z)
-		var rotation = $mesh.get_rotation()
-		rotation.y = angle
-		$mesh.set_rotation(rotation)
 
 
 remote func peer_movement(peer_is_moving, peer_velocity):
