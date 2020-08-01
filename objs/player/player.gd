@@ -85,7 +85,8 @@ func movement(delta):
 	velocity.x = horiz_velocity.x
 	velocity.z = horiz_velocity.z
 	
-	rpc_unreliable("peer_movement", is_moving, velocity)
+	if get_tree().has_network_peer():
+		rpc_unreliable("peer_movement", is_moving, velocity)
 	
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 
