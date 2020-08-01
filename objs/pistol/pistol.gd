@@ -1,6 +1,5 @@
 extends Spatial
 
 func fire():
-	print("fire!")
-	if not $AnimationPlayer.is_playing():
-		$AnimationPlayer.play("default")
+	$AnimationPlayer.stop()
+	$AnimationPlayer.play("default")

@@ -7,4 +7,7 @@
 script = ExtResource( 2 )
 
 [node name="chamber slide" parent="." index="1"]
-transform = Transform( 0.0151833, 0, 0, 0, 0.0151833, 0, 0, 0, 0.0151833, 0.0149555, 0.0467327, -4.43793e-08 )
+transform = Transform( 0.0151833, 0, 0, 0, 0.0151833, 0, 0, 0, 0.0151833, 0.0152673, 0.0467327, -4.43793e-08 )
+
+[node name="AnimationPlayer" parent="." index="3"]
+playback_speed = 1.5
