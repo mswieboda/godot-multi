@@ -1,9 +1,9 @@
-extends CanvasItem
-
+extends "res://scenes/menu/menu.gd"
 
 onready var main = get_parent().get_node("main")
 onready var players_list = get_node("players list")
 const Text = preload("res://objs/text/text.tscn")
+
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -30,12 +30,8 @@ func _on_server_player_disconnected():
 
 func _on_server_disconnected():
 	render_players_list()
-	show_main()
+	go_to(main)
 
-
-func show_main():
-	hide()
-	main.show()
 
 func render_player_info(player_info : Dictionary):
 	var name = get_node("info/name")
@@ -80,12 +76,12 @@ func _on_color_picker_color_changed(color : Color):
 
 
 func _on_leave_gui_input(event : InputEvent):
-	if (event.is_pressed()):
+	if event.is_pressed():
 		Network.leave_lobby()
 
 
 func _on_start_gui_input(event : InputEvent):
-	if (event.is_pressed()):
+	if event.is_pressed():
 		load_lobby()
 		rpc("load_lobby")
 

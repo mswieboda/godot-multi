@@ -1,79 +1,116 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/menu/multi.gd" type="Script" id=2]
 [ext_resource path="res://objs/text/text.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menu/main.gd" type="Script" id=4]
+[ext_resource path="res://scenes/menu/play.gd" type="Script" id=5]
+[ext_resource path="res://scenes/menu/single.gd" type="Script" id=6]
 [ext_resource path="res://scenes/menu/lobby.gd" type="Script" id=8]
 [ext_resource path="res://scenes/menu/popup.gd" type="Script" id=9]
-[ext_resource path="res://scenes/menu/play_menu.gd" type="Script" id=12]
 [ext_resource path="res://scenes/menu/lobbies.gd" type="Script" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 69
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFontData" id=2]
+[sub_resource type="DynamicFontData" id=23]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=24]
 size = 33
-font_data = SubResource( 2 )
+font_data = SubResource( 23 )
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=25]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=26]
 size = 33
-font_data = SubResource( 4 )
+font_data = SubResource( 25 )
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=27]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=28]
 size = 33
-font_data = SubResource( 6 )
+font_data = SubResource( 27 )
 
-[sub_resource type="DynamicFontData" id=8]
+[sub_resource type="DynamicFontData" id=29]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=30]
 size = 33
-font_data = SubResource( 8 )
+font_data = SubResource( 29 )
 
-[sub_resource type="DynamicFontData" id=10]
+[sub_resource type="DynamicFontData" id=31]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=32]
 size = 33
-font_data = SubResource( 10 )
+font_data = SubResource( 31 )
 
-[sub_resource type="DynamicFontData" id=12]
+[sub_resource type="DynamicFontData" id=33]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=34]
 size = 33
-font_data = SubResource( 12 )
+font_data = SubResource( 33 )
 
-[sub_resource type="DynamicFontData" id=14]
+[sub_resource type="DynamicFontData" id=35]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="DynamicFont" id=36]
+size = 33
+font_data = SubResource( 35 )
+
+[sub_resource type="DynamicFontData" id=37]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=38]
+size = 33
+font_data = SubResource( 37 )
+
+[sub_resource type="DynamicFontData" id=39]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=40]
+size = 33
+font_data = SubResource( 39 )
+
+[sub_resource type="DynamicFontData" id=41]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=42]
+size = 33
+font_data = SubResource( 41 )
+
+[sub_resource type="DynamicFontData" id=43]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=44]
+size = 33
+font_data = SubResource( 43 )
+
+[sub_resource type="DynamicFontData" id=45]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
+
+[sub_resource type="DynamicFont" id=46]
 size = 23
-font_data = SubResource( 14 )
+font_data = SubResource( 45 )
 
-[sub_resource type="DynamicFontData" id=16]
+[sub_resource type="DynamicFontData" id=47]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=48]
 size = 33
-font_data = SubResource( 16 )
+font_data = SubResource( 47 )
 
-[sub_resource type="DynamicFontData" id=18]
+[sub_resource type="DynamicFontData" id=49]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
-[sub_resource type="DynamicFont" id=19]
+[sub_resource type="DynamicFont" id=50]
 size = 33
-font_data = SubResource( 18 )
+font_data = SubResource( 49 )
 
 [sub_resource type="DynamicFont" id=20]
 font_data = ExtResource( 1 )
@@ -137,65 +174,104 @@ __meta__ = {
 [node name="play" parent="menu/menus/main" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 24 )
 text = "play"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="quit" parent="menu/menus/main" instance=ExtResource( 3 )]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 26 )
 text = "quit"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
-[node name="play menu" type="VBoxContainer" parent="menu/menus"]
+[node name="play" type="VBoxContainer" parent="menu/menus"]
 visible = false
 margin_top = 96.0
 margin_right = 784.0
-margin_bottom = 236.0
-script = ExtResource( 12 )
+margin_bottom = 188.0
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="create" parent="menu/menus/play menu" instance=ExtResource( 3 )]
+[node name="single" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 7 )
-text = "create"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
+custom_fonts/font = SubResource( 28 )
+text = "single"
 font_size = 33
-hoverable = true
 
-[node name="join" parent="menu/menus/play menu" instance=ExtResource( 3 )]
-margin_top = 48.0
+[node name="multi" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_right = 784.0
-margin_bottom = 92.0
-custom_fonts/font = SubResource( 9 )
-text = "join"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 30 )
+text = "multi"
 font_size = 33
-hoverable = true
 
-[node name="back" parent="menu/menus/play menu" instance=ExtResource( 3 )]
+[node name="back" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_top = 96.0
 margin_right = 784.0
 margin_bottom = 140.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 32 )
 text = "back"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
+
+[node name="single" type="VBoxContainer" parent="menu/menus"]
+visible = false
+margin_top = 96.0
+margin_right = 784.0
+margin_bottom = 188.0
+script = ExtResource( 6 )
+
+[node name="start" parent="menu/menus/single" instance=ExtResource( 3 )]
+margin_right = 784.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 34 )
+text = "start"
+font_size = 33
+
+[node name="back" parent="menu/menus/single" instance=ExtResource( 3 )]
+margin_top = 48.0
+margin_right = 784.0
+margin_bottom = 92.0
+custom_fonts/font = SubResource( 36 )
+text = "back"
+font_size = 33
+
+[node name="multi" type="VBoxContainer" parent="menu/menus"]
+visible = false
+margin_top = 96.0
+margin_right = 784.0
+margin_bottom = 236.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="create" parent="menu/menus/multi" instance=ExtResource( 3 )]
+margin_right = 784.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 38 )
+text = "create"
+font_size = 33
+
+[node name="join" parent="menu/menus/multi" instance=ExtResource( 3 )]
+margin_top = 48.0
+margin_right = 784.0
+margin_bottom = 92.0
+custom_fonts/font = SubResource( 40 )
+text = "join"
+font_size = 33
+
+[node name="back" parent="menu/menus/multi" instance=ExtResource( 3 )]
+margin_top = 96.0
+margin_right = 784.0
+margin_bottom = 140.0
+custom_fonts/font = SubResource( 42 )
+text = "back"
+font_size = 33
 
 [node name="lobbies" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -214,12 +290,9 @@ margin_right = 784.0
 margin_top = 4.0
 margin_right = 784.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 44 )
 text = "back"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="lobby" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -238,10 +311,8 @@ margin_bottom = 22.0
 [node name="name" parent="menu/menus/lobby/info" instance=ExtResource( 3 )]
 margin_bottom = 22.0
 mouse_default_cursor_shape = 0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 46 )
 text = ""
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 23
 hoverable = false
 
@@ -259,23 +330,17 @@ margin_bottom = 118.0
 [node name="leave" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 48 )
 text = "leave"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="start" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 50 )
 text = "start"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="players list" type="VBoxContainer" parent="menu/menus/lobby"]
 margin_top = 122.0
@@ -378,9 +443,14 @@ custom_fonts/font = SubResource( 22 )
 text = "back"
 [connection signal="gui_input" from="menu/menus/main/play" to="menu/menus/main" method="_on_play_gui_input"]
 [connection signal="gui_input" from="menu/menus/main/quit" to="menu/menus/main" method="_on_quit_gui_input"]
-[connection signal="gui_input" from="menu/menus/play menu/create" to="menu/menus/play menu" method="_on_create_gui_input"]
-[connection signal="gui_input" from="menu/menus/play menu/join" to="menu/menus/play menu" method="_on_join_gui_input"]
-[connection signal="gui_input" from="menu/menus/play menu/back" to="menu/menus/play menu" method="_on_back_gui_input"]
+[connection signal="gui_input" from="menu/menus/play/single" to="menu/menus/play" method="_on_single_gui_input"]
+[connection signal="gui_input" from="menu/menus/play/multi" to="menu/menus/play" method="_on_multi_gui_input"]
+[connection signal="gui_input" from="menu/menus/play/back" to="menu/menus/play" method="_on_back_gui_input"]
+[connection signal="gui_input" from="menu/menus/single/start" to="menu/menus/single" method="_on_start_gui_input"]
+[connection signal="gui_input" from="menu/menus/single/back" to="menu/menus/single" method="_on_back_gui_input"]
+[connection signal="gui_input" from="menu/menus/multi/create" to="menu/menus/multi" method="_on_create_gui_input"]
+[connection signal="gui_input" from="menu/menus/multi/join" to="menu/menus/multi" method="_on_join_gui_input"]
+[connection signal="gui_input" from="menu/menus/multi/back" to="menu/menus/multi" method="_on_back_gui_input"]
 [connection signal="gui_input" from="menu/menus/lobbies/back" to="menu/menus/lobbies" method="_on_back_gui_input"]
 [connection signal="color_changed" from="menu/menus/lobby/info/color picker" to="menu/menus/lobby" method="_on_color_picker_color_changed"]
 [connection signal="gui_input" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby" method="_on_leave_gui_input"]

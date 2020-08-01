@@ -51,38 +51,41 @@ func set_color(color : Color):
 
 
 func movement(delta):
-	if is_network_master():
-		var dir = Vector3()
-		var camera_xform = $cam_pivot/camera.get_global_transform()
-		
-		if Input.is_action_pressed("move_forward"):
-			dir += -$cam_pivot/camera.global_transform.basis.z
-		if Input.is_action_pressed("move_backward"):
-			dir += $cam_pivot/camera.global_transform.basis.z
-		if Input.is_action_pressed("strafe_left"):
-			dir += -$cam_pivot/camera.global_transform.basis.x
-		if Input.is_action_pressed("strafe_right"):
-			dir += $cam_pivot/camera.global_transform.basis.x
-		
-		dir.y = 0
-		
-		if not is_on_floor():
-			velocity.y += delta * GRAVITY
-		
-		var horiz_velocity = velocity
-		horiz_velocity.y = 0
-		
-		var new_position = dir * SPEED
-		var accel = DEACCELERATION
-		
-		if dir.dot(horiz_velocity) > 0:
-			accel = ACCELERATION
-		
-		horiz_velocity = horiz_velocity.linear_interpolate(new_position, accel * delta)
-		velocity.x = horiz_velocity.x
-		velocity.z = horiz_velocity.z
-		
-		rpc_unreliable("peer_movement", is_moving, velocity)
+	if get_tree().has_network_peer() and !is_network_master():
+		velocity = move_and_slide(velocity, Vector3(0, 1, 0))
+		return
+	
+	var dir = Vector3()
+	var camera_xform = $cam_pivot/camera.get_global_transform()
+	
+	if Input.is_action_pressed("move_forward"):
+		dir += -$cam_pivot/camera.global_transform.basis.z
+	if Input.is_action_pressed("move_backward"):
+		dir += $cam_pivot/camera.global_transform.basis.z
+	if Input.is_action_pressed("strafe_left"):
+		dir += -$cam_pivot/camera.global_transform.basis.x
+	if Input.is_action_pressed("strafe_right"):
+		dir += $cam_pivot/camera.global_transform.basis.x
+	
+	dir.y = 0
+	
+	if not is_on_floor():
+		velocity.y += delta * GRAVITY
+	
+	var horiz_velocity = velocity
+	horiz_velocity.y = 0
+	
+	var new_position = dir * SPEED
+	var accel = DEACCELERATION
+	
+	if dir.dot(horiz_velocity) > 0:
+		accel = ACCELERATION
+	
+	horiz_velocity = horiz_velocity.linear_interpolate(new_position, accel * delta)
+	velocity.x = horiz_velocity.x
+	velocity.z = horiz_velocity.z
+	
+	rpc_unreliable("peer_movement", is_moving, velocity)
 	
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 

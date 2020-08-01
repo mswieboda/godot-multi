@@ -1,9 +1,10 @@
-extends VBoxContainer
+extends "res://scenes/menu/menu.gd"
 
 const Text = preload("res://objs/text/text.tscn")
 
 onready var lobby = get_parent().get_node("lobby")
 onready var popup = get_node("/root/menu/popup")
+onready var multi = get_parent().get_node("multi")
 
 
 func _ready():
@@ -32,26 +33,23 @@ func _on_lobbies_request_completed(result, response_code, _headers, body):
 
 	Global.clear_children(lobbiesNode)
 
-	for lobby in lobbies:
+	for lobby_data in lobbies:
 		var label = Text.instance()
 		label.text = lobby["name"]
 		label.set_font_size(16)
 		lobbiesNode.add_child(label)
-		label.connect("gui_input", self, "_on_lobby_gui_input", [lobby])
+		label.connect("gui_input", self, "_on_lobby_gui_input", [lobby_data])
 
 
-func _on_lobby_gui_input(event, lobby):
+func _on_lobby_gui_input(event, lobby_data):
 	if event.is_pressed():
-		popup.show_join(lobby)
+		popup.show_join(lobby_data)
 
 
 func _on_back_gui_input(event):
-	if event.is_pressed():
-		hide()
-		get_parent().get_node("play menu").show()
+	is_pressed_go_to(event, multi)
 
 
 func _on_server_joined():
 	print("_on_server_joined")
-	hide()
-	lobby.show()
+	go_to(lobby)

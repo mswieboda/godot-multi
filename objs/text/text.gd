@@ -6,6 +6,10 @@ export var hover_color : Color = Color.green setget set_hover_color
 export var font_size : int = 16 setget set_font_size
 export var hoverable : bool = true setget set_hoverable
 
+signal gui_action
+
+var hovered = false
+
 func _ready():
 	set_color(color)
 	set_font_size(font_size)
@@ -41,16 +45,32 @@ func change_cursor(new_cursor):
 	set("mouse_default_cursor_shape", new_cursor)
 
 
-func _on_gui_input(event):
-	if event.is_pressed() and hoverable:
-		change_color(color)
+func hover():
+	if !hoverable or hovered:
+		return
+	change_color(hover_color)
+	hovered = true
 
 
-func _on_mouse_entered():
-	if hoverable:
-		change_color(hover_color)
+func unhover():
+	if !hoverable or !hovered:
+		return
+	change_color(color)
+	hovered = false
+
+
+func _on_gui_input(event : InputEvent):
+	if event.is_action_released("ui_accept"):
+		emit_signal("gui_action")
+		pass
+	if event.is_pressed():
+		unhover()
+	elif event is InputEventMouseMotion:
+		hover()
 
 
 func _on_mouse_exited():
-	if hoverable:
-		change_color(color)
+	unhover()
+
+
+
