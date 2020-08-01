@@ -45,7 +45,6 @@ func request(base_url, path, headers = [], method = HTTPClient.METHOD_GET):
 
 	if http.has_response():
 		var bytes = PoolByteArray()
-		var response_headers = http.get_response_headers_as_dictionary()
 
 		while http.get_status() == HTTPClient.STATUS_BODY:
 			http.poll()

@@ -56,16 +56,16 @@ func movement(delta):
 		return
 	
 	var dir = Vector3()
-	var camera_xform = $cam_pivot/camera.get_global_transform()
+	var camera_xform_basis = $cam_pivot/camera.get_global_transform().basis
 	
 	if Input.is_action_pressed("move_forward"):
-		dir += -$cam_pivot/camera.global_transform.basis.z
+		dir += -camera_xform_basis.z
 	if Input.is_action_pressed("move_backward"):
-		dir += $cam_pivot/camera.global_transform.basis.z
+		dir += camera_xform_basis.z
 	if Input.is_action_pressed("strafe_left"):
-		dir += -$cam_pivot/camera.global_transform.basis.x
+		dir += -camera_xform_basis.x
 	if Input.is_action_pressed("strafe_right"):
-		dir += $cam_pivot/camera.global_transform.basis.x
+		dir += camera_xform_basis.x
 	
 	dir.y = 0
 	
@@ -86,13 +86,12 @@ func movement(delta):
 	velocity.z = horiz_velocity.z
 	
 	if get_tree().has_network_peer():
-		rpc_unreliable("peer_movement", is_moving, velocity)
+		rpc_unreliable("peer_movement", velocity)
 	
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 
 
-remote func peer_movement(peer_is_moving, peer_velocity):
-	is_moving = peer_is_moving
+remote func peer_movement(peer_velocity):
 	velocity = peer_velocity
 
 

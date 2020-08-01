@@ -10,7 +10,6 @@ signal server_created
 signal server_joined
 signal server_player_joined
 signal server_player_disconnected
-signal server_leave
 signal server_disconnected
 
 func _ready():

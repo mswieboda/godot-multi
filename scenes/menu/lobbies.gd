@@ -8,6 +8,7 @@ onready var multi = get_parent().get_node("multi")
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Network.connect("server_joined", self, "_on_server_joined")
 
 

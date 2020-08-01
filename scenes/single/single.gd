@@ -9,6 +9,9 @@ func start(player_info):
 	player.set_name("player")
 	player.set_color(player_info.color)
 
+	$players.add_child(player)
+	player.enable_camera()
+
 	var spawn_xform = available_spawn()
 
 	if spawn_xform:
@@ -16,8 +19,6 @@ func start(player_info):
 	else:
 		print("no available spawns")
 
-	$players.add_child(player)
-	player.enable_camera()
 	print("start!")
 
 
