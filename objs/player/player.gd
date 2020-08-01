@@ -3,10 +3,11 @@ extends KinematicBody
 var is_moving = false
 var velocity = Vector3()
 
-const GRAVITY = -9.8
+const GRAVITY = -9.8 * 9.8
 const MOUSE_SENSITIVITY = 0.003
 const MAX_VERTICAL_LOOK = 1.25
 
+export var JUMP_HEIGHT = 33
 export var SPEED = 6
 export var ACCELERATION = 3
 export var DEACCELERATION = 5
@@ -66,6 +67,10 @@ func movement(delta):
 		dir += -camera_xform_basis.x
 	if Input.is_action_pressed("strafe_right"):
 		dir += camera_xform_basis.x
+	
+	if Input.is_action_pressed("jump"):
+		if is_on_floor():
+			velocity.y += JUMP_HEIGHT
 	
 	dir.y = 0
 	
