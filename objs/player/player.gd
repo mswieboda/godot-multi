@@ -30,6 +30,9 @@ func _unhandled_input(event):
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 		$cam_pivot.rotate_x(event.relative.y * MOUSE_SENSITIVITY)
 		$cam_pivot.rotation.x = clamp($cam_pivot.rotation.x, -MAX_VERTICAL_LOOK, MAX_VERTICAL_LOOK)
+	
+	if event.is_action_pressed("fire"):
+		$cam_pivot/pistol.fire()
 
 
 func _input(event):

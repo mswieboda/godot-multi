@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/pistol.dae-6adbbb27f0cdaaa55d512a1f1aed9468.scn"
+path="res://.import/pistol.dae-d47102e91be53bd798f37ece0dc4a526.scn"
 
 [deps]
 
-source_file="res://objs/player/pistol.dae"
-dest_files=[ "res://.import/pistol.dae-6adbbb27f0cdaaa55d512a1f1aed9468.scn" ]
+source_file="res://objs/pistol/pistol.dae"
+dest_files=[ "res://.import/pistol.dae-d47102e91be53bd798f37ece0dc4a526.scn" ]
 
 [params]
 

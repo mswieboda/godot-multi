@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objs/pistol/pistol.dae" type="PackedScene" id=1]
+[ext_resource path="res://objs/pistol/pistol.gd" type="Script" id=2]
+
+[node name="pistol" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="chamber slide" parent="." index="1"]
+transform = Transform( 0.0151833, 0, 0, 0, 0.0151833, 0, 0, 0, 0.0151833, 0.0149555, 0.0467327, -4.43793e-08 )
