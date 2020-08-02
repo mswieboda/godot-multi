@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/single/single.gd" type="Script" id=1]
 [ext_resource path="res://objs/box/box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objs/shootable/shootable.tscn" type="PackedScene" id=3]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -26,27 +27,6 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="plane/StaticBody"]
 shape = SubResource( 2 )
-
-[node name="box" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 5 )
-
-[node name="box2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9342, 1, -1.67652 )
-
-[node name="box3" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9517, 1, 1.27465 )
-
-[node name="box4" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.749695, -0.49349, 0.440936, 0.661783, 0.559046, -0.499511, 0, 0.666285, 0.745697, -16.4738, 1, -13.1008 )
-
-[node name="box5" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.727766, -0.01784, -0.685594, 0.357755, 0.862751, 0.357311, 0.585123, -0.505314, 0.634263, -12.6922, 1, 17.9521 )
-
-[node name="box6" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.727766, -0.0178401, -2.05678, 0.357755, 0.862751, 1.07193, 0.585123, -0.505314, 1.90279, -0.666174, 1, 21.2235 )
-
-[node name="box7" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1.61785, -1.03805, -2.30326, -1.24983, 2.70579, -0.341565, 2.19557, 0.775359, -1.89164, 5.05555, 1, -14.4381 )
 
 [node name="spawns" type="Spatial" parent="."]
 
@@ -79,3 +59,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.607, 0, -6.70455 )
 
 [node name="spawn10" type="Spatial" parent="spawns"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5569, 0, -12.3107 )
+
+[node name="shootable" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.23965, 1, -10.9134 )
+
+[node name="box" parent="shootable" instance=ExtResource( 2 )]
+transform = Transform( -1.25248, -0.232859, -0.878337, 0.864632, 0.882765, -0.371026, 2.58529, -0.408047, -0.301437, 0, 0, -9.53674e-07 )
+
+[node name="shootable2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23263, 2.48042, -3.8964 )
+
+[node name="box" parent="shootable2" instance=ExtResource( 2 )]
