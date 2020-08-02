@@ -23,8 +23,13 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0
 [node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -0.165575, 0.824362, 0.355567 )
 
+[node name="raycast" type="RayCast" parent="cam_pivot/pistol"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.047, 0 )
+cast_to = Vector3( -100, 0, 0 )
+
 [node name="body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1.5, 0 )
+visible = false
 shape = SubResource( 1 )
 
 [node name="mesh" type="MeshInstance" parent="body"]
