@@ -20,16 +20,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88272, -0.0815032 )
 [node name="camera" type="Camera" parent="cam_pivot"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0 )
 
-[node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -0.165575, 0.824362, 0.355567 )
+[node name="raycast" type="RayCast" parent="cam_pivot/camera"]
+cast_to = Vector3( 0, 0, -1000 )
 
-[node name="raycast" type="RayCast" parent="cam_pivot/pistol"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.047, 0 )
-cast_to = Vector3( -100, 0, 0 )
+[node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
+transform = Transform( -0.0233391, 0.0190252, 0.999547, -0.0215289, 0.999577, -0.0195285, -0.999496, -0.0219749, -0.0229197, -0.165575, 0.824362, 0.355567 )
 
 [node name="body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1.5, 0 )
-visible = false
 shape = SubResource( 1 )
 
 [node name="mesh" type="MeshInstance" parent="body"]

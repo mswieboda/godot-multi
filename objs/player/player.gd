@@ -12,9 +12,7 @@ export var SPEED = 6
 export var ACCELERATION = 3
 export var DEACCELERATION = 5
 
-
-func puts(output):
-	print("Player#" + get_name() + ": " + str(output))
+export var PLAYABLE = true
 
 
 func _ready():
@@ -26,21 +24,38 @@ func _physics_process(delta):
 
 
 func _unhandled_input(event):
+	if !is_playable():
+		return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 		$cam_pivot.rotate_x(event.relative.y * MOUSE_SENSITIVITY)
 		$cam_pivot.rotation.x = clamp($cam_pivot.rotation.x, -MAX_VERTICAL_LOOK, MAX_VERTICAL_LOOK)
+	
+	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if event.button_index == BUTTON_WHEEL_UP:
+			$cam_pivot/camera.fov /= 1.5
+		elif event.button_index == BUTTON_WHEEL_DOWN:
+			$cam_pivot/camera.fov *= 1.5
 	
 	if event.is_action_pressed("fire"):
 		$cam_pivot/pistol.fire()
 
 
 func _input(event):
+	if !is_playable():
+		return
 	if event.is_action_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func is_playable() -> bool:
+	if PLAYABLE:
+		if get_tree().has_network_peer():
+			return is_network_master()
+	return PLAYABLE
 
 
 func enable_camera():
@@ -58,7 +73,7 @@ func set_color(color : Color):
 
 
 func movement(delta):
-	if get_tree().has_network_peer() and !is_network_master():
+	if !is_playable():
 		velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 		return
 	

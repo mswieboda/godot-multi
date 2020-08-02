@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/single/single.gd" type="Script" id=1]
 [ext_resource path="res://objs/box/box.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objs/shootable/shootable.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objs/player/player.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -70,3 +71,9 @@ transform = Transform( -1.25248, -0.232859, -0.878337, 0.864632, 0.882765, -0.37
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23263, 2.48042, -3.8964 )
 
 [node name="box" parent="shootable2" instance=ExtResource( 2 )]
+
+[node name="shootable3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60279, 1, -1.26007 )
+
+[node name="player" parent="shootable3" instance=ExtResource( 4 )]
+PLAYABLE = false
