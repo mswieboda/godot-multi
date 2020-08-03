@@ -58,6 +58,22 @@ func is_playable() -> bool:
 	return PLAYABLE
 
 
+func hit_texture():
+	return false
+
+
+func hit(weapon : Node, position : Vector3, normal : Vector3):
+	print(get_name(), " hit by ", weapon.get_name(), " with ", weapon.damage())
+	var fx = preload("res://objs/bullet_hit_fx/bullet_hit_fx.tscn").instance()
+	fx.emitting = true
+	
+	add_child(fx)
+	
+	fx.global_transform.origin = position
+	fx.global_transform.basis = Global.perpendicular_basis_from_normal(normal)
+	fx.global_transform.origin += normal * Global.HEIGHT_LAYERING_RATIO
+
+
 func enable_camera():
 	$cam_pivot/camera.set_current(true)
 

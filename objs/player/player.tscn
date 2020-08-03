@@ -22,6 +22,7 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0
 
 [node name="raycast" type="RayCast" parent="cam_pivot/camera"]
 cast_to = Vector3( 0, 0, -1000 )
+collide_with_areas = true
 
 [node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
 transform = Transform( -0.0233391, 0.0190252, 0.999547, -0.0215289, 0.999577, -0.0195285, -0.999496, -0.0219749, -0.0229197, -0.165575, 0.824362, 0.355567 )

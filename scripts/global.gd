@@ -1,7 +1,11 @@
 extends Node
 
+# Networking
 const DEFAULT_SERVER_IP = '127.0.0.1'
 const DEFAULT_SERVER_PORT = 31400
+
+# RayCast hit, extra height for texture layering
+const HEIGHT_LAYERING_RATIO = 0.01
 
 onready var LOBBY_BASE_URL = Env.get("LOBBY_BASE_URL")
 onready var GAME_KEY = Env.get("GAME_KEY")

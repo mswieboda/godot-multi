@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objs/bullet_hit_fx/bullet_hit_fx.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 0.03
+flag_align_y = true
+direction = Vector3( 0, 1, 0 )
+spread = 3.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.3
+initial_velocity_random = 0.13
+linear_accel = 9.0
+linear_accel_random = 0.33
+radial_accel = 9.0
+radial_accel_random = 0.33
+damping = 9.0
+scale = 0.69
+scale_random = 0.69
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.003
+bottom_radius = 0.009
+height = 0.09
+radial_segments = 6
+rings = 3
+
+[node name="Particles" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8552, 0.281227, -0.556488 )
+cast_shadow = 0
+emitting = false
+amount = 13
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.95
+randomness = 0.69
+local_coords = false
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 2 )
+script = ExtResource( 1 )
