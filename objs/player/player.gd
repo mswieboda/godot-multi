@@ -20,6 +20,7 @@ var damage_flash_frame = 0
 func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		$head/mesh.hide()
 
 
 func _process(_delta):

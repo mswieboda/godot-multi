@@ -1,14 +1,29 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objs/pistol/pistol.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objs/pistol/reticle.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
+radius = 0.75
+height = 1.5
 
 [sub_resource type="CapsuleMesh" id=2]
+radius = 0.75
+mid_height = 1.5
+
+[sub_resource type="SphereShape" id=7]
+radius = 0.5
+
+[sub_resource type="SphereMesh" id=4]
+radius = 0.5
+height = 1.0
 
 [sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="SphereMesh" id=5]
+
+[sub_resource type="SphereMesh" id=6]
 
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -18,7 +33,7 @@ SPEED = 15
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88272, -0.0815032 )
 
 [node name="camera" type="Camera" parent="cam_pivot"]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.69718, 0 )
 
 [node name="raycast" type="RayCast" parent="cam_pivot/camera"]
 cast_to = Vector3( 0, 0, -1000 )
@@ -28,7 +43,7 @@ collide_with_areas = true
 transform = Transform( -0.0233391, 0.0190252, 0.999547, -0.0215289, 0.999577, -0.0195285, -0.999496, -0.0219749, -0.0229197, -0.165575, 0.824362, 0.355567 )
 
 [node name="body" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0 )
 shape = SubResource( 1 )
 
 [node name="mesh" type="MeshInstance" parent="body"]
@@ -36,9 +51,28 @@ transform = Transform( 1, 0, 0, 0, -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="back_indicator" type="MeshInstance" parent="body/mesh"]
-transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -1, 0 )
+[node name="head" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.346, 0 )
+shape = SubResource( 7 )
+
+[node name="mesh" type="MeshInstance" parent="head"]
+transform = Transform( 1, 0, 0, 0, -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="nose" type="MeshInstance" parent="head/mesh"]
+transform = Transform( 0.025, 0, 0, 0, 0.0440549, -0.0118234, 0, 0.0236468, 0.0220274, 0, 0.448919, -0.21985 )
 mesh = SubResource( 3 )
+material/0 = null
+
+[node name="eye_left" type="MeshInstance" parent="head/mesh"]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.173854, 0.372285, -0.293842 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="eye_left2" type="MeshInstance" parent="head/mesh"]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.174, 0.372, -0.294 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="hud" type="MarginContainer" parent="."]
