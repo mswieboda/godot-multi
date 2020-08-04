@@ -42,21 +42,27 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="hud" type="MarginContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -16.0
-margin_top = -16.0
-margin_right = 16.0
-margin_bottom = 16.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="reticle" type="TextureRect" parent="hud"]
-margin_right = 32.0
-margin_bottom = 32.0
+[node name="center" type="CenterContainer" parent="hud"]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="reticle" type="TextureRect" parent="hud/center"]
+margin_left = 496.0
+margin_top = 284.0
+margin_right = 528.0
+margin_bottom = 316.0
 mouse_filter = 2
 texture = ExtResource( 3 )
+
+[node name="damage_flash" type="ColorRect" parent="hud"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 1, 0, 0, 0.662745 )

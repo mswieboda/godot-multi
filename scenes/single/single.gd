@@ -5,7 +5,7 @@ var spawn_index = 0
 
 func start(player_info):
 	var player = preload("res://objs/player/player.tscn").instance()
-		
+
 	player.set_name("player")
 	player.set_color(player_info.color)
 
