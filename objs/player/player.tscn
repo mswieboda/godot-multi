@@ -52,6 +52,7 @@ __meta__ = {
 [node name="center" type="CenterContainer" parent="hud"]
 margin_right = 1024.0
 margin_bottom = 600.0
+mouse_filter = 2
 
 [node name="reticle" type="TextureRect" parent="hud/center"]
 margin_left = 496.0

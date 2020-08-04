@@ -33,15 +33,8 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if !is_playable():
 		return
-
-	camera_movement(event)
 	input_actions(event)
-
-
-func _input(event):
-	if !is_playable():
-		return
-
+	camera_movement(event)
 	mouse_capture(event)
 
 
@@ -86,6 +79,8 @@ func die():
 
 
 func start_damage_flash():
+	if !is_playable():
+		return
 	$hud/damage_flash.show()
 	damage_flash_frame = 1
 
