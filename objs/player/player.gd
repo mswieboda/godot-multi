@@ -4,7 +4,6 @@ const GRAVITY = -9.8 * 9.8
 const MOUSE_SENSITIVITY = 0.003
 const MAX_VERTICAL_LOOK = 1.25
 const MAX_HEALTH = 100
-const DAMAGE_FLASH_FRAMES = 5
 
 export var JUMP_HEIGHT = 33
 export var SPEED = 6
@@ -15,16 +14,11 @@ export var PLAYABLE = true
 var is_moving = false
 var velocity = Vector3()
 var health : int = MAX_HEALTH
-var damage_flash_frame = 0
 
 func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$head/mesh.hide()
-
-
-func _process(_delta):
-	damage_flash()
 
 
 func _physics_process(delta):
@@ -50,9 +44,9 @@ func hit_texture():
 	return false
 
 
-func hit(weapon : Node, position : Vector3, normal : Vector3):
+func hit(weapon : Node, shapeIndex : int, position : Vector3, normal : Vector3):
 	hit_fx(position, normal)
-	take_damage(weapon.damage())
+	take_damage(shapeIndex, weapon.damage())
 
 
 func hit_fx(position : Vector3, normal : Vector3):
@@ -66,38 +60,26 @@ func hit_fx(position : Vector3, normal : Vector3):
 	fx.global_transform.origin += normal * Global.HEIGHT_LAYERING_RATIO
 
 
-func take_damage(damage : int):
+func take_damage(shapeIndex : int, damage : int):
+	var shape = shape_owner_get_owner(shape_find_owner(shapeIndex))
+	
+	if shape.get_name() == "head":
+		damage *= 10
+	
 	health -= damage
 
 	if health <= 0:
 		die()
 
-	start_damage_flash()
+	if is_playable():
+		$hud/damage_flash.start()
+	else:
+		$health_flash.start()
 
 
 func die():
+	print("die!")
 	health = 0
-
-
-func start_damage_flash():
-	if !is_playable():
-		return
-	$hud/damage_flash.show()
-	damage_flash_frame = 1
-
-
-func damage_flash():
-	if damage_flash_frame > 0:
-		if damage_flash_frame > DAMAGE_FLASH_FRAMES:
-			stop_damage_flash()
-		else:
-			damage_flash_frame += 1
-
-
-func stop_damage_flash():
-	$hud/damage_flash.hide()
-	damage_flash_frame = 0
-
 
 func enable_camera():
 	$cam_pivot/camera.set_current(true)
@@ -127,7 +109,7 @@ func camera_movement(event : InputEvent):
 
 func input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
-		hit($cam_pivot/pistol, Vector3(), Vector3())
+		hit($cam_pivot/pistol, 0, Vector3(), Vector3())
 	if event.is_action_pressed("fire"):
 		$cam_pivot/pistol.fire()
 
