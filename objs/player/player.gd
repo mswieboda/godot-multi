@@ -92,16 +92,13 @@ func start_damage_flash():
 
 func damage_flash():
 	if damage_flash_frame > 0:
-		print("damage_flash: ", damage_flash_frame)
 		if damage_flash_frame > DAMAGE_FLASH_FRAMES:
 			stop_damage_flash()
 		else:
-			print("increase damage flash frame index")
 			damage_flash_frame += 1
 
 
 func stop_damage_flash():
-	print("stop_damage_flash")
 	$hud/damage_flash.hide()
 	damage_flash_frame = 0
 
