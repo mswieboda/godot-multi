@@ -14,6 +14,7 @@ func fire():
 	ray.force_raycast_update()
 	
 	if ray.is_colliding():
+		var player = get_parent().get_parent()
 		var body = ray.get_collider()
 		var position = ray.get_collision_point()
 		var normal = ray.get_collision_normal()
@@ -23,7 +24,7 @@ func fire():
 			hit_texture(body, position, normal)
 		
 		if body.has_method("hit"):
-			body.hit(self, shapeIndex, position, normal)
+			body.hit(player, self, shapeIndex, position, normal)
 
 
 func hit_texture(body : Node, position : Vector3, normal : Vector3, height_layering_ratio : float = Global.HEIGHT_LAYERING_RATIO):

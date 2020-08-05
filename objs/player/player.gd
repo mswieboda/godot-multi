@@ -19,6 +19,7 @@ func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$head/mesh.hide()
+		$hud.show()
 
 
 func _physics_process(delta):
@@ -44,9 +45,10 @@ func hit_texture():
 	return false
 
 
-func hit(weapon : Node, shapeIndex : int, position : Vector3, normal : Vector3):
+func hit(player : Node, weapon : Node, shapeIndex : int, position : Vector3, normal : Vector3):
 	hit_fx(position, normal)
-	take_damage(shapeIndex, weapon.damage())
+	var damage = take_damage(shapeIndex, weapon.damage())
+	player.show_damage(damage, health)
 
 
 func hit_fx(position : Vector3, normal : Vector3):
@@ -60,8 +62,8 @@ func hit_fx(position : Vector3, normal : Vector3):
 	fx.global_transform.origin += normal * Global.HEIGHT_LAYERING_RATIO
 
 
-func take_damage(shapeIndex : int, damage : int):
-	var shape = shape_owner_get_owner(shape_find_owner(shapeIndex))
+func take_damage(shape_index : int, damage : int) -> int:
+	var shape = shape_owner_get_owner(shape_find_owner(shape_index))
 	
 	if shape.get_name() == "head":
 		damage *= 10
@@ -73,8 +75,12 @@ func take_damage(shapeIndex : int, damage : int):
 
 	if is_playable():
 		$hud/damage_flash.start()
-	else:
-		$health_flash.start()
+	
+	return damage
+
+
+func show_damage(damage : int, health_left : int):
+	$hud/center/hit_info.start(damage, health_left)
 
 
 func die():
@@ -109,7 +115,7 @@ func camera_movement(event : InputEvent):
 
 func input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
-		hit($cam_pivot/pistol, 0, Vector3(), Vector3())
+		hit(self, $cam_pivot/pistol, 0, Vector3(), Vector3())
 	if event.is_action_pressed("fire"):
 		$cam_pivot/pistol.fire()
 
