@@ -84,8 +84,16 @@ func show_damage(damage : int, health_left : int):
 
 
 func die():
-	print("die!")
 	health = 0
+	
+	# TODO: TEMP, needs more work, gravity drop to floor, animate somehow?
+	var position = global_transform.origin
+	var dead_body = preload("res://objs/dead_body/dead_body.tscn").instance()
+	dead_body.global_transform.origin = position
+	dead_body.rotate(Vector3(0, 0, 1), 1.5)
+	get_parent().add_child(dead_body)
+	
+	get_parent().remove_child(self)
 
 func enable_camera():
 	$cam_pivot/camera.set_current(true)
