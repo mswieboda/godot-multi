@@ -12,6 +12,7 @@ export var DEACCELERATION = 5
 export var PLAYABLE = true
 
 var is_moving = false
+var is_dead = false
 var velocity = Vector3()
 var health : int = MAX_HEALTH
 
@@ -35,10 +36,11 @@ func _unhandled_input(event):
 
 
 func is_playable() -> bool:
-	if PLAYABLE:
+	var not_dead_playable = !is_dead && PLAYABLE
+	if not_dead_playable:
 		if get_tree().has_network_peer():
 			return is_network_master()
-	return PLAYABLE
+	return not_dead_playable
 
 
 func hit_texture():
@@ -70,11 +72,11 @@ func take_damage(shape_index : int, damage : int) -> int:
 	
 	health -= damage
 
-	if health <= 0:
-		die()
-
 	if is_playable():
 		$hud/damage_flash.start()
+	
+	if health <= 0:
+		die()
 	
 	return damage
 
@@ -84,16 +86,21 @@ func show_damage(damage : int, health_left : int):
 
 
 func die():
+	if is_dead:
+		return
+	
 	health = 0
 	
 	# TODO: TEMP, needs more work, gravity drop to floor, animate somehow?
 	var position = global_transform.origin
 	var dead_body = preload("res://objs/dead_body/dead_body.tscn").instance()
-	dead_body.global_transform.origin = position
-	dead_body.rotate(Vector3(0, 0, 1), 1.5)
 	get_parent().add_child(dead_body)
+	dead_body.global_transform.origin = position
 	
-	get_parent().remove_child(self)
+	is_dead = true
+	$body.disabled = true
+	$head.disabled = true
+	hide()
 
 func enable_camera():
 	$cam_pivot/camera.set_current(true)

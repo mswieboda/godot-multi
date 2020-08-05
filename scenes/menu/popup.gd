@@ -13,8 +13,8 @@ func show_create():
 	popup_centered_minsize()
 
 
-func show_join(lobbyToJoin):
-	lobby = lobbyToJoin
+func show_join(lobby_to_join):
+	lobby = lobby_to_join
 	find_node("join").show()
 	find_node("create").hide()
 	popup_centered_minsize()

@@ -1,7 +1,7 @@
 extends MarginContainer
 
 
-export var FRAMES = 10
+export var FRAMES = 25
 
 var frame = 0
 

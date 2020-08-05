@@ -54,3 +54,8 @@ func _on_back_gui_input(event):
 func _on_server_joined():
 	print("_on_server_joined")
 	go_to(lobby)
+
+
+func _on_localhost_gui_input(event):
+	if event.is_pressed():
+		popup.show_join({"host": "127.0.0.1"})
