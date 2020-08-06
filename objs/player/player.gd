@@ -39,26 +39,35 @@ func _unhandled_input(event):
 func is_playable() -> bool:
 	var not_dead_playable = !is_dead && PLAYABLE
 	if not_dead_playable:
-		if get_tree().has_network_peer():
+		if is_networked():
 			return is_network_master()
 	return not_dead_playable
 
 
-func hit_texture():
-	return false
+func is_networked() -> bool:
+	return get_tree().has_network_peer()
 
 
-func hit(player : Node, weapon : Node, shapeIndex : int, position : Vector3, normal : Vector3):
+func hit_texture(_shape_index : int, position : Vector3, normal : Vector3):
 	hit_fx(position, normal)
-	rpc("hit_fx", position, normal)
 	
-	var damage = take_damage(shapeIndex, weapon.damage())
-	rpc("take_damage", shapeIndex, weapon.damage())
+	if is_networked():
+		rpc("hit_fx", position, normal)
+
+
+func hit(player : Node, weapon : Node, shape_index : int, _position : Vector3, _normal : Vector3):
+	var damage = take_damage(shape_index, weapon.damage())
+	
+	if is_networked():
+		rpc("take_damage", shape_index, weapon.damage())
 	
 	player.show_damage(damage, health)
 
 
 remote func hit_fx(position : Vector3, normal : Vector3):
+	if is_playable():
+		return
+	
 	var fx = preload("res://objs/bullet_hit_fx/bullet_hit_fx.tscn").instance()
 	fx.emitting = true
 
@@ -187,7 +196,7 @@ func movement(delta):
 	velocity.x = horiz_velocity.x
 	velocity.z = horiz_velocity.z
 
-	if get_tree().has_network_peer():
+	if is_networked():
 		rpc_unreliable("peer_movement", velocity)
 
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
