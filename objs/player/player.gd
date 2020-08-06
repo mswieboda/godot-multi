@@ -13,6 +13,7 @@ export var PLAYABLE = true
 
 var is_moving = false
 var is_dead = false
+var is_aiming = false
 var velocity = Vector3()
 var health : int = MAX_HEALTH
 
@@ -116,16 +117,16 @@ func set_color(color : Color):
 
 
 func camera_movement(event : InputEvent):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		return
+		
+	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 		$cam_pivot.rotate_x(event.relative.y * MOUSE_SENSITIVITY)
 		$cam_pivot.rotation.x = clamp($cam_pivot.rotation.x, -MAX_VERTICAL_LOOK, MAX_VERTICAL_LOOK)
 
-	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event.button_index == BUTTON_WHEEL_UP:
-			$cam_pivot/camera.fov /= 1.5
-		elif event.button_index == BUTTON_WHEEL_DOWN:
-			$cam_pivot/camera.fov *= 1.5
+	if event.is_action_pressed("aim"):
+		toggle_aim()
 
 
 func input_actions(event : InputEvent):
@@ -186,6 +187,15 @@ func movement(delta):
 		rpc_unreliable("peer_movement", velocity)
 
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
+
+
+func toggle_aim():
+	is_aiming = !is_aiming
+	
+	if is_aiming:
+		$cam_pivot/camera.fov /= 1.5
+	else:
+		$cam_pivot/camera.fov *= 1.5
 
 
 remote func peer_movement(peer_velocity):
