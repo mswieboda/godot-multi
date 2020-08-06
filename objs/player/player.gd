@@ -50,11 +50,15 @@ func hit_texture():
 
 func hit(player : Node, weapon : Node, shapeIndex : int, position : Vector3, normal : Vector3):
 	hit_fx(position, normal)
+	rpc("hit_fx", position, normal)
+	
 	var damage = take_damage(shapeIndex, weapon.damage())
+	rpc("take_damage", shapeIndex, weapon.damage())
+	
 	player.show_damage(damage, health)
 
 
-func hit_fx(position : Vector3, normal : Vector3):
+remote func hit_fx(position : Vector3, normal : Vector3):
 	var fx = preload("res://objs/bullet_hit_fx/bullet_hit_fx.tscn").instance()
 	fx.emitting = true
 
@@ -65,7 +69,7 @@ func hit_fx(position : Vector3, normal : Vector3):
 	fx.global_transform.origin += normal * Global.HEIGHT_LAYERING_RATIO
 
 
-func take_damage(shape_index : int, damage : int) -> int:
+remote func take_damage(shape_index : int, damage : int) -> int:
 	var shape = shape_owner_get_owner(shape_find_owner(shape_index))
 	
 	if shape.get_name() == "head":
