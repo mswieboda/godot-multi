@@ -48,7 +48,7 @@ func is_networked() -> bool:
 	return get_tree().has_network_peer()
 
 
-func hit_texture(_shape_index : int, position : Vector3, normal : Vector3):
+func hit_texture(_resource : String, position : Vector3, normal : Vector3):
 	hit_fx(position, normal)
 	
 	if is_networked():
@@ -56,10 +56,12 @@ func hit_texture(_shape_index : int, position : Vector3, normal : Vector3):
 
 
 func hit(player : Node, weapon : Node, shape_index : int, _position : Vector3, _normal : Vector3):
-	var damage = take_damage(shape_index, weapon.damage())
+	var damage = calc_damage(shape_index, weapon.damage())
+	
+	take_damage(damage)
 	
 	if is_networked():
-		rpc("take_damage", shape_index, weapon.damage())
+		rpc("take_damage", damage)
 	
 	player.show_damage(damage, health)
 
@@ -78,12 +80,16 @@ remote func hit_fx(position : Vector3, normal : Vector3):
 	fx.global_transform.origin += normal * Global.HEIGHT_LAYERING_RATIO
 
 
-remote func take_damage(shape_index : int, damage : int) -> int:
+func calc_damage(shape_index : int, damage : int) -> int:
 	var shape = shape_owner_get_owner(shape_find_owner(shape_index))
 	
 	if shape.get_name() == "head":
 		damage *= 10
 	
+	return damage
+
+
+remote func take_damage(damage : int):
 	health -= damage
 
 	if is_playable():
@@ -91,8 +97,6 @@ remote func take_damage(shape_index : int, damage : int) -> int:
 	
 	if health <= 0:
 		die()
-	
-	return damage
 
 
 func show_damage(damage : int, health_left : int):

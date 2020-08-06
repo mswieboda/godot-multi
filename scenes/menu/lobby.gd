@@ -82,14 +82,13 @@ func _on_leave_gui_input(event : InputEvent):
 
 func _on_start_gui_input(event : InputEvent):
 	if event.is_pressed():
-		load_lobby()
-		rpc("load_lobby")
+		load_game()
+		rpc("load_game")
 
 
-remote func load_lobby():
+remote func load_game():
 	var id = get_tree().get_network_unique_id()
-	var lobby = preload("res://scenes/lobby/lobby.tscn").instance()
-	print("load_lobby")
-	Scene.change(lobby)
-	print("scene changed")
-	lobby.load_players(id)
+	var game = preload("res://scenes/multi/multi.tscn").instance()
+	
+	Scene.change(game)
+	game.load_players(id)

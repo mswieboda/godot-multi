@@ -2,7 +2,7 @@ extends Spatial
 
 const DAMAGE = 5
 
-var bullet_hole = preload("res://objs/pistol/bullet_hole.tscn")
+var bullet_hole = "res://objs/pistol/bullet_hole.tscn"
 
 
 func fire():
@@ -21,21 +21,10 @@ func fire():
 		var shape_index = ray.get_collider_shape()
 		
 		if body.has_method("hit_texture"):
-			body.hit_texture(shape_index, position, normal)
-		else:
-			hit_texture(body, position, normal)
-			rpc("hit_texture", body, position, normal)
+			body.hit_texture(bullet_hole, position, normal)
 		
 		if body.has_method("hit"):
 			body.hit(player, self, shape_index, position, normal)
-
-
-remote func hit_texture(body : Node, position : Vector3, normal : Vector3, height_layering_ratio : float = Global.HEIGHT_LAYERING_RATIO):
-	var node : Node = bullet_hole.instance()
-	body.add_child(node)
-	node.global_transform.origin = position
-	node.global_transform.basis = Global.perpendicular_basis_from_normal(normal)
-	node.global_transform.origin += normal * height_layering_ratio
 
 
 func damage():
