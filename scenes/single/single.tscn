@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/single/single.gd" type="Script" id=1]
 [ext_resource path="res://objs/box/box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://materials/dark.tres" type="Material" id=3]
 [ext_resource path="res://objs/player/player.tscn" type="PackedScene" id=4]
 
-[sub_resource type="PlaneMesh" id=1]
-
 [sub_resource type="BoxShape" id=2]
+
+[sub_resource type="PlaneMesh" id=1]
 
 [node name="single" type="Spatial"]
 script = ExtResource( 1 )
@@ -18,15 +19,16 @@ shadow_color = Color( 0.34902, 0.34902, 0.34902, 1 )
 
 [node name="players" type="Spatial" parent="."]
 
-[node name="plane" type="MeshInstance" parent="."]
+[node name="plane" type="StaticBody" parent="."]
 transform = Transform( 30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0 )
-mesh = SubResource( 1 )
-material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="plane"]
-
-[node name="CollisionShape" type="CollisionShape" parent="plane/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="plane"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 2 )
+
+[node name="mesh" type="MeshInstance" parent="plane"]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
 
 [node name="spawns" type="Spatial" parent="."]
 
@@ -63,8 +65,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5569, 0, -12.3107 )
 [node name="box" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23263, 2.48042, -3.8964 )
 
-[node name="box2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 7.44388, -3.43425, -3.13436, 1.37965, 0.671961, 0.197027, 5.10996, -7.4521, 5.57066, -4.90125, 1, 5.14809 )
+[node name="big boxes" type="Spatial" parent="."]
+transform = Transform( 3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 2, 0 )
+
+[node name="box" parent="big boxes" instance=ExtResource( 2 )]
+
+[node name="box2" parent="big boxes" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.98726 )
+
+[node name="box3" parent="big boxes" instance=ExtResource( 2 )]
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -1.96962, 0, 1.00168 )
+
+[node name="box4" parent="big boxes" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.5, -0.564521, 2, 1.002 )
 
 [node name="player" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.801859, 0, -0.597513, 0, 1, 0, 0.597513, 0, -0.801859, 9.26756, 1, -15.8841 )
