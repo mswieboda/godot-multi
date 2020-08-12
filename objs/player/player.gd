@@ -17,12 +17,19 @@ var is_dead = false
 var is_aiming = false
 var velocity = Vector3()
 var health : int = MAX_HEALTH
+var weapons = []
+var weapon_index = 0
+var weapon : Node
 
 func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$head/mesh.hide()
 		$hud.show()
+		
+		# debugging adds initial weapon to weapons
+		weapons.append(load("res://objs/pistol/pistol.tscn").instance())
+		change_weapon()
 
 
 func _physics_process(delta):
@@ -57,8 +64,8 @@ func hit_texture(_resource : String, position : Vector3, normal : Vector3):
 		rpc("hit_fx", position, normal)
 
 
-func hit(player : Node, weapon : Node, shape_index : int, _position : Vector3, _normal : Vector3):
-	var damage = calc_damage(shape_index, weapon.damage())
+func hit(player : Node, hit_weapon : Node, shape_index : int, _position : Vector3, _normal : Vector3):
+	var damage = calc_damage(shape_index, hit_weapon.damage())
 	
 	take_damage(damage)
 	
@@ -147,15 +154,18 @@ func camera_movement(event : InputEvent):
 
 func input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
-		hit(self, $cam_pivot/weapon, 0, Vector3(), Vector3())
+		hit(self, weapon, 0, Vector3(), Vector3())
 	if event.is_action_pressed("fire"):
-		$cam_pivot/weapon.fire()
+		weapon.fire()
 	if event.is_action_pressed("action"):
 		if _pickup_entered and _pickup_entered.has_method("is_type") and _pickup_entered.is_type("weapon"):
-			# NOTE: temp, removes current weapon entirely
-			$cam_pivot.remove_child($cam_pivot/weapon)
-			
+			weapons.append(_pickup_entered)
 			_pickup_entered.pickup($cam_pivot)
+			change_weapon_up()
+	if event.is_action_pressed("weapon_up"):
+		change_weapon_up()
+	if event.is_action_pressed("weapon_down"):
+		change_weapon_down()
 
 
 func input_actions_more(_delta):
@@ -223,7 +233,7 @@ func start_aim():
 		return
 	
 	is_aiming = true
-	$cam_pivot/weapon.aim()
+	weapon.aim()
 
 
 func start_unaim():
@@ -231,7 +241,7 @@ func start_unaim():
 		return
 	
 	is_aiming = false
-	$cam_pivot/weapon.unaim()
+	weapon.unaim()
 
 
 remote func peer_movement(peer_velocity):
@@ -259,3 +269,27 @@ func pickup_exited(pickup : Node):
 	print("pickup exited: ", pickup.get_name())
 	$hud/pickup_info.hide()
 	$hud/pickup_info.text = ""
+
+
+func change_weapon_up():
+	weapon_index += 1
+	if weapon_index >= len(weapons):
+		weapon_index = 0
+	change_weapon()
+
+
+func change_weapon_down():
+	weapon_index -= 1
+	if weapon_index < 0:
+		weapon_index = len(weapons) - 1
+	change_weapon()
+
+
+func change_weapon():
+	if weapon:
+		$cam_pivot.remove_child(weapon)
+		
+	weapon = weapons[weapon_index]
+
+	if !weapon.get_parent():
+		$cam_pivot.add_child(weapon)

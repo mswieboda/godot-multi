@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
-[ext_resource path="res://objs/pistol/pistol.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objs/player/damage_flash.gd" type="Script" id=4]
 [ext_resource path="res://objs/player/hit_info.gd" type="Script" id=5]
 
@@ -41,9 +40,6 @@ cast_to = Vector3( 0, 0, -1000 )
 collide_with_areas = true
 
 [node name="tween" type="Tween" parent="cam_pivot/camera"]
-
-[node name="weapon" parent="cam_pivot" instance=ExtResource( 2 )]
-transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999577, -0.0195286, -0.999496, -0.0219749, -0.0229225, -0.187, 1.533, 0.356 )
 
 [node name="body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0 )
@@ -139,5 +135,3 @@ script = ExtResource( 4 )
 margin_top = 293.0
 margin_right = 1024.0
 margin_bottom = 307.0
-
-[editable path="cam_pivot/weapon"]

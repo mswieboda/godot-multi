@@ -57,8 +57,9 @@ func is_type(type):
 func pickup(cam_pivot):
 	self.get_parent().remove_child(self)
 	cam_pivot.add_child(self)
-	self.set_name("weapon")
 	_ready()
+	
+	# TODO: this is a hack, reset translation a better way
 	$AnimationPlayer.play_backwards("default")
 	$aim_animator.play_backwards("aim")
 

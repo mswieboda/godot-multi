@@ -146,10 +146,10 @@ margin_bottom = 600.0
 mouse_filter = 2
 
 [node name="reticle" type="TextureRect" parent="hud/center"]
-margin_left = 480.0
-margin_top = 268.0
-margin_right = 544.0
-margin_bottom = 332.0
+margin_left = 496.0
+margin_top = 284.0
+margin_right = 528.0
+margin_bottom = 316.0
 mouse_filter = 2
 texture = ExtResource( 3 )
 
