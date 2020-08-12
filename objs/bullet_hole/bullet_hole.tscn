@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://objs/pistol/bullet_hole.png" type="Texture" id=1]
+[ext_resource path="res://objs/bullet_hole/bullet_hole.png" type="Texture" id=1]
 
 [node name="bullet_hole" type="Sprite3D"]
 texture = ExtResource( 1 )

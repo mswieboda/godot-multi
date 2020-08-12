@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/single/single.gd" type="Script" id=1]
 [ext_resource path="res://objs/box/box.tscn" type="PackedScene" id=2]
 [ext_resource path="res://materials/dark.tres" type="Material" id=3]
 [ext_resource path="res://objs/player/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objs/rifle/rifle.tscn" type="PackedScene" id=5]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -90,3 +91,6 @@ PLAYABLE = false
 [node name="player3" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.915922, 0, -0.401356, 0, 1, 0, 0.401356, 0, -0.915922, 13.894, 0, -7.86474 )
 PLAYABLE = false
+
+[node name="rifle" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.0229225, 4.49048, 0.460566, -14.9516 )

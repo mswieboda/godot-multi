@@ -9,11 +9,12 @@ var camera
 var raycast
 var tween
 var initial_camera_fov
+var is_pickup = true
 
 func _ready():
 	var camera_pivot = get_parent()
 	player = camera_pivot.get_parent()
-	camera = camera_pivot.get_node("camera")
+	camera = camera_pivot.get_node_or_null("camera")
 	
 	if player and camera:
 		camera = camera_pivot.get_node("camera")
@@ -22,6 +23,7 @@ func _ready():
 		initial_camera_fov = camera.fov
 	
 		if player.is_playable():
+			is_pickup = false
 			$hud.show()
 
 func fire():
@@ -48,6 +50,18 @@ func damage():
 	return DAMAGE
 
 
+func is_type(type):
+	return type == "weapon"
+
+
+func pickup(cam_pivot):
+	self.get_parent().remove_child(self)
+	cam_pivot.add_child(self)
+	self.set_name("weapon")
+	_ready()
+	$AnimationPlayer.play_backwards("default")
+	$aim_animator.play_backwards("aim")
+
 func aim():
 	zoom(1 / PISTOL_ZOOM)
 	$aim_animator.play("aim")
@@ -64,3 +78,13 @@ func zoom(zoom_factor):
 
 	tween.interpolate_property(camera, "fov", null, initial_camera_fov * zoom_factor, 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN)	
 	tween.start()
+
+
+func _on_area_body_entered(body):
+	if body.has_method("pickup_entered"):
+		body.pickup_entered(self)
+
+
+func _on_area_body_exited(body):
+	if body.has_method("pickup_exited"):
+		body.pickup_exited(self)

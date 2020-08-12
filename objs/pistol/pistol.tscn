@@ -4,7 +4,7 @@
 [ext_resource path="res://objs/pistol/pistol.gd" type="Script" id=2]
 [ext_resource path="res://objs/pistol/reticle.png" type="Texture" id=3]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=7]
 resource_name = "fire"
 length = 0.166667
 tracks/0/type = "transform"
@@ -52,7 +52,7 @@ transform = Transform( 0.0151833, 0, 0, 0, 0.0151833, 0, 0, 0, 0.0151833, 0.0152
 
 [node name="AnimationPlayer" parent="." index="3"]
 playback_speed = 1.5
-anims/fire = SubResource( 4 )
+anims/fire = SubResource( 7 )
 
 [node name="aim_animator" type="AnimationPlayer" parent="." index="4"]
 anims/aim = SubResource( 6 )

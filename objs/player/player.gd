@@ -11,6 +11,7 @@ export var ACCELERATION = 3
 export var DEACCELERATION = 5
 export var PLAYABLE = true
 
+var _pickup_entered : Node = null
 var is_moving = false
 var is_dead = false
 var is_aiming = false
@@ -149,6 +150,12 @@ func input_actions(event : InputEvent):
 		hit(self, $cam_pivot/weapon, 0, Vector3(), Vector3())
 	if event.is_action_pressed("fire"):
 		$cam_pivot/weapon.fire()
+	if event.is_action_pressed("action"):
+		if _pickup_entered and _pickup_entered.has_method("is_type") and _pickup_entered.is_type("weapon"):
+			# NOTE: temp, removes current weapon entirely
+			$cam_pivot.remove_child($cam_pivot/weapon)
+			
+			_pickup_entered.pickup($cam_pivot)
 
 
 func input_actions_more(_delta):
@@ -238,3 +245,17 @@ func spawn(spawn_xform : Transform):
 	xform.origin.z = spawn_xform.origin.z
 
 	set_global_transform(xform)
+
+
+func pickup_entered(pickup : Node):
+	_pickup_entered = pickup
+	print("pickup entered: ", pickup.get_name())
+	$hud/pickup_info.show()
+	$hud/pickup_info.text = "press E to pickup " + pickup.get_name()
+
+
+func pickup_exited(pickup : Node):
+	_pickup_entered = null
+	print("pickup exited: ", pickup.get_name())
+	$hud/pickup_info.hide()
+	$hud/pickup_info.text = ""
