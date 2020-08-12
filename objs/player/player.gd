@@ -4,6 +4,7 @@ const GRAVITY = -9.8 * 9.8
 const MOUSE_SENSITIVITY = 0.003
 const MAX_VERTICAL_LOOK = 1.25
 const MAX_HEALTH = 100
+const PISTOL_ZOOM = 1.75
 
 export var JUMP_HEIGHT = 33
 export var SPEED = 6
@@ -14,6 +15,7 @@ export var PLAYABLE = true
 var is_moving = false
 var is_dead = false
 var is_aiming = false
+var is_aiming_animating = false
 var velocity = Vector3()
 var health : int = MAX_HEALTH
 
@@ -153,9 +155,9 @@ func input_actions(event : InputEvent):
 
 func input_actions_more(_delta):
 	if Input.is_action_pressed("aim"):
-		aim()
+		start_aim()
 	else:
-		unaim()
+		start_unaim()
 
 
 func mouse_capture(event : InputEvent):
@@ -211,20 +213,38 @@ func movement(delta):
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 
 
-func aim():
+func start_aim():
 	if is_aiming:
 		return
-		
+	
 	is_aiming = true
-	$cam_pivot/camera.fov /= 1.5
+	is_aiming_animating = true
+	$cam_pivot/pistol/animator.play("aim")
 
 
-func unaim():
+func aim():
+	$cam_pivot/camera.fov /= PISTOL_ZOOM
+
+
+func _on_pistol_animator_animation_finished(anim_name):
+	if anim_name == "aim" and is_aiming:
+		aim()
+
+
+func start_unaim():
 	if !is_aiming:
 		return
 	
 	is_aiming = false
-	$cam_pivot/camera.fov *= 1.5
+	
+	if !$cam_pivot/pistol/animator.is_playing():
+		unaim()
+	
+	$cam_pivot/pistol/animator.play_backwards("aim")
+
+
+func unaim():
+	$cam_pivot/camera.fov *= PISTOL_ZOOM
 
 
 remote func peer_movement(peer_velocity):
