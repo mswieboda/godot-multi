@@ -146,9 +146,9 @@ func camera_movement(event : InputEvent):
 
 func input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
-		hit(self, $cam_pivot/pistol, 0, Vector3(), Vector3())
+		hit(self, $cam_pivot/weapon, 0, Vector3(), Vector3())
 	if event.is_action_pressed("fire"):
-		$cam_pivot/pistol.fire()
+		$cam_pivot/weapon.fire()
 
 
 func input_actions_more(_delta):
@@ -216,7 +216,7 @@ func start_aim():
 		return
 	
 	is_aiming = true
-	$cam_pivot/pistol.aim()
+	$cam_pivot/weapon.aim()
 
 
 func start_unaim():
@@ -224,7 +224,7 @@ func start_unaim():
 		return
 	
 	is_aiming = false
-	$cam_pivot/pistol.unaim()
+	$cam_pivot/weapon.unaim()
 
 
 remote func peer_movement(peer_velocity):

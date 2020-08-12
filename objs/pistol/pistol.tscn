@@ -1,9 +1,49 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objs/pistol/pistol.dae" type="PackedScene" id=1]
 [ext_resource path="res://objs/pistol/pistol.gd" type="Script" id=2]
 
+[sub_resource type="Animation" id=4]
+resource_name = "fire"
+length = 0.166667
+tracks/0/type = "transform"
+tracks/0/path = NodePath("chamber slide")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0.0333333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.0666667, 1, 0.069, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.133333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.166667, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "aim"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.187, 1.533, 0.356 ), Vector3( -0.1, 1.579, 0.356 ), Vector3( 0, 1.6, 0.356 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.11897, 91.3137, -1.23384 ), Vector3( 0, 90, 0 ) ]
+}
+
 [node name="pistol" instance=ExtResource( 1 )]
+transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.0229225, -0.187, 1.533, 0.356 )
 script = ExtResource( 2 )
 
 [node name="chamber slide" parent="." index="1"]
@@ -11,3 +51,7 @@ transform = Transform( 0.0151833, 0, 0, 0, 0.0151833, 0, 0, 0, 0.0151833, 0.0152
 
 [node name="AnimationPlayer" parent="." index="3"]
 playback_speed = 1.5
+anims/fire = SubResource( 4 )
+
+[node name="aim_animator" type="AnimationPlayer" parent="." index="4"]
+anims/aim = SubResource( 6 )

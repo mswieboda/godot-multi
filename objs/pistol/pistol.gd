@@ -18,7 +18,7 @@ func _ready():
 
 func fire():
 	$AnimationPlayer.stop()
-	$AnimationPlayer.play("default")
+	$AnimationPlayer.play("fire")
 	
 	raycast.force_raycast_update()
 	
@@ -42,12 +42,12 @@ func damage():
 
 func aim():
 	zoom(1 / PISTOL_ZOOM)
-	$animator.play("aim")
+	$aim_animator.play("aim")
 
 
 func unaim():
 	zoom(1)
-	$animator.play_backwards("aim")
+	$aim_animator.play_backwards("aim")
 
 
 func zoom(zoom_factor):

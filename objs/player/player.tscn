@@ -1,39 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objs/pistol/pistol.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objs/pistol/reticle.png" type="Texture" id=3]
 [ext_resource path="res://objs/player/damage_flash.gd" type="Script" id=4]
 [ext_resource path="res://objs/player/hit_info.gd" type="Script" id=5]
-
-[sub_resource type="Animation" id=8]
-resource_name = "aim"
-length = 0.15
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.15 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( -0.187, 1.533, 0.356 ), Vector3( -0.1, 1.579, 0.356 ), Vector3( 0, 1.6, 0.356 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 1.11897, 91.3137, -1.23384 ), Vector3( 0, 90, 0 ) ]
-}
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.75
@@ -72,11 +43,8 @@ collide_with_areas = true
 
 [node name="tween" type="Tween" parent="cam_pivot/camera"]
 
-[node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
+[node name="weapon" parent="cam_pivot" instance=ExtResource( 2 )]
 transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999577, -0.0195286, -0.999496, -0.0219749, -0.0229225, -0.187, 1.533, 0.356 )
-
-[node name="animator" type="AnimationPlayer" parent="cam_pivot/pistol"]
-anims/aim = SubResource( 8 )
 
 [node name="body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0 )
