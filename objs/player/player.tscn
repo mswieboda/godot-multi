@@ -70,6 +70,8 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.69
 cast_to = Vector3( 0, 0, -1000 )
 collide_with_areas = true
 
+[node name="tween" type="Tween" parent="cam_pivot/camera"]
+
 [node name="pistol" parent="cam_pivot" instance=ExtResource( 2 )]
 transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999577, -0.0195286, -0.999496, -0.0219749, -0.0229225, -0.187, 1.533, 0.356 )
 
@@ -174,4 +176,3 @@ margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 1, 0, 0, 0.662745 )
 script = ExtResource( 4 )
-[connection signal="animation_finished" from="cam_pivot/pistol/animator" to="." method="_on_pistol_animator_animation_finished"]

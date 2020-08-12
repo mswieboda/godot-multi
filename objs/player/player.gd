@@ -15,7 +15,7 @@ export var PLAYABLE = true
 var is_moving = false
 var is_dead = false
 var is_aiming = false
-var is_aiming_animating = false
+var initial_camera_fov = null
 var velocity = Vector3()
 var health : int = MAX_HEALTH
 
@@ -218,17 +218,8 @@ func start_aim():
 		return
 	
 	is_aiming = true
-	is_aiming_animating = true
+	aim()
 	$cam_pivot/pistol/animator.play("aim")
-
-
-func aim():
-	$cam_pivot/camera.fov /= PISTOL_ZOOM
-
-
-func _on_pistol_animator_animation_finished(anim_name):
-	if anim_name == "aim" and is_aiming:
-		aim()
 
 
 func start_unaim():
@@ -236,15 +227,24 @@ func start_unaim():
 		return
 	
 	is_aiming = false
-	
-	if !$cam_pivot/pistol/animator.is_playing():
-		unaim()
-	
+	unaim()
 	$cam_pivot/pistol/animator.play_backwards("aim")
 
 
+func aim():
+	zoom(1 / PISTOL_ZOOM)
+
+
 func unaim():
-	$cam_pivot/camera.fov *= PISTOL_ZOOM
+	zoom(1)
+
+
+func zoom(zoom_factor):
+	if initial_camera_fov == null:
+		initial_camera_fov = $cam_pivot/camera.fov
+
+	$cam_pivot/camera/tween.interpolate_property($cam_pivot/camera, "fov", null, initial_camera_fov * zoom_factor, 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN)	
+	$cam_pivot/camera/tween.start()
 
 
 remote func peer_movement(peer_velocity):
