@@ -26,6 +26,7 @@ func _ready():
 
 func _physics_process(delta):
 	movement(delta)
+	input_actions_more(delta)
 
 
 func _unhandled_input(event):
@@ -142,15 +143,19 @@ func camera_movement(event : InputEvent):
 		$cam_pivot.rotate_x(event.relative.y * MOUSE_SENSITIVITY)
 		$cam_pivot.rotation.x = clamp($cam_pivot.rotation.x, -MAX_VERTICAL_LOOK, MAX_VERTICAL_LOOK)
 
-	if event.is_action_pressed("aim"):
-		toggle_aim()
-
 
 func input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
 		hit(self, $cam_pivot/pistol, 0, Vector3(), Vector3())
 	if event.is_action_pressed("fire"):
 		$cam_pivot/pistol.fire()
+
+
+func input_actions_more(_delta):
+	if Input.is_action_pressed("aim"):
+		aim()
+	else:
+		unaim()
 
 
 func mouse_capture(event : InputEvent):
@@ -206,13 +211,20 @@ func movement(delta):
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 
 
-func toggle_aim():
-	is_aiming = !is_aiming
-	
+func aim():
 	if is_aiming:
-		$cam_pivot/camera.fov /= 1.5
-	else:
-		$cam_pivot/camera.fov *= 1.5
+		return
+		
+	is_aiming = true
+	$cam_pivot/camera.fov /= 1.5
+
+
+func unaim():
+	if !is_aiming:
+		return
+	
+	is_aiming = false
+	$cam_pivot/camera.fov *= 1.5
 
 
 remote func peer_movement(peer_velocity):
