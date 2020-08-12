@@ -4,17 +4,22 @@ const DAMAGE = 5
 const PISTOL_ZOOM = 1.75
 const BULLET_HOLE = "res://objs/pistol/bullet_hole.tscn"
 
+var player
 var camera
 var raycast
 var tween
 var initial_camera_fov
 
 func _ready():
-	camera = get_parent().get_node("camera")
+	var camera_pivot = get_parent()
+	player = camera_pivot.get_parent()
+	camera = camera_pivot.get_node("camera")
 	raycast = camera.get_node("raycast")
 	tween = camera.get_node("tween")
 	initial_camera_fov = camera.fov
-
+	
+	if player.is_playable():
+		$hud.show()
 
 func fire():
 	$AnimationPlayer.stop()

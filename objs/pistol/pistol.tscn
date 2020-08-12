@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objs/pistol/pistol.dae" type="PackedScene" id=1]
 [ext_resource path="res://objs/pistol/pistol.gd" type="Script" id=2]
+[ext_resource path="res://objs/pistol/reticle.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=4]
 resource_name = "fire"
@@ -55,3 +56,31 @@ anims/fire = SubResource( 4 )
 
 [node name="aim_animator" type="AnimationPlayer" parent="." index="4"]
 anims/aim = SubResource( 6 )
+
+[node name="hud" type="MarginContainer" parent="." index="5"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center" type="CenterContainer" parent="hud" index="0"]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+
+[node name="reticle" type="TextureRect" parent="hud/center" index="0"]
+margin_left = 496.0
+margin_top = 284.0
+margin_right = 528.0
+margin_bottom = 316.0
+mouse_filter = 2
+texture = ExtResource( 3 )

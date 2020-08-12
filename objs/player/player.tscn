@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objs/pistol/pistol.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objs/pistol/reticle.png" type="Texture" id=3]
 [ext_resource path="res://objs/player/damage_flash.gd" type="Script" id=4]
 [ext_resource path="res://objs/player/hit_info.gd" type="Script" id=5]
 
@@ -80,7 +79,6 @@ mesh = SubResource( 7 )
 material/0 = null
 
 [node name="hud" type="MarginContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -92,14 +90,6 @@ __meta__ = {
 margin_right = 1024.0
 margin_bottom = 600.0
 mouse_filter = 2
-
-[node name="reticle" type="TextureRect" parent="hud/center"]
-margin_left = 496.0
-margin_top = 284.0
-margin_right = 528.0
-margin_bottom = 316.0
-mouse_filter = 2
-texture = ExtResource( 3 )
 
 [node name="hit_info" type="MarginContainer" parent="hud/center"]
 visible = false
