@@ -6,12 +6,15 @@ var camera
 var raycast
 var tween
 var initial_camera_fov
+var rng = RandomNumberGenerator.new()
 
 var auto_fire = false
 var fire_rate = 0.5
 var damage = 5
 var zoom_ratio = 1.75
 var hit_texture_path = "res://objs/bullet_hole/bullet_hole.tscn"
+var initial_accuracy = 0.005
+
 var is_pickup = true
 var is_firing = false
 var has_fired_delta = 0
@@ -19,15 +22,25 @@ var enabled = false
 var is_aiming = false
 
 
-func _init(_auto_fire, _fire_rate, _damage, _zoom_ratio, _hit_texture_path):
+func _init(
+	_auto_fire = auto_fire, 
+	_fire_rate = fire_rate, 
+	_damage = damage, 
+	_zoom_ratio = zoom_ratio, 
+	_initial_accuracy = initial_accuracy,
+	_hit_texture_path = hit_texture_path
+):
+	rng.randomize()
 	auto_fire = _auto_fire
 	fire_rate = _fire_rate
 	damage = _damage
 	zoom_ratio = _zoom_ratio
+	initial_accuracy = _initial_accuracy
 	hit_texture_path = _hit_texture_path
 
 
 func _ready():
+	print(get_name(), "acc: ", initial_accuracy)
 	if !enabled:
 		return
 	var camera_pivot = get_parent()
@@ -82,6 +95,12 @@ func fire():
 	is_firing = true
 	$AnimationPlayer.play("fire")
 	
+	var radians_x = rng.randf_range(-initial_accuracy, initial_accuracy)
+	var radians_y = rng.randf_range(-initial_accuracy, initial_accuracy)
+	
+	raycast.rotate_x(radians_x)
+	raycast.rotate_y(radians_y)
+	
 	raycast.force_raycast_update()
 	
 	if raycast.is_colliding():
@@ -96,6 +115,8 @@ func fire():
 		
 		if body.has_method("hit"):
 			body.hit(player, self, shape_index, position, normal)
+	
+	raycast.rotation = Vector3(0, 0, 0)
 
 
 func pickup(cam_pivot):
