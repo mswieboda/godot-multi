@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "GodotEnv_Parser",
 "language": "GDScript",
 "path": "res://godotenv/scripts/parser.gd"
+}, {
+"base": "Spatial",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://objs/weapon/weapon.gd"
 } ]
 _global_script_class_icons={
-"GodotEnv_Parser": ""
+"GodotEnv_Parser": "",
+"Weapon": ""
 }
 
 [application]

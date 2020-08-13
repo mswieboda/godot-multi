@@ -27,7 +27,7 @@ func _ready():
 		$head/mesh.hide()
 		$hud.show()
 		
-		# debugging adds initial weapon to weapons
+		# debugging adds initial weapon
 		weapons.append(load("res://objs/pistol/pistol.tscn").instance())
 		change_weapon()
 
@@ -65,7 +65,7 @@ func hit_texture(_resource : String, position : Vector3, normal : Vector3):
 
 
 func hit(player : Node, hit_weapon : Node, shape_index : int, _position : Vector3, _normal : Vector3):
-	var damage = calc_damage(shape_index, hit_weapon.damage())
+	var damage = calc_damage(shape_index, hit_weapon.damage)
 	
 	take_damage(damage)
 	
@@ -158,7 +158,7 @@ func input_actions(event : InputEvent):
 	if event.is_action_pressed("fire"):
 		weapon.fire()
 	if event.is_action_pressed("action"):
-		if _pickup_entered and _pickup_entered.has_method("is_type") and _pickup_entered.is_type("weapon"):
+		if _pickup_entered and _pickup_entered is Weapon:
 			weapons.append(_pickup_entered)
 			_pickup_entered.pickup($cam_pivot)
 			change_weapon_up()
@@ -169,6 +169,9 @@ func input_actions(event : InputEvent):
 
 
 func input_actions_more(_delta):
+	if !is_playable():
+		return
+		
 	if Input.is_action_pressed("aim"):
 		start_aim()
 	else:
@@ -229,7 +232,7 @@ func movement(delta):
 
 
 func start_aim():
-	if is_aiming:
+	if is_aiming == true:
 		return
 	
 	is_aiming = true
@@ -237,9 +240,9 @@ func start_aim():
 
 
 func start_unaim():
-	if !is_aiming:
+	if is_aiming == false:
 		return
-	
+
 	is_aiming = false
 	weapon.unaim()
 
@@ -288,7 +291,7 @@ func change_weapon_down():
 func change_weapon():
 	if weapon:
 		$cam_pivot.remove_child(weapon)
-		
+	
 	weapon = weapons[weapon_index]
 
 	if !weapon.get_parent():

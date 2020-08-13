@@ -183,10 +183,7 @@ margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 3 )
 text = "play"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="quit" parent="menu/menus/main" instance=ExtResource( 3 )]
 margin_top = 48.0
@@ -194,10 +191,7 @@ margin_right = 784.0
 margin_bottom = 92.0
 custom_fonts/font = SubResource( 5 )
 text = "quit"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="play" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -214,20 +208,14 @@ margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 7 )
 text = "single"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="multi" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 9 )
 text = "multi"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="back" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_top = 96.0
@@ -235,10 +223,7 @@ margin_right = 784.0
 margin_bottom = 140.0
 custom_fonts/font = SubResource( 11 )
 text = "back"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="single" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -252,10 +237,7 @@ margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 13 )
 text = "start"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="back" parent="menu/menus/single" instance=ExtResource( 3 )]
 margin_top = 48.0
@@ -263,10 +245,7 @@ margin_right = 784.0
 margin_bottom = 92.0
 custom_fonts/font = SubResource( 15 )
 text = "back"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="multi" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -283,10 +262,7 @@ margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 17 )
 text = "create"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="join" parent="menu/menus/multi" instance=ExtResource( 3 )]
 margin_top = 48.0
@@ -294,10 +270,7 @@ margin_right = 784.0
 margin_bottom = 92.0
 custom_fonts/font = SubResource( 19 )
 text = "join"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="back" parent="menu/menus/multi" instance=ExtResource( 3 )]
 margin_top = 96.0
@@ -305,10 +278,7 @@ margin_right = 784.0
 margin_bottom = 140.0
 custom_fonts/font = SubResource( 21 )
 text = "back"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="lobbies" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -329,10 +299,7 @@ margin_right = 784.0
 margin_bottom = 48.0
 custom_fonts/font = SubResource( 23 )
 text = "localhost"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="back" parent="menu/menus/lobbies" instance=ExtResource( 3 )]
 margin_top = 4.0
@@ -340,10 +307,7 @@ margin_right = 784.0
 margin_bottom = 48.0
 custom_fonts/font = SubResource( 25 )
 text = "back"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="lobby" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -364,8 +328,6 @@ margin_bottom = 22.0
 mouse_default_cursor_shape = 0
 custom_fonts/font = SubResource( 27 )
 text = ""
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 23
 hoverable = false
 
@@ -385,10 +347,7 @@ margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 29 )
 text = "leave"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="start" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
 margin_top = 48.0
@@ -396,10 +355,7 @@ margin_right = 784.0
 margin_bottom = 92.0
 custom_fonts/font = SubResource( 31 )
 text = "start"
-color = Color( 1, 1, 1, 1 )
-hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
-hoverable = true
 
 [node name="players list" type="VBoxContainer" parent="menu/menus/lobby"]
 margin_top = 122.0
