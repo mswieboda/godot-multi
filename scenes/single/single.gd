@@ -19,8 +19,6 @@ func start(player_info):
 	else:
 		print("no available spawns")
 
-	print("start!")
-
 
 func available_spawn():
 	if spawn_index > $spawns.get_child_count():

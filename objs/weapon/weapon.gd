@@ -40,7 +40,6 @@ func _init(
 
 
 func _ready():
-	print(get_name(), "acc: ", initial_accuracy)
 	if !enabled:
 		return
 	var camera_pivot = get_parent()
