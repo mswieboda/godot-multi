@@ -15,7 +15,7 @@ var _pickup_entered : Node = null
 var is_moving = false
 var is_dead = false
 var velocity = Vector3()
-var health : int = MAX_HEALTH
+var health : float = MAX_HEALTH
 var weapons = []
 var weapon_index = 0
 var weapon : Node
@@ -89,7 +89,7 @@ remote func hit_fx(position : Vector3, normal : Vector3):
 	fx.global_transform.origin += normal * Global.HEIGHT_LAYERING_RATIO
 
 
-func calc_damage(shape_index : int, damage : int) -> int:
+func calc_damage(shape_index : int, damage : float) -> float:
 	var shape = shape_owner_get_owner(shape_find_owner(shape_index))
 	
 	if shape.get_name() == "head":
@@ -98,7 +98,7 @@ func calc_damage(shape_index : int, damage : int) -> int:
 	return damage
 
 
-remote func take_damage(damage : int):
+remote func take_damage(damage : float):
 	health -= damage
 
 	if is_playable():
@@ -108,7 +108,7 @@ remote func take_damage(damage : int):
 		die()
 
 
-func show_damage(damage : int, health_left : int):
+func show_damage(damage : float, health_left : float):
 	$hud/center/hit_info.start(damage, health_left)
 
 

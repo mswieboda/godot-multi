@@ -14,9 +14,9 @@ func _process(_delta):
 			frame += 1
 
 
-func start(damage, health):
-	$container/damage.text = str(damage)
-	$container/health.text = str(health)
+func start(damage : float, health : float):
+	$container/damage.text = "%.1f" % damage
+	$container/health.text = "%.1f" % health
 	
 	show()
 	frame = 1
