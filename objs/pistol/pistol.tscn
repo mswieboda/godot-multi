@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objs/pistol/pistol.dae" type="PackedScene" id=1]
 [ext_resource path="res://objs/pistol/pistol.gd" type="Script" id=2]
@@ -15,7 +15,7 @@ tracks/0/imported = true
 tracks/0/enabled = true
 tracks/0/keys = PoolRealArray( 0.0333333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.0666667, 1, 0.069, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.133333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.166667, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 resource_name = "aim"
 length = 0.15
 tracks/0/type = "value"
@@ -43,6 +43,8 @@ tracks/1/keys = {
 "values": [ Vector3( 1.11897, 91.3137, -1.23384 ), Vector3( 0, 90, 0 ) ]
 }
 
+[sub_resource type="BoxShape" id=6]
+
 [node name="pistol" instance=ExtResource( 1 )]
 transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.0229225, -0.187, 1.533, 0.356 )
 script = ExtResource( 2 )
@@ -55,7 +57,7 @@ playback_speed = 1.5
 anims/fire = SubResource( 7 )
 
 [node name="aim_animator" type="AnimationPlayer" parent="." index="4"]
-anims/aim = SubResource( 6 )
+anims/aim = SubResource( 8 )
 
 [node name="hud" type="MarginContainer" parent="." index="5"]
 visible = false
@@ -84,3 +86,10 @@ margin_right = 528.0
 margin_bottom = 316.0
 mouse_filter = 2
 texture = ExtResource( 3 )
+
+[node name="area" type="Area" parent="." index="6"]
+
+[node name="collision" type="CollisionShape" parent="area" index="0"]
+shape = SubResource( 6 )
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
+[connection signal="body_exited" from="area" to="." method="_on_area_body_exited"]

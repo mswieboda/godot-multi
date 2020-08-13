@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objs/rifle/rifle.gd" type="Script" id=1]
 [ext_resource path="res://objs/pistol/Material.material" type="Material" id=2]
@@ -60,16 +60,6 @@ tracks/0/enabled = true
 tracks/0/keys = PoolRealArray( 0.0333333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.0666667, 1, 0.069, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.133333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.166667, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833 )
 
 [sub_resource type="Animation" id=5]
-length = 0.166667
-tracks/0/type = "transform"
-tracks/0/path = NodePath("chamber slide")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = true
-tracks/0/enabled = true
-tracks/0/keys = PoolRealArray( 0.0333333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.0666667, 1, 0.069, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.133333, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.166667, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833 )
-
-[sub_resource type="Animation" id=6]
 length = 0.15
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -96,10 +86,10 @@ tracks/1/keys = {
 "values": [ Vector3( 1.11897, 91.3137, -1.23384 ), Vector3( 0, 90, 0 ) ]
 }
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=6]
 
 [node name="rifle" type="Spatial"]
-transform = Transform( -0.023342, 0.0190252, 0.999547, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.0229225, -0.187, 1.533, 0.356 )
+transform = Transform( -0.0233415, 0.0190251, 0.999547, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.022922, -0.187, 1.533, 0.356 )
 script = ExtResource( 1 )
 
 [node name="barrel" type="MeshInstance" parent="."]
@@ -119,11 +109,10 @@ material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.5
-anims/default = SubResource( 4 )
-anims/fire = SubResource( 5 )
+anims/fire = SubResource( 4 )
 
 [node name="aim_animator" type="AnimationPlayer" parent="."]
-anims/aim = SubResource( 6 )
+anims/aim = SubResource( 5 )
 
 [node name="hud" type="MarginContainer" parent="."]
 visible = false
@@ -156,6 +145,6 @@ texture = ExtResource( 3 )
 [node name="area" type="Area" parent="."]
 
 [node name="collision" type="CollisionShape" parent="area"]
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
 [connection signal="body_exited" from="area" to="." method="_on_area_body_exited"]

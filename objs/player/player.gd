@@ -14,7 +14,6 @@ export var PLAYABLE = true
 var _pickup_entered : Node = null
 var is_moving = false
 var is_dead = false
-var is_aiming = false
 var velocity = Vector3()
 var health : int = MAX_HEALTH
 var weapons = []
@@ -28,19 +27,20 @@ func _ready():
 		$hud.show()
 		
 		# debugging adds initial weapon
-		weapons.append(load("res://objs/pistol/pistol.tscn").instance())
+		var pistol = load("res://objs/pistol/pistol.tscn").instance()
+		weapons.append(pistol)
+		pistol.pickup($cam_pivot)
 		change_weapon()
 
 
 func _physics_process(delta):
 	movement(delta)
-	input_actions_more(delta)
 
 
 func _unhandled_input(event):
 	if !is_playable():
 		return
-	input_actions(event)
+	unhandled_input_actions(event)
 	camera_movement(event)
 	mouse_capture(event)
 
@@ -152,11 +152,9 @@ func camera_movement(event : InputEvent):
 		$cam_pivot.rotation.x = clamp($cam_pivot.rotation.x, -MAX_VERTICAL_LOOK, MAX_VERTICAL_LOOK)
 
 
-func input_actions(event : InputEvent):
+func unhandled_input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
 		hit(self, weapon, 0, Vector3(), Vector3())
-	if event.is_action_pressed("fire"):
-		weapon.fire()
 	if event.is_action_pressed("action"):
 		if _pickup_entered and _pickup_entered is Weapon:
 			weapons.append(_pickup_entered)
@@ -166,16 +164,6 @@ func input_actions(event : InputEvent):
 		change_weapon_up()
 	if event.is_action_pressed("weapon_down"):
 		change_weapon_down()
-
-
-func input_actions_more(_delta):
-	if !is_playable():
-		return
-		
-	if Input.is_action_pressed("aim"):
-		start_aim()
-	else:
-		start_unaim()
 
 
 func mouse_capture(event : InputEvent):
@@ -231,22 +219,6 @@ func movement(delta):
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0))
 
 
-func start_aim():
-	if is_aiming == true:
-		return
-	
-	is_aiming = true
-	weapon.aim()
-
-
-func start_unaim():
-	if is_aiming == false:
-		return
-
-	is_aiming = false
-	weapon.unaim()
-
-
 remote func peer_movement(peer_velocity):
 	velocity = peer_velocity
 
@@ -261,15 +233,17 @@ func spawn(spawn_xform : Transform):
 
 
 func pickup_entered(pickup : Node):
+	if !is_playable():
+		return
 	_pickup_entered = pickup
-	print("pickup entered: ", pickup.get_name())
 	$hud/pickup_info.show()
 	$hud/pickup_info.text = "press E to pickup " + pickup.get_name()
 
 
-func pickup_exited(pickup : Node):
+func pickup_exited(_pickup : Node):
+	if !is_playable():
+		return
 	_pickup_entered = null
-	print("pickup exited: ", pickup.get_name())
 	$hud/pickup_info.hide()
 	$hud/pickup_info.text = ""
 
