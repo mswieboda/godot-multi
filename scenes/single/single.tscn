@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/single/single.gd" type="Script" id=1]
 [ext_resource path="res://objs/box/box.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://objs/player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objs/rifle/rifle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://objs/pistol/pistol.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objs/box/box.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -23,6 +24,7 @@ shadow_color = Color( 0.34902, 0.34902, 0.34902, 1 )
 
 [node name="plane" type="StaticBody" parent="."]
 transform = Transform( 30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0 )
+script = ExtResource( 7 )
 
 [node name="CollisionShape" type="CollisionShape" parent="plane"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
