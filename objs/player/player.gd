@@ -26,12 +26,6 @@ func _ready():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$head/mesh.hide()
 		$hud.show()
-		
-		# debugging adds initial weapon
-		var pistol = load("res://objs/pistol/pistol.tscn").instance()
-		weapons.append(pistol)
-		pistol.pickup($cam_pivot)
-		change_weapon()
 
 
 func _physics_process(delta):
