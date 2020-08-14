@@ -11,11 +11,12 @@ export var ACCELERATION = 3
 export var DEACCELERATION = 5
 export var PLAYABLE = true
 
-var pickups_entered = []
 var is_moving = false
 var is_dead = false
 var velocity = Vector3()
 var health : float = MAX_HEALTH
+var pickups = []
+var pickup_index = 0
 var weapons = []
 var weapon_index = 0
 var weapon : Node
@@ -155,19 +156,38 @@ func camera_movement(event : InputEvent):
 func unhandled_input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
 		hit(self, weapon, 0, Vector3(), Vector3())
+	
 	if event.is_action_pressed("action"):
-		if pickups_entered.size() > 0:
-			var pickup = pickups_entered.front()
+		if pickups.size() > 0:
+			var pickup = pickups[pickup_index]
 			
 			if pickup is Weapon:
 				weapons.append(pickup)
-				pickups_entered.erase(pickup)
+				pickups.erase(pickup)
+				pickup_index = 0
 				pickup.pickup($cam_pivot)
 				change_weapon_up()
+	
 	if event.is_action_pressed("weapon_up"):
 		change_weapon_up()
+	
 	if event.is_action_pressed("weapon_down"):
 		change_weapon_down()
+	
+	if event.is_action_pressed("ui_focus_next"):
+		pickup_index += 1
+		
+		if pickup_index >= pickups.size():
+			pickup_index = 0
+		
+		pickups_hud()
+	elif event.is_action_pressed("ui_focus_prev"):
+		pickup_index -= 1
+		
+		if pickup_index <= 0:
+			pickup_index = pickups.size() - 1
+		
+		pickups_hud()
 
 
 func mouse_capture(event : InputEvent):
@@ -240,22 +260,39 @@ func pickup_entered(pickup : Node):
 	if !is_playable():
 		return
 	
-	pickups_entered.append(pickup)
-	$hud/pickup_info.show()
-	$hud/pickup_info.text = "press E to pickup " + pickup.get_name()
+	pickups.append(pickup)
+	pickups_hud()
 
 
 func pickup_exited(pickup : Node):
 	if !is_playable():
 		return
 	
-	pickups_entered.erase(pickup)
-	
-	if pickups_entered.size() > 0:
-		$hud/pickup_info.text = "press E to pickup " + pickups_entered.front().get_name()
+	pickups.erase(pickup)
+	pickups_hud()
+
+
+func pickups_hud():
+	var text = ""
+	if pickups.size() > 0:
+		$hud/pickup_info.show()
+		
+		text = "press E to pickup " + pickups[pickup_index].get_name()
+		
+		if pickups.size() > 1:
+			text += "\npickups: "
+			
+			for i in pickups.size():
+				var pickup = pickups[i]
+				text += pickup.get_name() + ", " if i < pickups.size() - 1 else pickup.get_name()
+			
+			text += "\npress TAB (and SHIFT+TAB) to switch pickups"
 	else:
+		pickup_index = 0
 		$hud/pickup_info.hide()
-		$hud/pickup_info.text = ""
+	
+	$hud/pickup_info.text = text
+
 
 func change_weapon_up():
 	weapon_index += 1
