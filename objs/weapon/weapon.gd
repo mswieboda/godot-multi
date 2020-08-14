@@ -1,6 +1,8 @@
 extends Spatial
 class_name Weapon
 
+const PICKUP_SCALE = 5
+
 var player
 var camera
 var raycast
@@ -41,6 +43,7 @@ func _init(
 
 func _ready():
 	if !enabled:
+		scale = Vector3.ONE * PICKUP_SCALE
 		return
 	var camera_pivot = get_parent()
 	player = camera_pivot.get_parent()
@@ -125,6 +128,7 @@ func pickup(cam_pivot):
 	enabled = true
 	_ready()
 	
+	scale = Vector3.ONE
 	# TODO: this is a hack, reset translation a better way
 	$AnimationPlayer.play_backwards("fire")
 	$aim_animator.play_backwards("aim")

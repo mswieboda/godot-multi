@@ -26,6 +26,8 @@ height = 1.0
 [sub_resource type="SphereMesh" id=7]
 
 [node name="player" type="KinematicBody"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource( 1 )
 SPEED = 15
 

@@ -107,6 +107,13 @@ weapon_down={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="env"
+3d_physics/layer_2="players"
+3d_physics/layer_3="pickups"
+3d_physics/layer_4="pickup areas"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

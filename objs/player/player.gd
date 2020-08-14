@@ -11,7 +11,7 @@ export var ACCELERATION = 3
 export var DEACCELERATION = 5
 export var PLAYABLE = true
 
-var _pickup_entered : Node = null
+var pickups_entered = []
 var is_moving = false
 var is_dead = false
 var velocity = Vector3()
@@ -156,10 +156,14 @@ func unhandled_input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
 		hit(self, weapon, 0, Vector3(), Vector3())
 	if event.is_action_pressed("action"):
-		if _pickup_entered and _pickup_entered is Weapon:
-			weapons.append(_pickup_entered)
-			_pickup_entered.pickup($cam_pivot)
-			change_weapon_up()
+		if pickups_entered.size() > 0:
+			var pickup = pickups_entered.front()
+			
+			if pickup is Weapon:
+				weapons.append(pickup)
+				pickups_entered.erase(pickup)
+				pickup.pickup($cam_pivot)
+				change_weapon_up()
 	if event.is_action_pressed("weapon_up"):
 		change_weapon_up()
 	if event.is_action_pressed("weapon_down"):
@@ -235,18 +239,23 @@ func spawn(spawn_xform : Transform):
 func pickup_entered(pickup : Node):
 	if !is_playable():
 		return
-	_pickup_entered = pickup
+	
+	pickups_entered.append(pickup)
 	$hud/pickup_info.show()
 	$hud/pickup_info.text = "press E to pickup " + pickup.get_name()
 
 
-func pickup_exited(_pickup : Node):
+func pickup_exited(pickup : Node):
 	if !is_playable():
 		return
-	_pickup_entered = null
-	$hud/pickup_info.hide()
-	$hud/pickup_info.text = ""
-
+	
+	pickups_entered.erase(pickup)
+	
+	if pickups_entered.size() > 0:
+		$hud/pickup_info.text = "press E to pickup " + pickups_entered.front().get_name()
+	else:
+		$hud/pickup_info.hide()
+		$hud/pickup_info.text = ""
 
 func change_weapon_up():
 	weapon_index += 1

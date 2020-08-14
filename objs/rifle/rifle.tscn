@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objs/rifle/rifle.gd" type="Script" id=1]
 [ext_resource path="res://objs/pistol/Material.material" type="Material" id=2]
 [ext_resource path="res://objs/rifle/reticle.png" type="Texture" id=3]
+
+[sub_resource type="BoxShape" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Circle"
@@ -88,9 +90,15 @@ tracks/1/keys = {
 
 [sub_resource type="BoxShape" id=6]
 
-[node name="rifle" type="Spatial"]
-transform = Transform( -0.0233415, 0.0190251, 0.999547, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.022922, -0.187, 1.533, 0.356 )
+[node name="rifle" type="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+input_ray_pickable = false
+collision_layer = 4
 script = ExtResource( 1 )
+
+[node name="collision" type="CollisionShape" parent="."]
+transform = Transform( 0.35, -1.24797e-10, 3.91156e-11, 6.51926e-10, 0.067, 3.66708e-12, -6.51926e-10, -1.16997e-11, 0.021, 0, 0, 0 )
+shape = SubResource( 7 )
 
 [node name="barrel" type="MeshInstance" parent="."]
 transform = Transform( -0.00121868, 0.0427152, 0.000635621, -0.0300268, 0.000609345, 1.39748e-05, -2.79495e-05, 0.000635623, 0.0150146, -0.313871, 0.0428951, -0.00429989 )
@@ -143,6 +151,9 @@ mouse_filter = 2
 texture = ExtResource( 3 )
 
 [node name="area" type="Area" parent="."]
+input_ray_pickable = false
+collision_layer = 0
+collision_mask = 2
 
 [node name="collision" type="CollisionShape" parent="area"]
 shape = SubResource( 6 )
