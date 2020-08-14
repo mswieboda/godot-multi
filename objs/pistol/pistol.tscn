@@ -166,6 +166,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="collision" type="CollisionShape" parent="area"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 8 )
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
 [connection signal="body_exited" from="area" to="." method="_on_area_body_exited"]
