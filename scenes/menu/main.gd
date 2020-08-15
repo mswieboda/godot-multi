@@ -8,3 +8,7 @@ func _on_play_gui_input(event):
 func _on_quit_gui_input(event):
 	if event.is_pressed():
 		get_tree().quit()
+
+
+func _on_settings_gui_input(event):
+	pass # Replace with function body.

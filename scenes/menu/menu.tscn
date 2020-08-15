@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menu/multi.gd" type="Script" id=2]
@@ -102,14 +102,14 @@ font_data = SubResource( 24 )
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=27]
-size = 23
+size = 33
 font_data = SubResource( 26 )
 
 [sub_resource type="DynamicFontData" id=28]
 font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=29]
-size = 33
+size = 23
 font_data = SubResource( 28 )
 
 [sub_resource type="DynamicFontData" id=30]
@@ -119,13 +119,20 @@ font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 size = 33
 font_data = SubResource( 30 )
 
-[sub_resource type="DynamicFont" id=32]
-font_data = ExtResource( 1 )
+[sub_resource type="DynamicFontData" id=32]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=33]
-font_data = ExtResource( 1 )
+size = 33
+font_data = SubResource( 32 )
 
 [sub_resource type="DynamicFont" id=34]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=35]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=36]
 font_data = ExtResource( 1 )
 
 [node name="menu" type="MarginContainer"]
@@ -165,14 +172,14 @@ text = "multi"
 [node name="menus" type="VBoxContainer" parent="menu"]
 margin_top = 125.0
 margin_right = 784.0
-margin_bottom = 217.0
+margin_bottom = 269.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="main" type="VBoxContainer" parent="menu/menus"]
 margin_right = 784.0
-margin_bottom = 92.0
+margin_bottom = 140.0
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -183,15 +190,32 @@ margin_right = 784.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 3 )
 text = "play"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
-[node name="quit" parent="menu/menus/main" instance=ExtResource( 3 )]
+[node name="settings" parent="menu/menus/main" instance=ExtResource( 3 )]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
 custom_fonts/font = SubResource( 5 )
-text = "quit"
+text = "settings"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
+
+[node name="quit" parent="menu/menus/main" instance=ExtResource( 3 )]
+margin_top = 96.0
+margin_right = 784.0
+margin_bottom = 140.0
+custom_fonts/font = SubResource( 7 )
+text = "quit"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
+font_size = 33
+hoverable = true
 
 [node name="play" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -206,24 +230,33 @@ __meta__ = {
 [node name="single" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 9 )
 text = "single"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="multi" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
 text = "multi"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="back" parent="menu/menus/play" instance=ExtResource( 3 )]
 margin_top = 96.0
 margin_right = 784.0
 margin_bottom = 140.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 13 )
 text = "back"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="single" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -235,17 +268,23 @@ script = ExtResource( 6 )
 [node name="start" parent="menu/menus/single" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 15 )
 text = "start"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="back" parent="menu/menus/single" instance=ExtResource( 3 )]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 17 )
 text = "back"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="multi" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -260,25 +299,34 @@ __meta__ = {
 [node name="create" parent="menu/menus/multi" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 19 )
 text = "create"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="join" parent="menu/menus/multi" instance=ExtResource( 3 )]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 21 )
 text = "join"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="back" parent="menu/menus/multi" instance=ExtResource( 3 )]
 margin_top = 96.0
 margin_right = 784.0
 margin_bottom = 140.0
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 23 )
 text = "back"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="lobbies" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -297,17 +345,23 @@ margin_right = 784.0
 margin_top = 4.0
 margin_right = 784.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 23 )
+custom_fonts/font = SubResource( 25 )
 text = "localhost"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="back" parent="menu/menus/lobbies" instance=ExtResource( 3 )]
 margin_top = 4.0
 margin_right = 784.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 25 )
+custom_fonts/font = SubResource( 27 )
 text = "back"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="lobby" type="VBoxContainer" parent="menu/menus"]
 visible = false
@@ -326,8 +380,10 @@ margin_bottom = 22.0
 [node name="name" parent="menu/menus/lobby/info" instance=ExtResource( 3 )]
 margin_bottom = 22.0
 mouse_default_cursor_shape = 0
-custom_fonts/font = SubResource( 27 )
+custom_fonts/font = SubResource( 29 )
 text = ""
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 23
 hoverable = false
 
@@ -345,22 +401,33 @@ margin_bottom = 118.0
 [node name="leave" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
 margin_right = 784.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 29 )
+custom_fonts/font = SubResource( 31 )
 text = "leave"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="start" parent="menu/menus/lobby/actions" instance=ExtResource( 3 )]
 margin_top = 48.0
 margin_right = 784.0
 margin_bottom = 92.0
-custom_fonts/font = SubResource( 31 )
+custom_fonts/font = SubResource( 33 )
 text = "start"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
 font_size = 33
+hoverable = true
 
 [node name="players list" type="VBoxContainer" parent="menu/menus/lobby"]
 margin_top = 122.0
 margin_right = 784.0
 margin_bottom = 122.0
+
+[node name="settings" type="VBoxContainer" parent="menu/menus"]
+margin_top = 144.0
+margin_right = 784.0
+margin_bottom = 144.0
 
 [node name="popup" type="PopupPanel" parent="."]
 margin_left = 120.0
@@ -400,14 +467,14 @@ margin_left = 30.0
 margin_top = 5.0
 margin_right = 70.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 32 )
+custom_fonts/font = SubResource( 34 )
 text = "name"
 
 [node name="name" type="LineEdit" parent="popup/vbox/name container"]
 margin_left = 74.0
 margin_right = 204.0
 margin_bottom = 32.0
-custom_fonts/font = SubResource( 33 )
+custom_fonts/font = SubResource( 35 )
 text = "matt"
 expand_to_text_length = true
 caret_blink = true
@@ -421,7 +488,7 @@ margin_bottom = 76.0
 [node name="Label" type="Label" parent="popup/vbox/color container"]
 margin_right = 50.0
 margin_bottom = 22.0
-custom_fonts/font = SubResource( 32 )
+custom_fonts/font = SubResource( 34 )
 text = "color"
 
 [node name="color picker" type="ColorPickerButton" parent="popup/vbox/color container"]
@@ -440,23 +507,24 @@ alignment = 1
 margin_left = 25.0
 margin_right = 97.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 34 )
+custom_fonts/font = SubResource( 36 )
 text = "create"
 
 [node name="join" type="Button" parent="popup/vbox/buttons"]
 margin_left = 101.0
 margin_right = 153.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 34 )
+custom_fonts/font = SubResource( 36 )
 text = "join"
 
 [node name="back" type="Button" parent="popup/vbox/buttons"]
 margin_left = 157.0
 margin_right = 209.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 34 )
+custom_fonts/font = SubResource( 36 )
 text = "back"
 [connection signal="gui_input" from="menu/menus/main/play" to="menu/menus/main" method="_on_play_gui_input"]
+[connection signal="gui_input" from="menu/menus/main/settings" to="menu/menus/main" method="_on_settings_gui_input"]
 [connection signal="gui_input" from="menu/menus/main/quit" to="menu/menus/main" method="_on_quit_gui_input"]
 [connection signal="gui_input" from="menu/menus/play/single" to="menu/menus/play" method="_on_single_gui_input"]
 [connection signal="gui_input" from="menu/menus/play/multi" to="menu/menus/play" method="_on_multi_gui_input"]
