@@ -50,6 +50,7 @@ surfaces/0 = {
 [sub_resource type="Animation" id=7]
 resource_name = "aim"
 length = 0.15
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
 tracks/0/interp = 1
@@ -72,7 +73,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 1.11897, 91.3137, -1.23384 ), Vector3( 0, 90, 0 ) ]
+"values": [ Vector3( 1.119, 1.314, -1.234 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -89,48 +90,53 @@ tracks/0/keys = PoolRealArray( 0.0333333, 1, 0.00183408, 0.0467327, -4.43793e-08
 [sub_resource type="Animation" id=6]
 length = 0.15
 step = 0.01
-tracks/0/type = "transform"
-tracks/0/path = NodePath("collision/chamber slide")
+tracks/0/type = "value"
+tracks/0/path = NodePath("collision/chamber slide:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = true
-tracks/0/enabled = false
-tracks/0/keys = PoolRealArray( 0, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.02, 1, 0.069, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833, 0.15, 1, 0.00183408, 0.0467327, -4.43793e-08, 0, 0, 0, 1, 0.0151833, 0.0151833, 0.0151833 )
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.03, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.0146728, 0.519253, -2.86102e-06 ), Vector3( 0.39, 0.519, 0 ), Vector3( 0.0146728, 0.519253, -2.86102e-06 ) ]
+}
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:translation")
+tracks/1/path = NodePath("collision:translation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.02, 0.07, 0.1, 0.15 ),
+"times": PoolRealArray( 0, 0.02, 0.06, 0.1, 0.15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -0.187, 1.533, 0.356 ), Vector3( -0.187, 1.533, 0.356 ), Vector3( -0.187, 1.533, 0.322 ), Vector3( -0.187, 1.55, 0.3 ), Vector3( -0.187, 1.533, 0.356 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.03 ), Vector3( 0, 0.01, -0.05 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/path = NodePath("collision:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.02, 0.08, 0.15 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.02, 0.07, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 1.11897, 91.3137, -1.23384 ), Vector3( 1.119, 91.314, -1.234 ), Vector3( 1.119, 91.314, -7 ), Vector3( 1.119, 91.314, -1.234 ) ]
+"values": [ Vector3( 0, 90, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 90, -6 ), Vector3( 0, 90, -15 ), Vector3( 0, 90, 0 ) ]
 }
 
 [sub_resource type="BoxShape" id=8]
 
 [node name="pistol" type="RigidBody"]
-transform = Transform( -0.0233415, 0.0190251, 0.999546, -0.0215288, 0.999578, -0.0195285, -0.999496, -0.0219749, -0.022922, -0.187, 1.533, 0.356 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0.356 )
 input_ray_pickable = false
 collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="collision" type="CollisionShape" parent="."]
-transform = Transform( 0.125, 0, 0, 0, 0.09, 0, 0, 0, 0.015, 0, 0, 0 )
+transform = Transform( -2.03651e-08, 0, 0.015, 0, 0.09, 0, -0.125, 0, -2.44381e-09, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="barrel" type="MeshInstance" parent="collision"]
@@ -152,9 +158,6 @@ material/0 = null
 anims/aim = SubResource( 7 )
 anims/default = SubResource( 5 )
 anims/fire = SubResource( 6 )
-
-[node name="aim_animator" type="AnimationPlayer" parent="."]
-anims/aim = SubResource( 7 )
 
 [node name="hud" type="MarginContainer" parent="."]
 visible = false
