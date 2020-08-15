@@ -129,9 +129,8 @@ func pickup(cam_pivot):
 	_ready()
 	
 	scale = Vector3.ONE
-	# TODO: this is a hack, reset translation a better way
-#	$AnimationPlayer.play_backwards("fire")
-#	$aim_animator.play_backwards("aim")
+	# TODO: this is a hack, reset translation a better way?
+	$AnimationPlayer.play_backwards("aim")
 
 
 func input_actions(_delta):
