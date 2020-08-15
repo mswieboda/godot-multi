@@ -130,8 +130,8 @@ func pickup(cam_pivot):
 	
 	scale = Vector3.ONE
 	# TODO: this is a hack, reset translation a better way
-	$AnimationPlayer.play_backwards("fire")
-	$aim_animator.play_backwards("aim")
+#	$AnimationPlayer.play_backwards("fire")
+#	$aim_animator.play_backwards("aim")
 
 
 func input_actions(_delta):
@@ -162,12 +162,12 @@ func start_unaim():
 
 func aim():
 	zoom(1 / zoom_ratio)
-	$aim_animator.play("aim")
+	$AnimationPlayer.play("aim")
 
 
 func unaim():
 	zoom(1)
-	$aim_animator.play_backwards("aim")
+	$AnimationPlayer.play_backwards("aim")
 
 
 func zoom(zoom):
