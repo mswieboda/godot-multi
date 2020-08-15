@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://fonts/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/menu/multi.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/menu/main.gd" type="Script" id=4]
 [ext_resource path="res://scenes/menu/play.gd" type="Script" id=5]
 [ext_resource path="res://scenes/menu/single.gd" type="Script" id=6]
+[ext_resource path="res://scenes/menu/settings.gd" type="Script" id=7]
 [ext_resource path="res://scenes/menu/lobby.gd" type="Script" id=8]
 [ext_resource path="res://scenes/menu/popup.gd" type="Script" id=9]
 [ext_resource path="res://scenes/menu/lobbies.gd" type="Script" id=13]
@@ -126,13 +127,20 @@ font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 size = 33
 font_data = SubResource( 32 )
 
-[sub_resource type="DynamicFont" id=34]
-font_data = ExtResource( 1 )
+[sub_resource type="DynamicFontData" id=34]
+font_path = "res://fonts/RobotoMono-VariableFont_wght.ttf"
 
 [sub_resource type="DynamicFont" id=35]
-font_data = ExtResource( 1 )
+size = 33
+font_data = SubResource( 34 )
 
 [sub_resource type="DynamicFont" id=36]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=37]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=38]
 font_data = ExtResource( 1 )
 
 [node name="menu" type="MarginContainer"]
@@ -172,7 +180,7 @@ text = "multi"
 [node name="menus" type="VBoxContainer" parent="menu"]
 margin_top = 125.0
 margin_right = 784.0
-margin_bottom = 269.0
+margin_bottom = 265.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -425,9 +433,27 @@ margin_right = 784.0
 margin_bottom = 122.0
 
 [node name="settings" type="VBoxContainer" parent="menu/menus"]
+visible = false
 margin_top = 144.0
 margin_right = 784.0
-margin_bottom = 144.0
+margin_bottom = 232.0
+script = ExtResource( 7 )
+
+[node name="fullscreen" type="CheckButton" parent="menu/menus/settings"]
+margin_right = 784.0
+margin_bottom = 40.0
+text = "Fullscreen"
+
+[node name="back" parent="menu/menus/settings" instance=ExtResource( 3 )]
+margin_top = 44.0
+margin_right = 784.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 35 )
+text = "back"
+color = Color( 1, 1, 1, 1 )
+hover_color = Color( 0, 1, 0, 1 )
+font_size = 33
+hoverable = true
 
 [node name="popup" type="PopupPanel" parent="."]
 margin_left = 120.0
@@ -467,14 +493,14 @@ margin_left = 30.0
 margin_top = 5.0
 margin_right = 70.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 34 )
+custom_fonts/font = SubResource( 36 )
 text = "name"
 
 [node name="name" type="LineEdit" parent="popup/vbox/name container"]
 margin_left = 74.0
 margin_right = 204.0
 margin_bottom = 32.0
-custom_fonts/font = SubResource( 35 )
+custom_fonts/font = SubResource( 37 )
 text = "matt"
 expand_to_text_length = true
 caret_blink = true
@@ -488,7 +514,7 @@ margin_bottom = 76.0
 [node name="Label" type="Label" parent="popup/vbox/color container"]
 margin_right = 50.0
 margin_bottom = 22.0
-custom_fonts/font = SubResource( 34 )
+custom_fonts/font = SubResource( 36 )
 text = "color"
 
 [node name="color picker" type="ColorPickerButton" parent="popup/vbox/color container"]
@@ -507,21 +533,21 @@ alignment = 1
 margin_left = 25.0
 margin_right = 97.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = SubResource( 38 )
 text = "create"
 
 [node name="join" type="Button" parent="popup/vbox/buttons"]
 margin_left = 101.0
 margin_right = 153.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = SubResource( 38 )
 text = "join"
 
 [node name="back" type="Button" parent="popup/vbox/buttons"]
 margin_left = 157.0
 margin_right = 209.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = SubResource( 38 )
 text = "back"
 [connection signal="gui_input" from="menu/menus/main/play" to="menu/menus/main" method="_on_play_gui_input"]
 [connection signal="gui_input" from="menu/menus/main/settings" to="menu/menus/main" method="_on_settings_gui_input"]
@@ -539,6 +565,7 @@ text = "back"
 [connection signal="color_changed" from="menu/menus/lobby/info/color picker" to="menu/menus/lobby" method="_on_color_picker_color_changed"]
 [connection signal="gui_input" from="menu/menus/lobby/actions/leave" to="menu/menus/lobby" method="_on_leave_gui_input"]
 [connection signal="gui_input" from="menu/menus/lobby/actions/start" to="menu/menus/lobby" method="_on_start_gui_input"]
+[connection signal="gui_input" from="menu/menus/settings/back" to="menu/menus/settings" method="_on_back_gui_input"]
 [connection signal="pressed" from="popup/vbox/buttons/create" to="popup" method="_on_popup_create_pressed"]
 [connection signal="pressed" from="popup/vbox/buttons/join" to="popup" method="_on_popup_join_pressed"]
 [connection signal="pressed" from="popup/vbox/buttons/back" to="popup" method="_on_popup_back_pressed"]
