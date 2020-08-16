@@ -14,3 +14,8 @@ func _init().(
 	INITIAL_ACCURACY
 ):
 	pass
+
+
+func play(animation : String):
+	if animation == "fire":
+		$model/AnimationPlayer.play("default")

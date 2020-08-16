@@ -24,7 +24,7 @@ var weapon : Node
 func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		$head/mesh.hide()
+		$cam_pivot/head.hide()
 		$hud.show()
 
 
@@ -133,8 +133,8 @@ func disable_camera():
 
 
 func set_color(color : Color):
-	$body/mesh.material_override = SpatialMaterial.new()
-	$body/mesh.material_override.albedo_color = color
+	$cam_pivot/head/mesh.material_override = SpatialMaterial.new()
+	$cam_pivot/body/mesh.material_override.albedo_color = color
 
 
 func camera_movement(event : InputEvent):

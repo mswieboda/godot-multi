@@ -44,19 +44,21 @@ func _init(
 func _ready():
 	if !enabled:
 		scale = Vector3.ONE * PICKUP_SCALE
-		return
-	var camera_pivot = get_parent()
-	player = camera_pivot.get_parent()
-	camera = camera_pivot.get_node_or_null("camera")
+
+
+func pickup_init(cam_pivot):
+	player = cam_pivot.get_parent()
+	camera = cam_pivot.get_node_or_null("camera")
 	
 	if player and camera:
-		camera = camera_pivot.get_node("camera")
+		camera = cam_pivot.get_node("camera")
 		raycast = camera.get_node("raycast")
 		tween = camera.get_node("tween")
 		initial_camera_fov = camera.fov
 	
 		if player.is_playable():
 			is_pickup = false
+			enabled = true
 			$hud.show()
 
 
@@ -95,7 +97,7 @@ func fire():
 		return
 	
 	is_firing = true
-	$AnimationPlayer.play("fire")
+	play("fire")
 	
 	var radians_x = rng.randf_range(-initial_accuracy, initial_accuracy)
 	var radians_y = rng.randf_range(-initial_accuracy, initial_accuracy)
@@ -121,16 +123,17 @@ func fire():
 	raycast.rotation = Vector3(0, 0, 0)
 
 
-func pickup(cam_pivot):
+func pickup(cam_pivot : Node):
 	if get_parent():
 		get_parent().remove_child(self)
-	cam_pivot.add_child(self)
-	enabled = true
-	_ready()
+	cam_pivot.get_node("body/arm/hand").add_child(self)
+	pickup_init(cam_pivot)
 	
 	scale = Vector3.ONE
+	translation = Vector3.ZERO
+	rotation_degrees = Vector3(0, 90, 0)
 	# TODO: this is a hack, reset translation a better way?
-	$AnimationPlayer.play_backwards("aim")
+#	$AnimationPlayer.play_backwards("aim")
 
 
 func input_actions(_delta):
@@ -141,6 +144,10 @@ func input_actions(_delta):
 		start_aim()
 	else:
 		start_unaim()
+
+
+func play(animation : String):
+	pass
 
 
 func start_aim():
