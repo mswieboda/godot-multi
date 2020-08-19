@@ -91,7 +91,6 @@ func _unhandled_input(event):
 		fire()
 
 
-# warning-ignore:shadowed_variable
 func fire():
 	if !enabled or is_firing:
 		return
@@ -108,7 +107,6 @@ func fire():
 	raycast.force_raycast_update()
 	
 	if raycast.is_colliding():
-		var player = get_parent().get_parent()
 		var body = raycast.get_collider()
 		var position = raycast.get_collision_point()
 		var normal = raycast.get_collision_normal()
@@ -146,7 +144,7 @@ func input_actions(_delta):
 		start_unaim()
 
 
-func play(animation : String):
+func play(_animation : String):
 	pass
 
 

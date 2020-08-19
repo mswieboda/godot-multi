@@ -4,6 +4,7 @@ const GRAVITY = -9.8 * 9.8
 const MOUSE_SENSITIVITY = 0.003
 const MAX_VERTICAL_LOOK = 1.25
 const MAX_HEALTH = 100
+const HEADSHOT_MULTIPLIER = 5
 
 export var JUMP_HEIGHT = 33
 export var SPEED = 6
@@ -25,6 +26,7 @@ func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$cam_pivot/head.hide()
+		$cam_pivot/body/arm.show()
 		$hud.show()
 
 
@@ -87,8 +89,8 @@ remote func hit_fx(position : Vector3, normal : Vector3):
 func calc_damage(shape_index : int, damage : float) -> float:
 	var shape = shape_owner_get_owner(shape_find_owner(shape_index))
 	
-	if shape.get_name() == "head":
-		damage *= 10
+	if shape.get_name() == "head_collision":
+		damage *= HEADSHOT_MULTIPLIER
 	
 	return damage
 
@@ -120,8 +122,8 @@ func die():
 	dead_body.global_transform.origin = position
 	
 	is_dead = true
-	$body.disabled = true
-	$head.disabled = true
+	$body_collision.disabled = true
+	$head_collision.disabled = true
 	hide()
 
 func enable_camera():
@@ -133,7 +135,7 @@ func disable_camera():
 
 
 func set_color(color : Color):
-	$cam_pivot/head/mesh.material_override = SpatialMaterial.new()
+	$cam_pivot/head/mesh.material_override.albedo_color = color
 	$cam_pivot/body/mesh.material_override.albedo_color = color
 
 

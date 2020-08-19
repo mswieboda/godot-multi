@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objs/player/damage_flash.gd" type="Script" id=4]
 [ext_resource path="res://objs/player/hit_info.gd" type="Script" id=5]
+
+[sub_resource type="SpatialMaterial" id=10]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 0.375
@@ -59,6 +61,7 @@ collide_with_areas = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39, 0 )
 
 [node name="mesh" type="MeshInstance" parent="cam_pivot/head"]
+material_override = SubResource( 10 )
 mesh = SubResource( 1 )
 material/0 = null
 
@@ -87,6 +90,7 @@ material/0 = null
 
 [node name="arm" type="Spatial" parent="cam_pivot/body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.378101, 1.00227, 0.512645 )
+visible = false
 
 [node name="mesh" type="MeshInstance" parent="cam_pivot/body/arm"]
 transform = Transform( 1, 0, 0, 0, -1, 4.4505e-07, 0, -4.4505e-07, -1, 0, 0, 0 )
