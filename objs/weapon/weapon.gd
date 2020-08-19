@@ -3,26 +3,22 @@ class_name Weapon
 
 const PICKUP_SCALE = 3
 
-var player
-var camera
-var raycast
-var tween
-var initial_camera_fov
+var arms
 var rng = RandomNumberGenerator.new()
 
 var auto_fire = false
 var fire_rate = 0.5
 var damage = 5
 var zoom_ratio = 1.75
-var hit_texture_path = "res://objs/bullet_hole/bullet_hole.tscn"
+var arms_resource_path
+var hit_texture_resource_path
 var initial_accuracy = 0.005
 
 var is_pickup = true
 var is_firing = false
 var is_firing_done = true
 var has_fired_delta = 0
-var enabled = false
-var is_aiming = false
+var enabled = false setget set_enabled
 
 
 func _init(
@@ -31,7 +27,8 @@ func _init(
 	_damage = damage, 
 	_zoom_ratio = zoom_ratio, 
 	_initial_accuracy = initial_accuracy,
-	_hit_texture_path = hit_texture_path
+	_arms_resource_path = arms_resource_path,
+	_hit_texture_resource_path = hit_texture_resource_path # TODO: switch to resource like arms
 ):
 	rng.randomize()
 	auto_fire = _auto_fire
@@ -39,39 +36,12 @@ func _init(
 	damage = _damage
 	zoom_ratio = _zoom_ratio
 	initial_accuracy = _initial_accuracy
-	hit_texture_path = _hit_texture_path
+	arms_resource_path = _arms_resource_path
+	hit_texture_resource_path = _hit_texture_resource_path
 
 
 func _ready():
-	if !enabled:
-		scale = Vector3.ONE * PICKUP_SCALE
-
-
-func pickup_init(cam_pivot):
-	player = cam_pivot.get_parent()
-	camera = cam_pivot.get_node_or_null("camera")
-	
-	if player and camera:
-		camera = cam_pivot.get_node("camera")
-		raycast = camera.get_node("raycast")
-		tween = camera.get_node("tween")
-		initial_camera_fov = camera.fov
-	
-		if player.is_playable():
-			is_pickup = false
-			enabled = true
-			$hud.show()
-
-
-func _physics_process(_delta):
-	if !enabled:
-		return
-	if auto_fire and Input.is_action_pressed("fire"):
-		fire()
-	if Input.is_action_pressed("aim"):
-		start_aim()
-	else:
-		start_unaim()
+	set_enabled(enabled)
 
 
 func _process(delta):
@@ -94,17 +64,16 @@ func _process(delta):
 			play("fire_done")
 
 
-func _unhandled_input(event):
-	if !enabled:
-		return
-	if !auto_fire and event.is_action_pressed("fire"):
-		fire()
-
-
-func fire():
-	if !enabled or is_firing:
-		return
+func set_enabled(_enabled):
+	enabled = _enabled
 	
+	if enabled:
+		scale = Vector3.ONE
+	else:
+		scale = Vector3.ONE * PICKUP_SCALE
+
+
+func fire(player, raycast):
 	is_firing = true
 	
 	if !auto_fire or (auto_fire and is_firing_done):
@@ -125,7 +94,7 @@ func fire():
 		var shape_index = raycast.get_collider_shape()
 		
 		if body.has_method("hit_texture"):
-			body.hit_texture(hit_texture_path, position, normal)
+			body.hit_texture(hit_texture_resource_path, position, normal)
 		
 		if body.has_method("hit"):
 			body.hit(player, self, shape_index, position, normal)
@@ -136,62 +105,14 @@ func fire():
 func pickup(cam_pivot : Node):
 	if get_parent():
 		get_parent().remove_child(self)
-	cam_pivot.get_node("body/arm/hand").add_child(self)
-	pickup_init(cam_pivot)
 	
-	scale = Vector3.ONE
-	translation = Vector3.ZERO
-	rotation_degrees = Vector3(0, 90, 0)
-	# TODO: this is a hack, reset translation a better way?
-#	$AnimationPlayer.play_backwards("aim")
-
-
-func input_actions(_delta):
-	if !enabled:
-		return
-	
-	if Input.is_action_pressed("aim"):
-		start_aim()
-	else:
-		start_unaim()
+	arms = load(arms_resource_path).instance()
+	arms.pickup_init(cam_pivot)
+	return arms
 
 
 func play(_animation : String):
 	pass
-
-
-func start_aim():
-	if is_aiming == true:
-		return
-	
-	is_aiming = true
-	aim()
-
-
-func start_unaim():
-	if is_aiming == false:
-		return
-
-	is_aiming = false
-	unaim()
-
-
-func aim():
-	zoom(1 / zoom_ratio)
-#	$AnimationPlayer.play("aim")
-
-
-func unaim():
-	zoom(1)
-#	$AnimationPlayer.play_backwards("aim")
-
-
-func zoom(zoom):
-	if initial_camera_fov == null:
-		initial_camera_fov = camera.fov
-
-	tween.interpolate_property(camera, "fov", null, initial_camera_fov * zoom, 0.15, Tween.TRANS_LINEAR, Tween.EASE_IN)	
-	tween.start()
 
 
 func _on_area_body_entered(body):

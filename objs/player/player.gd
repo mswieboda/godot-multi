@@ -18,15 +18,15 @@ var velocity = Vector3()
 var health : float = MAX_HEALTH
 var pickups = []
 var pickup_index = 0
-var weapons = []
-var weapon_index = 0
-var weapon : Node
+var weapon_arms = []
+var weapon_arm_index = 0
+var weapon_arm : Node
 
 func _ready():
 	if is_playable():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		$cam_pivot/head.hide()
-		$cam_pivot/body/arm.show()
+		$cam_pivot/body/arms.show()
 		$hud.show()
 
 
@@ -151,17 +151,16 @@ func camera_movement(event : InputEvent):
 
 func unhandled_input_actions(event : InputEvent):
 	if event.is_action_pressed("test"):
-		hit(self, weapon, 0, Vector3(), Vector3())
+		hit(self, weapon_arm.weapon, 0, Vector3(), Vector3())
 	
 	if event.is_action_pressed("action"):
 		if pickups.size() > 0:
 			var pickup = pickups[pickup_index]
 			
 			if pickup is Weapon:
-				weapons.append(pickup)
+				weapon_arms.append(pickup.pickup($cam_pivot))
 				pickups.erase(pickup)
 				pickup_index = 0
-				pickup.pickup($cam_pivot)
 				change_weapon_up()
 	
 	if event.is_action_pressed("weapon_up"):
@@ -291,24 +290,24 @@ func pickups_hud():
 
 
 func change_weapon_up():
-	weapon_index += 1
-	if weapon_index >= len(weapons):
-		weapon_index = 0
+	weapon_arm_index += 1
+	if weapon_arm_index >= len(weapon_arms):
+		weapon_arm_index = 0
 	change_weapon()
 
 
 func change_weapon_down():
-	weapon_index -= 1
-	if weapon_index < 0:
-		weapon_index = len(weapons) - 1
+	weapon_arm_index -= 1
+	if weapon_arm_index < 0:
+		weapon_arm_index = len(weapon_arms) - 1
 	change_weapon()
 
 
 func change_weapon():
-	if weapon:
-		$cam_pivot/body/arm/hand.remove_child(weapon)
+	if weapon_arm:
+		$cam_pivot/body/arms.remove_child(weapon_arm)
 	
-	weapon = weapons[weapon_index]
+	weapon_arm = weapon_arms[weapon_arm_index]
 
-	if !weapon.get_parent():
-		$cam_pivot/body/arm/hand.add_child(weapon)
+	if !weapon_arm.get_parent():
+		$cam_pivot/body/arms.add_child(weapon_arm)

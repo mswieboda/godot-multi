@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objs/player/damage_flash.gd" type="Script" id=4]
@@ -21,16 +21,6 @@ height = 0.05
 
 [sub_resource type="CapsuleMesh" id=5]
 radius = 0.5
-
-[sub_resource type="CapsuleMesh" id=6]
-radius = 0.025
-mid_height = 0.1
-radial_segments = 12
-rings = 4
-
-[sub_resource type="SphereMesh" id=7]
-radius = 0.05
-height = 0.1
 
 [sub_resource type="SphereShape" id=8]
 radius = 0.38
@@ -88,19 +78,8 @@ material_override = SubResource( 4 )
 mesh = SubResource( 5 )
 material/0 = null
 
-[node name="arm" type="Spatial" parent="cam_pivot/body"]
+[node name="arms" type="Spatial" parent="cam_pivot/body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.378101, 1.00227, 0.512645 )
-visible = false
-
-[node name="mesh" type="MeshInstance" parent="cam_pivot/body/arm"]
-transform = Transform( 1, 0, 0, 0, -1, 4.4505e-07, 0, -4.4505e-07, -1, 0, 0, 0 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="hand" type="MeshInstance" parent="cam_pivot/body/arm"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0623525 )
-mesh = SubResource( 7 )
-material/0 = null
 
 [node name="head_collision" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, 0 )

@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objs/rifle/rifle.gd" type="Script" id=1]
 [ext_resource path="res://objs/pistol/Material.material" type="Material" id=2]
-[ext_resource path="res://objs/rifle/reticle.png" type="Texture" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Circle"
@@ -129,34 +128,6 @@ anims/fire_done = SubResource( 8 )
 [node name="collision" type="CollisionShape" parent="."]
 transform = Transform( 1, 1.97906e-09, 0, 1.30967e-09, 1, 0, -1.86265e-09, 0, 1, -0.0844548, 0.0482754, 0 )
 shape = SubResource( 5 )
-
-[node name="hud" type="MarginContainer" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -512.0
-margin_top = -300.0
-margin_right = 512.0
-margin_bottom = 300.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="center" type="CenterContainer" parent="hud"]
-margin_right = 1024.0
-margin_bottom = 600.0
-mouse_filter = 2
-
-[node name="reticle" type="TextureRect" parent="hud/center"]
-margin_left = 496.0
-margin_top = 284.0
-margin_right = 528.0
-margin_bottom = 316.0
-mouse_filter = 2
-texture = ExtResource( 3 )
 
 [node name="area" type="Area" parent="."]
 input_ray_pickable = false
