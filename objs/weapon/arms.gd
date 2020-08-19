@@ -57,7 +57,7 @@ func aim():
 	
 	is_aiming = true
 	zoom(1 / weapon.zoom_ratio)
-#	$AnimationPlayer.play("aim")
+	$AnimationPlayer.play("aim")
 
 
 func unaim():
@@ -66,7 +66,7 @@ func unaim():
 
 	is_aiming = false
 	zoom(1)
-#	$AnimationPlayer.play_backwards("aim")
+	$AnimationPlayer.play_backwards("aim")
 
 
 func zoom(zoom):

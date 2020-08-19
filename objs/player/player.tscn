@@ -79,7 +79,7 @@ mesh = SubResource( 5 )
 material/0 = null
 
 [node name="arms" type="Spatial" parent="cam_pivot/body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.378101, 1.00227, 0.512645 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 1, 0.5 )
 
 [node name="head_collision" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, 0 )
