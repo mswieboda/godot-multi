@@ -7,9 +7,10 @@ const MAX_HEALTH = 100
 const HEADSHOT_MULTIPLIER = 5
 
 export var JUMP_HEIGHT = 33
-export var SPEED = 6
+export var SPEED = 5
 export var ACCELERATION = 3
 export var DEACCELERATION = 5
+export var SPRINT_RATIO = 3
 export var PLAYABLE = true
 
 var is_moving = false
@@ -19,7 +20,7 @@ var health : float = MAX_HEALTH
 var pickups = []
 var pickup_index = 0
 var weapon_arms = []
-var weapon_arm_index = 0
+var weapon_arm_index = -1
 var weapon_arm : Node
 
 func _ready():
@@ -200,9 +201,16 @@ func movement(delta):
 
 	var dir = Vector3()
 	var camera_xform_basis = $cam_pivot/camera.get_global_transform().basis
+	var is_sprint = false
 
 	if Input.is_action_pressed("move_forward"):
 		dir += -camera_xform_basis.z
+		
+		if Input.is_action_pressed("sprint"):
+			is_sprint = true
+			
+			if weapon_arm:
+				weapon_arm.play("sprint")
 	if Input.is_action_pressed("move_backward"):
 		dir += camera_xform_basis.z
 	if Input.is_action_pressed("strafe_left"):
@@ -227,6 +235,9 @@ func movement(delta):
 
 	if dir.dot(horiz_velocity) > 0:
 		accel = ACCELERATION
+		
+		if is_sprint:
+			new_position *= SPRINT_RATIO
 
 	horiz_velocity = horiz_velocity.linear_interpolate(new_position, accel * delta)
 	velocity.x = horiz_velocity.x
@@ -290,23 +301,34 @@ func pickups_hud():
 
 
 func change_weapon_up():
+	var old_weapon_arm_index = weapon_arm_index
+	
 	weapon_arm_index += 1
+	
 	if weapon_arm_index >= len(weapon_arms):
 		weapon_arm_index = 0
-	change_weapon()
+	
+	if weapon_arm_index != old_weapon_arm_index:
+		change_weapon()
 
 
 func change_weapon_down():
+	var old_weapon_arm_index = weapon_arm_index
+	
 	weapon_arm_index -= 1
+	
 	if weapon_arm_index < 0:
 		weapon_arm_index = len(weapon_arms) - 1
-	change_weapon()
+	
+	if weapon_arm_index != old_weapon_arm_index:
+		change_weapon()
 
 
 func change_weapon():
 	if weapon_arm:
+		weapon_arm.stop()
 		$cam_pivot/body/arms.remove_child(weapon_arm)
-	
+
 	weapon_arm = weapon_arms[weapon_arm_index]
 
 	if !weapon_arm.get_parent():

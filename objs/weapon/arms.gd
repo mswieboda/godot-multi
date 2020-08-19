@@ -32,6 +32,17 @@ func get_weapon():
 	pass
 
 
+func stop(reset : bool = true):
+	print(">>> stop")
+	$AnimationPlayer.stop(reset)
+
+
+func play(animation):
+	print(">>> play ", animation)
+	if $AnimationPlayer.has_animation(animation):
+		$AnimationPlayer.play(animation)
+
+
 func pickup_init(cam_pivot):
 	arms = cam_pivot.get_node("body/arms")
 	arms.add_child(self)
