@@ -1,41 +1,40 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://objs/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objs/player/damage_flash.gd" type="Script" id=4]
 [ext_resource path="res://objs/player/hit_info.gd" type="Script" id=5]
 
-[sub_resource type="SphereMesh" id=4]
+[sub_resource type="SphereMesh" id=1]
+radius = 0.375
+height = 0.75
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.025, 0.05, 0.05 )
+
+[sub_resource type="SphereMesh" id=3]
+radius = 0.025
+height = 0.05
+
+[sub_resource type="SpatialMaterial" id=4]
+
+[sub_resource type="CapsuleMesh" id=5]
 radius = 0.5
-height = 1.0
 
-[sub_resource type="CubeMesh" id=5]
-
-[sub_resource type="SphereMesh" id=6]
-
-[sub_resource type="SphereMesh" id=7]
-
-[sub_resource type="SpatialMaterial" id=10]
-
-[sub_resource type="CapsuleMesh" id=2]
-radius = 0.75
-mid_height = 1.5
-
-[sub_resource type="CapsuleMesh" id=8]
+[sub_resource type="CapsuleMesh" id=6]
 radius = 0.025
 mid_height = 0.1
 radial_segments = 12
 rings = 4
 
-[sub_resource type="SphereMesh" id=9]
+[sub_resource type="SphereMesh" id=7]
 radius = 0.05
 height = 0.1
 
-[sub_resource type="SphereShape" id=3]
-radius = 0.5
+[sub_resource type="SphereShape" id=8]
+radius = 0.38
 
-[sub_resource type="CapsuleShape" id=1]
-radius = 0.75
-height = 1.5
+[sub_resource type="CapsuleShape" id=9]
+radius = 0.5
 
 [node name="player" type="KinematicBody"]
 collision_layer = 2
@@ -44,10 +43,10 @@ script = ExtResource( 1 )
 SPEED = 15
 
 [node name="cam_pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88272, -0.0815032 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03, 0 )
 
 [node name="camera" type="Camera" parent="cam_pivot"]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 1.69718, 0 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.33, 0 )
 
 [node name="raycast" type="RayCast" parent="cam_pivot/camera"]
 cast_to = Vector3( 0, 0, -1000 )
@@ -57,55 +56,55 @@ collide_with_areas = true
 [node name="tween" type="Tween" parent="cam_pivot/camera"]
 
 [node name="head" type="Spatial" parent="cam_pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39, 0 )
 
 [node name="mesh" type="MeshInstance" parent="cam_pivot/head"]
-transform = Transform( 1, 0, 0, 0, -1.07285e-07, -1, 0, 1, -1.07285e-07, 0, 1.46328, 0.0815032 )
-mesh = SubResource( 4 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="nose" type="MeshInstance" parent="cam_pivot/head/mesh"]
-transform = Transform( 0.025, 0, 0, 0, 0.0440549, -0.0118234, 0, 0.0236468, 0.0220274, 0, 0.448919, -0.21985 )
-mesh = SubResource( 5 )
+transform = Transform( 1, 0, 0, 0, 0.790743, -0.612148, 0, 0.612148, 0.790743, 0, 0.1, 0.355 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="eye_left" type="MeshInstance" parent="cam_pivot/head/mesh"]
-transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.173854, 0.372285, -0.293842 )
-mesh = SubResource( 6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105, 0.187, 0.319 )
+mesh = SubResource( 3 )
 material/0 = null
 
-[node name="eye_left2" type="MeshInstance" parent="cam_pivot/head/mesh"]
-transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.174, 0.372, -0.294 )
-mesh = SubResource( 7 )
+[node name="eye_right" type="MeshInstance" parent="cam_pivot/head/mesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.105, 0.187, 0.319 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="body" type="Spatial" parent="cam_pivot"]
 
 [node name="mesh" type="MeshInstance" parent="cam_pivot/body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.38272, 0.0815032 )
-material_override = SubResource( 10 )
-mesh = SubResource( 2 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+material_override = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="arm" type="Spatial" parent="cam_pivot/body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374006, 1.29758, 0.564106 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.378101, 1.00227, 0.512645 )
 
 [node name="mesh" type="MeshInstance" parent="cam_pivot/body/arm"]
 transform = Transform( 1, 0, 0, 0, -1, 4.4505e-07, 0, -4.4505e-07, -1, 0, 0, 0 )
-mesh = SubResource( 8 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="hand" type="MeshInstance" parent="cam_pivot/body/arm"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0623525 )
-mesh = SubResource( 9 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="head_collision" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.346, 0 )
-shape = SubResource( 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, 0 )
+shape = SubResource( 8 )
 
 [node name="body_collision" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0 )
-shape = SubResource( 1 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.03, 0 )
+shape = SubResource( 9 )
 
 [node name="hud" type="MarginContainer" parent="."]
 anchor_right = 1.0

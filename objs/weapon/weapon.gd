@@ -1,7 +1,7 @@
 extends Spatial
 class_name Weapon
 
-const PICKUP_SCALE = 5
+const PICKUP_SCALE = 3
 
 var player
 var camera
