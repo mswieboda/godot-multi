@@ -14,3 +14,6 @@ func _init().(
 	INITIAL_ACCURACY
 ):
 	pass
+
+func play(animation : String):
+	$model/AnimationPlayer.play(animation)

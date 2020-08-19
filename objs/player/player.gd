@@ -306,9 +306,9 @@ func change_weapon_down():
 
 func change_weapon():
 	if weapon:
-		$cam_pivot.remove_child(weapon)
+		$cam_pivot/body/arm/hand.remove_child(weapon)
 	
 	weapon = weapons[weapon_index]
 
 	if !weapon.get_parent():
-		$cam_pivot.add_child(weapon)
+		$cam_pivot/body/arm/hand.add_child(weapon)

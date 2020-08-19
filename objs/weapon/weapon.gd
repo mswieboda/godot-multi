@@ -19,6 +19,7 @@ var initial_accuracy = 0.005
 
 var is_pickup = true
 var is_firing = false
+var is_firing_done = true
 var has_fired_delta = 0
 var enabled = false
 var is_aiming = false
@@ -76,12 +77,21 @@ func _physics_process(_delta):
 func _process(delta):
 	if !enabled:
 		return
+	
 	if is_firing:
 		has_fired_delta += delta
 		
 		if has_fired_delta > fire_rate:
 			has_fired_delta = 0
+			is_firing_done = false
 			is_firing = false
+	elif auto_fire and !is_firing_done:
+		has_fired_delta += delta
+		
+		if has_fired_delta > fire_rate:
+			has_fired_delta = 0
+			is_firing_done = true
+			play("fire_done")
 
 
 func _unhandled_input(event):
@@ -96,7 +106,9 @@ func fire():
 		return
 	
 	is_firing = true
-	play("fire")
+	
+	if !auto_fire or (auto_fire and is_firing_done):
+		play("fire")
 	
 	var radians_x = rng.randf_range(-initial_accuracy, initial_accuracy)
 	var radians_y = rng.randf_range(-initial_accuracy, initial_accuracy)
@@ -166,12 +178,12 @@ func start_unaim():
 
 func aim():
 	zoom(1 / zoom_ratio)
-	$AnimationPlayer.play("aim")
+#	$AnimationPlayer.play("aim")
 
 
 func unaim():
 	zoom(1)
-	$AnimationPlayer.play_backwards("aim")
+#	$AnimationPlayer.play_backwards("aim")
 
 
 func zoom(zoom):

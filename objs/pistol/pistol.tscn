@@ -4,10 +4,10 @@
 [ext_resource path="res://objs/pistol/pistol.gd" type="Script" id=2]
 [ext_resource path="res://objs/pistol/reticle.png" type="Texture" id=3]
 
-[sub_resource type="BoxShape" id=9]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.11, 0.07, 0.015 )
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="BoxShape" id=6]
 
 [node name="pistol" type="RigidBody"]
 input_ray_pickable = false
@@ -19,7 +19,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0740961, 0.0554201, 0 )
 
 [node name="collision" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0844548, 0.0482755, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 5 )
 
 [node name="hud" type="MarginContainer" parent="."]
 visible = false
@@ -57,7 +57,7 @@ collision_mask = 2
 
 [node name="collision" type="CollisionShape" parent="area"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
 [connection signal="body_exited" from="area" to="." method="_on_area_body_exited"]
 
